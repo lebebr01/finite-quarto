@@ -1,0 +1,34 @@
+---
+title: The Impact of Institutional Factors on the Relationship Between High School
+  Mathematics Curricula and College Mathematics Course-Taking and Achievement
+description: Meta-analytic methods were used to examine the moderating effect of institutional
+  factors on the relationship between high school mathematics curricula and college
+  mathematics course-taking and ach...
+author:
+- name: Michael R. Harwell
+- name: Danielle Dupuis
+- name: Thomas R. Post
+- name: Amanuel Medhanie
+- name: Brandon LeBeau
+date: '2013-05-01'
+categories: Education
+
+---
+
+## Abstract
+
+Meta-analytic methods were used to examine the moderating effect of institutional factors on the relationship between high school mathematics curricula and college mathematics course-taking and achievement from a sample of 32 colleges. The findings suggest that the impact of curriculum on college mathematics outcomes is not generally moderated by institutional characteristics such as selectivity and educational profile, providing evidence that the relationships between curriculum and college mathematics outcomes generalize to a range of colleges. The results inform college policies and practices for advising students on mathematics course-taking including enrollment in developmental courses, and high school mathematics curriculum selection.
+
+## Citation
+
+Harwell, Michael R., Dupuis, Danielle, Post, Thomas R., Medhanie, Amanuel, LeBeau, Brandon (2013). The Impact of Institutional Factors on the Relationship Between High School Mathematics Curricula and College Mathematics Course-Taking and Achievement. **Educational Research Quarterly*, 36.3, 22 - 46*.
+
+## Links
+
+[Link to Journal](https://search.proquest.com/openview/f2064aa380ec202c1e91a3014ee6a16e/1?pq-origsite=gscholar&cbl=48020){.pub-link}
+
+::: {.pub-info}
+**Publication:** *Educational Research Quarterly*, 36.3, 22 - 46  **Authors:** Michael R. Harwell, Danielle Dupuis, Thomas R. Post, Amanuel Medhanie, Brandon LeBeau  **Date:** May 01, 2013
+:::
+
+

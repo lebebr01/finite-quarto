@@ -1,0 +1,30 @@
+---
+title: 'Research Synthesis and Meta-Analysis of Monte Carlo Studies: The Best of Two
+  Worlds'
+description: Research syntheses and meta-analyses have been widely used to combine
+  primary applied research studies.
+author:
+- name: Brandon LeBeau
+date: '2017-10-09'
+categories:
+- Research
+
+---
+
+## Abstract
+
+Research syntheses and meta-analyses have been widely used to combine primary applied research studies. To date, there has been little work applying these methods to combine Monte Carlo studies, however narrative reviews are common to evaluate the Monte Carlo literature. This manuscript briefly describes the benefits and challenges of combining outcomes from Monte Carlo studies using research synthesis and meta-analysis methods. The particular focus is to discuss and extend ideas first described by Harwell (1992).
+
+## Citation
+
+LeBeau, Brandon (2017). Research Synthesis and Meta-Analysis of Monte Carlo Studies: The Best of Two Worlds. **The Campbell Collaboration**.
+
+## Links
+
+[PDF](https://www.campbellcollaboration.org/library/download/1012_911a02b59c8c5b6aa49c3f4d51df084c.html){.pub-link}
+
+::: {.pub-info}
+**Publication:** *The Campbell Collaboration*  **Authors:** Brandon LeBeau  **Date:** October 09, 2017
+:::
+
+

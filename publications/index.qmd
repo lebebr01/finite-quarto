@@ -1,0 +1,12 @@
+---
+title: "Publications"
+listing:
+  contents: .
+  sort: "date desc"
+  type: table
+  table-striped: true
+  table-hover: true
+  sort-ui: [title, date, author]
+  filter-ui: [title, author]
+page-layout: full
+---
