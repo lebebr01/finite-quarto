@@ -1,0 +1,85 @@
+---
+title: ""
+page-layout: full
+toc: false
+listing:
+  - id: latest-posts
+    contents: "posts/*.qmd"
+    type: table
+    sort: "date desc"
+    sort-ui: false # Hides the sort buttons
+    filter-ui: false # Hides the filter box
+    fields: [date, title]
+    max-items: 3
+  - id: latest-pubs
+    contents: "publications/*.qmd"
+    type: table # or 'grid'
+    sort: "date desc"
+    sort-ui: false # Hides the sort buttons
+    filter-ui: false # Hides the filter box
+    fields: [date, title, description]
+    max-items: 3
+---
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-7 .g-col-lg-6}
+
+## Recent Educate-R Posts
+
+:::{#latest-posts}
+:::
+
+<footer>
+<nav>
+[All Educate-R Posts](/posts/){.btn .btn-outline-primary}
+</nav>
+</footer>
+
+:::
+
+::: {.g-col-12 .g-col-md-5 .g-col-lg-5 .g-col-lg-offset-1}
+
+## Recent Publications
+
+:::{#latest-pubs}
+:::
+
+<footer>
+<nav>
+[All Publications](/publications/){.btn .btn-outline-primary}
+</nav>
+</footer>
+
+:::
+
+:::
+
+<!-- Custom CSS for homepage layout -->
+<style>
+.grid {
+    margin-top: 2rem;
+}
+
+.compact {
+    list-style: none;
+    margin-left: 0;
+}
+
+.compact li {
+    margin-bottom: 1rem;
+    padding-left: 0;
+}
+
+.fa-ul {
+    margin-left: 2em;
+}
+
+.fa-li {
+    left: -2em;
+}
+
+footer {
+    margin-top: 2rem;
+}
+</style>

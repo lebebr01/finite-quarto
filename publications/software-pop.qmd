@@ -1,0 +1,29 @@
+---
+title: Evolution of Statistical Software and Quantitative Methods
+description: Statistical software is the enabling tool of quantitative research and
+  the availability and use of the software can greatly shape which methods are used
+  by researchers.
+author:
+- name: Brandon LeBeau
+- name: Ariel M. Aloe
+date: '2020-06-01'
+categories: R
+
+---
+
+## Abstract
+
+Statistical software is the enabling tool of quantitative research and the availability and use of the software can greatly shape which methods are used by researchers. Software that is more accessible is likely to have more users and the methods implemented within the software limits the methods accessible to researchers. Open source software, (e.g. R), has reduced these barriers by making cutting edge statistical methods available to researchers through add-on packages. This manuscript explores the evolution of statistical software within social science research using a research synthesis to establish the state of affairs.
+
+## Citation
+
+LeBeau, Brandon, Aloe, Ariel M. (2020). Evolution of Statistical Software and Quantitative Methods. **.
+
+## Links
+
+[PDF](https://doi.org/10.17077/pp.005273){.pub-link}
+
+::: {.pub-info}
+**Publication:**   **Authors:** Brandon LeBeau, Ariel M. Aloe  **Date:** June 01, 2020
+:::
+

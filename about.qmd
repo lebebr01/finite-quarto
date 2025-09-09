@@ -1,0 +1,20 @@
+---
+title: "About"
+---
+
+## Education
+
+**Ph.D. Quantitative Methods in Education**  
+University of Minnesota, 2013
+
+## Contact Information
+
+**Educational Measurement and Statistics**  
+University of Iowa  
+Iowa City, IA 52242
+
+**Email:** [brandon-lebeau@uiowa.edu](mailto:brandon-lebeau@uiowa.edu)  
+**Twitter:** [@blebeau11](https://twitter.com/blebeau11)  
+**GitHub:** [lebebr01](https://github.com/lebebr01)
+
+<!-- You can add more content about yourself here -->

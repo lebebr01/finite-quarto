@@ -1,0 +1,33 @@
+---
+title: Reproducible Analyses in Educational Research
+description: A reproducible analysis is one in which an independent analyst, using
+  the same data and the same statistical code, would obtain the exact same result
+  as the previous analyst.
+author:
+- name: Brandon LeBeau
+- name: Scott Ellison
+- name: Ariel M. Aloe
+date: '2021-04-25'
+categories:
+- Journal Article
+- Education
+
+---
+
+## Abstract
+
+A reproducible analysis is one in which an independent analyst, using the same data and the same statistical code, would obtain the exact same result as the previous analyst. Reproducible analyses utilize script based analyses and open data to aid in the reproduction of the analysis. A reproducible analysis does not ensure the same results are obtained if another sample of data are obtained, often referred to replicability. Reproduction and replication of studies are discussed as well as the overwhelming benefits of creating a reproducible analysis workflow. A tool is proposed to aid in the evaluation of studies to help describe which elements a study has a strong reproducible workflow and areas that could be improved. This tool is meant to serve as a discussion tool, not to rank studies or devalue studies that are unable to share data or statistical code. Finally, discussion surrounding reproducibility for qualitative studies are discussed along with unique challenges for adopting a reproducible analysis framework.
+
+## Citation
+
+LeBeau, Brandon, Ellison, Scott, Aloe, Ariel M. (2021). Reproducible Analyses in Educational Research. **Review of Reseach in Education**.
+
+## Links
+
+[Link to Journal](https://doi.org/10.3102%2F0091732X20985076){.pub-link}
+
+::: {.pub-info}
+**Publication:** *Review of Reseach in Education*  **Authors:** Brandon LeBeau, Scott Ellison, Ariel M. Aloe  **Date:** April 25, 2021
+:::
+
+

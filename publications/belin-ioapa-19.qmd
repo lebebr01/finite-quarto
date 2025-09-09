@@ -1,0 +1,30 @@
+---
+title: 'The Advanced Placement Program in Rural Schools: Equalizing Opportunity'
+description: The current study explores the effect an online Advanced Placement (AP)
+  program has had on AP participation and passing rates in a single state.
+author:
+- name: Brandon LeBeau
+- name: Susan G. Assouline
+- name: Ann Lupkowski-Shoplik
+- name: Duhita Mahatmya
+date: '2020-06-01'
+categories: Journal Article
+
+---
+
+## Abstract
+
+The current study explores the effect an online Advanced Placement (AP) program has had on AP participation and passing rates in a single state. This state has a sizeable rural population where access to AP coursework is not always possible for students in rural communities. The online AP program aims to equalize access to rural students who would otherwise not have the opportunity to take advanced coursework. Study results show that although AP exam participation has not significantly increased due to the availability of the online AP program, passing rates have been higher for schools who do participate. In addition, the online AP coursework has increased access to AP coursework in small to middle sized schools.
+
+## Citation
+
+LeBeau, Brandon, Assouline, Susan G., Lupkowski-Shoplik, Ann, Mahatmya, Duhita (2020). The Advanced Placement Program in Rural Schools: Equalizing Opportunity. **Roeper Review**.
+
+## Links
+
+[Link to Journal](https://doi.org/10.1080/02783193.2020.1765923){.pub-link}
+
+::: {.pub-info}
+**Publication:** *Roeper Review*  **Authors:** Brandon LeBeau, Susan G. Assouline, Ann Lupkowski-Shoplik, Duhita Mahatmya  **Date:** June 01, 2020  **DOI:** 10.1080/02783193.2020.1765923
+:::
+

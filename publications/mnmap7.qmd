@@ -1,0 +1,30 @@
+---
+title: The Relationship between High School Mathematics Curriculum and Mathematics
+  Course-Taking and Achievement for Students Attending Community College
+description: ''
+author:
+- name: Danielle Dupuis
+- name: Amanuel Medhanie
+- name: Debra Monson
+- name: Brandon LeBeau
+- name: Michael R. Harwell
+- name: Thomas R. Post
+date: '2015-06-01'
+categories:
+- Research
+
+---
+
+## Abstract
+
+
+
+## Citation
+
+Dupuis, Danielle, Medhanie, Amanuel, Monson, Debra, LeBeau, Brandon, Harwell, Michael R., Post, Thomas R. (2015). The Relationship between High School Mathematics Curriculum and Mathematics Course-Taking and Achievement for Students Attending Community College. **MathAMATYC Educator*, 6.3*.
+
+::: {.pub-info}
+**Publication:** *MathAMATYC Educator*, 6.3  **Authors:** Danielle Dupuis, Amanuel Medhanie, Debra Monson, Brandon LeBeau, Michael R. Harwell, Thomas R. Post  **Date:** June 01, 2015
+:::
+
+
