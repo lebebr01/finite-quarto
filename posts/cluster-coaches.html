@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Brandon LeBeau">
+<meta name="dcterms.date" content="2017-12-04">
+
+<title>Hierarchical Cluster Analysis of Coach ELO Ratings – Brandon LeBeau</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-55373f81aad687d9e5c9f061504c548c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-95bd368a27abdcadd26b2436c52b31a5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="../site_libs/d3v3-3.5.3/./d3v3.min.js"></script>
+<link href="../site_libs/d3heatmapcore-0.0.0/heatmapcore.css" rel="stylesheet">
+<script src="../site_libs/d3heatmapcore-0.0.0/heatmapcore.js"></script>
+<script src="../site_libs/d3v3-tip-0.6.6/index.js"></script>
+<script src="../site_libs/d3heatmap-binding-0.9.0/d3heatmap.js"></script>
+
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Brandon LeBeau</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../posts/"> 
+<span class="menu-text">Educate-R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../publications/"> 
+<span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../presentations/"> 
+<span class="menu-text">Presentations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../packages/"> 
+<span class="menu-text">R Packages</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../workshops/"> 
+<span class="menu-text">Workshops</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about/"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Hierarchical Cluster Analysis of Coach ELO Ratings</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#hierarchical-clustering-elo-ratings-of-college-football-coaches" id="toc-hierarchical-clustering-elo-ratings-of-college-football-coaches" class="nav-link active" data-scroll-target="#hierarchical-clustering-elo-ratings-of-college-football-coaches">Hierarchical clustering ELO ratings of college football coaches</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Hierarchical Cluster Analysis of Coach ELO Ratings</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">College Football</div>
+    <div class="quarto-category">Cluster Analysis</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Brandon LeBeau </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 4, 2017</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>For the past few years (quickly approaching a decade), a colleague and I started scraping information about college football coaches to explore the question, which coach should the University of Minnesota hire. This project started, as most interesting project do, at happy hour one day debating who should be hired to replace Tim Brewster, the latest college football coaching disaster at the University of Minnesota. We decided to collect some data to explore the idea in more detail.</p>
+<p>Fast forward about 8 years and we have gathered a fair amount of college football data going back to the 19th century. We have prepared a few presentations using the data (https://brandonlebeau.org/slides/2016-07-31-jsm2016/ and https://brandonlebeau.org/slides/2015-12-04-centraliowaruser/) and are currently working on a new manuscript. Hope to share more on that soon.</p>
+<p>In addition to these topics, I’ve been fiddling with hierarchical cluster analysis for another project and wanted to try it on the college football data to try and get a better handle on all the details. Below is a cluster analysis based on some of our data.</p>
+<section id="hierarchical-clustering-elo-ratings-of-college-football-coaches" class="level2">
+<h2 class="anchored" data-anchor-id="hierarchical-clustering-elo-ratings-of-college-football-coaches">Hierarchical clustering ELO ratings of college football coaches</h2>
+<p>For the paper we are exploring, we computed ELO ratings for college football coaches. This is more commonly done on teams instead of coaches, but we are more interested in the coach level compared to the team level. Admittedly, there are some coach/team pairs that would be identical for the two, but many coaches move around a bit and the two need not be the same.</p>
+<p>The following bit of code reads the ELO rating data and some coach information from a GitHub repository. Then these two data frames are merged together, the data are filtered to only include ratings since 2010, and missing data is omitted. Cluster analysis works best without missing data, therefore this is a simple way to achieve no missing data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(colorspace)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>ELO <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/lebebr01/sloan-2018/master/data/elo-ratings-2017-09-18.csv"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>coach_info <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/lebebr01/sloan-2018/master/data/coaches_to2015.csv"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># transform</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>ELO_wide <span class="ot">&lt;-</span> ELO <span class="sc">%&gt;%</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">&gt;</span> <span class="dv">2010</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Coach, Year, Rating, Rank) <span class="sc">%&gt;%</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(Rating<span class="sc">:</span>Rank, <span class="at">key =</span> <span class="st">'variable'</span>, <span class="at">value =</span> <span class="st">'value'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="at">col =</span> <span class="st">'variable'</span>, variable, Year) <span class="sc">%&gt;%</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This results in a total of 71 coaches that have been coaching continuously between 2011 and 2015, a total of five years. This does not mean that each coach was with the same team for these five years, rather that they have had no gaps in coaching between 2011 and 2015 (i.e.&nbsp;taking a year off of coaching) or are new coaches since 2011.</p>
+<p>Then to perform the cluster analysis, I used the <code>select</code> function to select only the ELO Rating variables. This is passed to the <code>daisy</code> function from the cluster package to create a pairwise distance matrix. I chose euclidean distance for this example which represents the root sum of squares of differences, but other options are available and results may differ based on the choice of distance metric.</p>
+<p>Lastly, I also chose the ward clustering method, primarily for simplicity. From what I’ve read this tends to be a good starting method, but others do exist that use slightly different criteria when combining clusters. Therefore others should be explored to undertsand the sensitivity of the results to a specific clustering method.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attempt cluster analysis</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ward_clust <span class="ot">&lt;-</span> ELO_wide <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">'Rating'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">daisy</span>(<span class="at">metric =</span> <span class="st">'euclidean'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">agnes</span>(<span class="at">diss =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">'ward'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Once the clustering algorithm is done, visualizing this with a dendrogram. Below is an example using the <code>dendextend</code> package.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>coach_names <span class="ot">&lt;-</span> <span class="fu">rev</span>(<span class="fu">levels</span>(ELO_wide<span class="sc">$</span>Coach))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(ward_clust)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># order the observations:</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">rotate</span>(dend, <span class="dv">1</span><span class="sc">:</span><span class="dv">71</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Color the branches based on the clusters:</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">color_branches</span>(dend, <span class="at">k=</span><span class="dv">3</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Manually match the labels</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">labels_colors</span>(dend) <span class="ot">&lt;-</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rainbow_hcl</span>(<span class="dv">3</span>)[<span class="fu">sort_levels_values</span>(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.numeric</span>(ELO_wide<span class="sc">$</span>Coach)[<span class="fu">order.dendrogram</span>(dend)]</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  )]</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># We shall add the flower type to the labels:</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">labels</span>(dend) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">as.character</span>(ELO_wide<span class="sc">$</span>Coach)[<span class="fu">order.dendrogram</span>(dend)],</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"("</span>,<span class="fu">labels</span>(dend),<span class="st">")"</span>, </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># We hang the dendrogram a bit:</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">hang.dendrogram</span>(dend, <span class="at">hang_height=</span><span class="fl">0.2</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">set</span>(dend, <span class="st">"labels_cex"</span>, <span class="fl">0.5</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># And plot:</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">7</span>))</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dend, </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Clustered ELO data set</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="st">     (the labels give the Coach Name)"</span>, </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>     <span class="at">horiz =</span>  <span class="cn">TRUE</span>,  <span class="at">nodePar =</span> <span class="fu">list</span>(<span class="at">cex =</span> .<span class="dv">007</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="cluster-coaches_files/figure-html/dendrogram-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>From the dendrogram, it appears from these 71 coaches, there are three groups that stand out from the rest. A further exploration of the results can be done with a heatmap. Below I create a d3 heatmap of the ELO Ratings and also include the dendrogram for the rows. The heatmap can be useful to explore similarities within the different groups. From the heatmap, it is a bit easier to see that the top cluster is the highest performing coaches, the middle cluster is the lowest performing, and the bottom cluster is an average group of coaches over this period based on ELO ratings.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>d3heatmap<span class="sc">::</span><span class="fu">d3heatmap</span>(<span class="fu">as.matrix</span>(<span class="fu">select</span>(ELO_wide, <span class="fu">starts_with</span>(<span class="st">'Rating'</span>))),</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dendrogram =</span> <span class="st">"row"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Rowv =</span> dend,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">colors =</span> <span class="st">"Greens"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                     <span class="co"># scale = "row",</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">height =</span> <span class="dv">1200</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">show_grid =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette RdYlBu is 11
+Returning the palette you asked for with that many colors
+Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette RdYlBu is 11
+Returning the palette you asked for with that many colors</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="htmlwidget-e250a8500734382751c2" style="width:100%;height:1160px;" class="d3heatmap html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e250a8500734382751c2">{"x":{"rows":{"members":71,"height":625.1709734230328,"edgePar":{"col":""},"children":[{"members":56,"height":441.395793231201,"edgePar":{"col":""},"children":[{"members":33,"height":303.3385442302865,"edgePar":{"col":""},"children":[{"members":28,"height":196.5088820920211,"edgePar":{"col":""},"children":[{"members":15,"height":164.7940910092465,"edgePar":{"col":""},"children":[{"members":10,"height":132.4997838204882,"edgePar":{"col":""},"children":[{"members":7,"height":111.7254754274991,"edgePar":{"col":""},"children":[{"members":5,"height":90.05300503011016,"edgePar":{"col":""},"children":[{"members":3,"height":67.44508807708144,"edgePar":{"col":""},"children":[{"members":2,"height":42.9150194771979,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"1","edgePar":{"col":""}},{"members":1,"height":0,"label":"51","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"60","edgePar":{"col":""}}]},{"members":2,"height":25.7554199876577,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"66","edgePar":{"col":""}},{"members":1,"height":0,"label":"56","edgePar":{"col":""}}]}]},{"members":2,"height":56.17053143372658,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"45","edgePar":{"col":""}},{"members":1,"height":0,"label":"54","edgePar":{"col":""}}]}]},{"members":3,"height":84.8882125155301,"edgePar":{"col":""},"children":[{"members":2,"height":51.06202264015929,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"10","edgePar":{"col":""}},{"members":1,"height":0,"label":"28","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"25","edgePar":{"col":""}}]}]},{"members":5,"height":102.1418010161001,"edgePar":{"col":""},"children":[{"members":3,"height":68.96520330048033,"edgePar":{"col":""},"children":[{"members":2,"height":35.31259168071766,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"15","edgePar":{"col":""}},{"members":1,"height":0,"label":"24","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"53","edgePar":{"col":""}}]},{"members":2,"height":66.76942993185611,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"9","edgePar":{"col":""}},{"members":1,"height":0,"label":"18","edgePar":{"col":""}}]}]}]},{"members":13,"height":133.8016790214624,"edgePar":{"col":""},"children":[{"members":7,"height":127.3872679322813,"edgePar":{"col":""},"children":[{"members":5,"height":104.9660367436614,"edgePar":{"col":""},"children":[{"members":4,"height":59.21291140248974,"edgePar":{"col":""},"children":[{"members":2,"height":28.48936803008635,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"64","edgePar":{"col":""}},{"members":1,"height":0,"label":"69","edgePar":{"col":""}}]},{"members":2,"height":45.36537251888021,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"59","edgePar":{"col":""}},{"members":1,"height":0,"label":"30","edgePar":{"col":""}}]}]},{"members":1,"height":0,"label":"35","edgePar":{"col":""}}]},{"members":2,"height":50.6588381854741,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"27","edgePar":{"col":""}},{"members":1,"height":0,"label":"68","edgePar":{"col":""}}]}]},{"members":6,"height":94.75434416600854,"edgePar":{"col":""},"children":[{"members":5,"height":81.87792044737698,"edgePar":{"col":""},"children":[{"members":3,"height":65.27710092952131,"edgePar":{"col":""},"children":[{"members":2,"height":26.22568922283765,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"36","edgePar":{"col":""}},{"members":1,"height":0,"label":"47","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"39","edgePar":{"col":""}}]},{"members":2,"height":39.47660456509079,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"29","edgePar":{"col":""}},{"members":1,"height":0,"label":"14","edgePar":{"col":""}}]}]},{"members":1,"height":0,"label":"40","edgePar":{"col":""}}]}]}]},{"members":5,"height":147.4576565370105,"edgePar":{"col":""},"children":[{"members":4,"height":83.62337503854351,"edgePar":{"col":""},"children":[{"members":2,"height":26.29603129506052,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"8","edgePar":{"col":""}},{"members":1,"height":0,"label":"42","edgePar":{"col":""}}]},{"members":2,"height":64.61729643722816,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"23","edgePar":{"col":""}},{"members":1,"height":0,"label":"6","edgePar":{"col":""}}]}]},{"members":1,"height":0,"label":"26","edgePar":{"col":""}}]}]},{"members":23,"height":259.3533751180843,"edgePar":{"col":""},"children":[{"members":18,"height":205.498712518996,"edgePar":{"col":""},"children":[{"members":13,"height":179.028827902609,"edgePar":{"col":""},"children":[{"members":7,"height":160.4156415137334,"edgePar":{"col":""},"children":[{"members":5,"height":119.7149792045337,"edgePar":{"col":""},"children":[{"members":3,"height":54.1445166093534,"edgePar":{"col":""},"children":[{"members":2,"height":46.40492119909579,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"41","edgePar":{"col":""}},{"members":1,"height":0,"label":"5","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"63","edgePar":{"col":""}}]},{"members":2,"height":60.69688933716886,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"62","edgePar":{"col":""}},{"members":1,"height":0,"label":"71","edgePar":{"col":""}}]}]},{"members":2,"height":70.86449064336269,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"70","edgePar":{"col":""}},{"members":1,"height":0,"label":"61","edgePar":{"col":""}}]}]},{"members":6,"height":114.4763330130152,"edgePar":{"col":""},"children":[{"members":4,"height":73.60044190177622,"edgePar":{"col":""},"children":[{"members":2,"height":53.44784707801921,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"13","edgePar":{"col":""}},{"members":1,"height":0,"label":"22","edgePar":{"col":""}}]},{"members":2,"height":67.69150483845578,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"57","edgePar":{"col":""}},{"members":1,"height":0,"label":"34","edgePar":{"col":""}}]}]},{"members":2,"height":106.3887222660673,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"49","edgePar":{"col":""}},{"members":1,"height":0,"label":"38","edgePar":{"col":""}}]}]}]},{"members":5,"height":130.9309016360974,"edgePar":{"col":""},"children":[{"members":3,"height":78.37387378291847,"edgePar":{"col":""},"children":[{"members":2,"height":56.58846734399147,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"19","edgePar":{"col":""}},{"members":1,"height":0,"label":"20","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"32","edgePar":{"col":""}}]},{"members":2,"height":71.90499840100645,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"58","edgePar":{"col":""}},{"members":1,"height":0,"label":"17","edgePar":{"col":""}}]}]}]},{"members":5,"height":106.7666312979721,"edgePar":{"col":""},"children":[{"members":4,"height":87.53704012372498,"edgePar":{"col":""},"children":[{"members":2,"height":41.29669252004518,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"31","edgePar":{"col":""}},{"members":1,"height":0,"label":"55","edgePar":{"col":""}}]},{"members":2,"height":58.73248496445329,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"67","edgePar":{"col":""}},{"members":1,"height":0,"label":"50","edgePar":{"col":""}}]}]},{"members":1,"height":0,"label":"16","edgePar":{"col":""}}]}]}]},{"members":15,"height":256.2168015447539,"edgePar":{"col":""},"children":[{"members":14,"height":226.2444409129949,"edgePar":{"col":""},"children":[{"members":10,"height":160.9425841056675,"edgePar":{"col":""},"children":[{"members":6,"height":108.6872214843153,"edgePar":{"col":""},"children":[{"members":3,"height":49.71444089075328,"edgePar":{"col":""},"children":[{"members":2,"height":47.73418701059209,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"7","edgePar":{"col":""}},{"members":1,"height":0,"label":"46","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"21","edgePar":{"col":""}}]},{"members":3,"height":49.92322522894004,"edgePar":{"col":""},"children":[{"members":2,"height":31.83165958345867,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"3","edgePar":{"col":""}},{"members":1,"height":0,"label":"37","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"65","edgePar":{"col":""}}]}]},{"members":4,"height":120.5182445017711,"edgePar":{"col":""},"children":[{"members":3,"height":79.72710169304239,"edgePar":{"col":""},"children":[{"members":2,"height":56.35523977521989,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"4","edgePar":{"col":""}},{"members":1,"height":0,"label":"43","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"48","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"11","edgePar":{"col":""}}]}]},{"members":4,"height":95.90670563636985,"edgePar":{"col":""},"children":[{"members":3,"height":74.98271485626321,"edgePar":{"col":""},"children":[{"members":2,"height":58.78208720351749,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"44","edgePar":{"col":""}},{"members":1,"height":0,"label":"12","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"2","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"33","edgePar":{"col":""}}]}]},{"members":1,"height":0,"label":"52","edgePar":{"col":""}}]}]},"cols":null,"matrix":{"data":["1512.674","1524.384","1550.272","1519.778","1520.064","1484.809","1535.872","1538.771","1499.614","1500.203","1470.825","1502.422","1552.086","1554.813","1497.017","1510.311","1546.6","1587.39","1520.529","1450.36","1495.721","1537.923","1570.521","1513.036","1444.486","1530.772","1551.612","1557.362","1561.707","1476.497","1542.961","1528.345","1515.117","1581.542","1493.441","1509.718","1562.821","1630.966","1574.578","1535.784","1510.31","1549.582","1615.124","1603.743","1499.313","1471.34","1558.421","1582.483","1599.76","1483.543","1549.137","1543.86","1488.241","1510.86","1525.459","1536.726","1540.516","1507.378","1490.563","1508.036","1500.488","1546.412","1513.738","1490.201","1561.6","1555.108","1569.199","1527.779","1523.801","1560.756","1550.743","1613.5","1499.668","1528.623","1519.976","1515.381","1522.163","1549.306","1579.991","1563.193","1517.275","1530.186","1549.375","1567.99","1538.705","1513.663","1547.654","1562.427","1530.073","1576.959","1488.522","1538.032","1551.046","1542.845","1544.699","1493.836","1479.832","1522.868","1595.191","1591.78","1574.401","1523.803","1594.235","1624.777","1553.16","1534.861","1546.655","1582.407","1607.537","1559.756","1515.031","1519.427","1543.375","1548.078","1593.711","1511.328","1532.106","1522.902","1538.917","1590.514","1555.849","1489.531","1534.594","1521.251","1586.335","1558.477","1537.436","1558.858","1577.911","1598.801","1526.505","1544.373","1539.883","1574.204","1588.11","1597.985","1533.507","1499.816","1547.639","1592.614","1605.62","1582.948","1570.682","1551.701","1569.055","1602.363","1583.391","1564.062","1527.576","1576.46","1656.878","1581.891","1563.533","1541.451","1530.855","1639.899","1592.775","1506.142","1522.832","1542.177","1686.622","1614.257","1532.883","1620.415","1636.313","1518.496","1512.511","1518.108","1472.042","1434.619","1514.434","1508.149","1476.58","1476","1454.051","1531.732","1482.158","1494.495","1506.822","1442.861","1512.07","1547.7","1442.78","1451.759","1505.654","1491.511","1498.824","1442.113","1427.363","1489.013","1535.079","1498.232","1420.915","1508.714","1510.011","1501.475","1442.908","1418.854","1495.55","1535.589","1478.852","1445.651","1504.982","1467.925","1438.985","1495.975","1451.247","1459.442","1479.817","1421.184","1452.775","1433.351","1474.953","1495.986","1473.419","1486.78","1402.231","1453.998","1459.837","1446.746","1499.106","1463.14","1407.709","1434.101","1431.955","1411.285","1414.801","1437.393","1430.88","1451.392","1430.18","1476.434","1526.244","1540.464","1490.514","1418.932","1443.237","1522.301","1542.325","1534.726","1483.987","1475.706","1498.658","1532.788","1520.37","1419.619","1495.99","1503.409","1477.818","1490.809","1429.406","1476.126","1537.742","1470.325","1432.114","1496.45","1491.699","1495.5","1459.557","1403.805","1491.805","1492.476","1467.113","1432.857","1416.63","1437.987","1491.543","1488.531","1455.351","1396.509","1434.667","1530.149","1468.124","1421.003","1415.264","1480.456","1553.328","1434.316","1406.201","1376.334","1595.654","1666.951","1635.637","1607.148","1632.065","1593.183","1624.902","1622.456","1622.513","1622.344","1589.062","1629.602","1660.642","1611.83","1651.672","1576.638","1628.427","1608.515","1616.084","1557.216","1579.51","1614.27","1615.832","1596.16","1576.034","1595.384","1623.269","1651.835","1600.968","1554.176","1656.962","1665.382","1664.901","1625.163","1656.474","1697.191","1662.55","1644.575","1613.229","1624.948","1659.095","1617.892","1644.616","1577.533","1618.839","1701.39","1685.219","1630.53","1589.735","1557.88","1609.256","1586.186","1645.451","1658.289","1682.258","1566.989","1607.744","1620.317","1640.35","1698.085","1561.309","1570.744","1627.21","1651.474","1634.446","1574.956","1604.629","1669.728","1715.076","1664.928","1691.675","1710.068","1712.641","1709.6","1718.96"],"x":[1512.674,1524.384,1550.272,1519.778,1520.064,1484.809,1535.872,1538.771,1499.614,1500.203,1470.825,1502.422,1552.086,1554.813,1497.017,1510.311,1546.6,1587.39,1520.529,1450.36,1495.721,1537.923,1570.521,1513.036,1444.486,1530.772,1551.612,1557.362,1561.707,1476.497,1542.961,1528.345,1515.117,1581.542,1493.441,1509.718,1562.821,1630.966,1574.578,1535.784,1510.31,1549.582,1615.124,1603.743,1499.313,1471.34,1558.421,1582.483,1599.76,1483.543,1549.137,1543.86,1488.241,1510.86,1525.459,1536.726,1540.516,1507.378,1490.563,1508.036,1500.488,1546.412,1513.738,1490.201,1561.6,1555.108,1569.199,1527.779,1523.801,1560.756,1550.743,1613.5,1499.668,1528.623,1519.976,1515.381,1522.163,1549.306,1579.991,1563.193,1517.275,1530.186,1549.375,1567.99,1538.705,1513.663,1547.654,1562.427,1530.073,1576.959,1488.522,1538.032,1551.046,1542.845,1544.699,1493.836,1479.832,1522.868,1595.191,1591.78,1574.401,1523.803,1594.235,1624.777,1553.16,1534.861,1546.655,1582.407,1607.537,1559.756,1515.031,1519.427,1543.375,1548.078,1593.711,1511.328,1532.106,1522.902,1538.917,1590.514,1555.849,1489.531,1534.594,1521.251,1586.335,1558.477,1537.436,1558.858,1577.911,1598.801,1526.505,1544.373,1539.883,1574.204,1588.11,1597.985,1533.507,1499.816,1547.639,1592.614,1605.62,1582.948,1570.682,1551.701,1569.055,1602.363,1583.391,1564.062,1527.576,1576.46,1656.878,1581.891,1563.533,1541.451,1530.855,1639.899,1592.775,1506.142,1522.832,1542.177,1686.622,1614.257,1532.883,1620.415,1636.313,1518.496,1512.511,1518.108,1472.042,1434.619,1514.434,1508.149,1476.58,1476,1454.051,1531.732,1482.158,1494.495,1506.822,1442.861,1512.07,1547.7,1442.78,1451.759,1505.654,1491.511,1498.824,1442.113,1427.363,1489.013,1535.079,1498.232,1420.915,1508.714,1510.011,1501.475,1442.908,1418.854,1495.55,1535.589,1478.852,1445.651,1504.982,1467.925,1438.985,1495.975,1451.247,1459.442,1479.817,1421.184,1452.775,1433.351,1474.953,1495.986,1473.419,1486.78,1402.231,1453.998,1459.837,1446.746,1499.106,1463.14,1407.709,1434.101,1431.955,1411.285,1414.801,1437.393,1430.88,1451.392,1430.18,1476.434,1526.244,1540.464,1490.514,1418.932,1443.237,1522.301,1542.325,1534.726,1483.987,1475.706,1498.658,1532.788,1520.37,1419.619,1495.99,1503.409,1477.818,1490.809,1429.406,1476.126,1537.742,1470.325,1432.114,1496.45,1491.699,1495.5,1459.557,1403.805,1491.805,1492.476,1467.113,1432.857,1416.63,1437.987,1491.543,1488.531,1455.351,1396.509,1434.667,1530.149,1468.124,1421.003,1415.264,1480.456,1553.328,1434.316,1406.201,1376.334,1595.654,1666.951,1635.637,1607.148,1632.065,1593.183,1624.902,1622.456,1622.513,1622.344,1589.062,1629.602,1660.642,1611.83,1651.672,1576.638,1628.427,1608.515,1616.084,1557.216,1579.51,1614.27,1615.832,1596.16,1576.034,1595.384,1623.269,1651.835,1600.968,1554.176,1656.962,1665.382,1664.901,1625.163,1656.474,1697.191,1662.55,1644.575,1613.229,1624.948,1659.095,1617.892,1644.616,1577.533,1618.839,1701.39,1685.219,1630.53,1589.735,1557.88,1609.256,1586.186,1645.451,1658.289,1682.258,1566.989,1607.744,1620.317,1640.35,1698.085,1561.309,1570.744,1627.21,1651.474,1634.446,1574.956,1604.629,1669.728,1715.076,1664.928,1691.675,1710.068,1712.641,1709.6,1718.96],"dim":[71,5],"rows":["1","51","60","66","56","45","54","10","28","25","15","24","53","9","18","64","69","59","30","35","27","68","36","47","39","29","14","40","8","42","23","6","26","41","5","63","62","71","70","61","13","22","57","34","49","38","19","20","32","58","17","31","55","67","50","16","7","46","21","3","37","65","4","43","48","11","44","12","2","33","52"],"cols":["Rating_2011","Rating_2012","Rating_2013","Rating_2014","Rating_2015"]},"title":null,"image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAAAFCAYAAAAXIPF4AAAD/UlEQVQ4jVWTXUybdRTGf+/6QVukfBUolJZCWRnDGZTAgLDwUTPSJWSRCzMUzULUzcmNkhESLzRLTHDRaOIShx9kUYi7qhcaGGplRCYElo2MKaHQlFI+SxsgQPsOaPGi8BrO3f/JyfM855znL0TnvjwAEA11qBb/BADPHEJZNQAHY0MARFzLyKyZiFUtAKiGuyHXjJCWgzdqxxS8TejzX9A0nkEoqz6GxXe2ElZaOCpF9yfImy/F+Ne8zKdexfSwA3LNiIY6fnycSH1hBjkn+jlY80pYvj6BWvcNIq5l9lo+xC9aca+HqHXfQKxqQb3rjvnNNQMgpOVIGnjmYvjhbEfY0Tx+0XpMD0CW9VrXxyX+eyj0WghtxtwnJyEml7C0V05cngm5bB1ZRRVirg0A9a4blAKioY59WQq66Bjz6iZ0iZMIZdWElRZ00TGE+CQU2jCRwVGU6fv8tXOOhW0t8rJXSQw4GRQv8sdqHpXGJRR6LUJ8Ekt75QjyE5xK9iBfmYgtUxXldLaGhW0tuUleZBVVyFcmSHpuDU/YTGaRBdVwN4LBDEqB+dSrxKVoUUTWCSstLCnreaSuJE+3EesB5tVNbGa9zJM1Nda4xySOf49gMDMoXmRhW0ucQo8wtyUepKtcAIwsZ2NJ1pCucqHedeON2mm/9Tc3WyslDOD6vTzspUZqoz9IF6p9b4+ma2d5p+gR3/zzEjO+DW6WDEppiQyMsOSYxth1WXoDPHsaIL6zlf2eu8ismZBrjiWwrQHRUEf0g/cB0LQ1xK4PhByTBF1BjB01sRSMDeHrvC9x45kj5JjkSd8C5d/ZEcqq2e+5y7OnATRtDf976agh5JgEIO55HUuOaVKtqQRdQbIaC5CbHnZIX0b9Vj+6C9lEgR3A1DhEb8oy48XvIuSrAVicDdMIGPLV+EAi+72xAHmRAoC3d75gtL2f0IVsNG0NCGk5yJtzMFqHiAyMILNmIm++xMGal6DjDpqxIWTWzJgPIOgKEjcwgro5h/1D05rDxRzV4mwY4+G3j7iWARi1fY0hX42xowZN4xleAH6q7aOq/j4mx0fQcxfflTsszoYpbS9GrGoh2Pkmi7NhPF/50M+Pcr13AlNNKvZSI0LXmPcgX5/A7MrWMfH6wgwGplZxOt1ceb2Y/nEfrecLGJha5aj/jRc38YtWBqZWAcjXJ2BJ1uBeDzG7ssWMbwN7qZGKzAUufxaQuG02C06nG/90gPQCHSZrKieNSQA4nW5sNgszvg1J73brrySeTqPp2lnqCzNIV7mklN/6bZp5VxD/dIC+b08xspwtaTs/HebBg3OSxxnfBgCt5wtwr4fo6p1g5ucpTr5SiH86wOa/a8d28B/7EMRPkHbIiQAAAABJRU5ErkJggg==","rowcolors":null,"colcolors":null,"theme":null,"options":{"hm_width":null,"hm_height":1200,"xaxis_height":80,"yaxis_width":120,"xaxis_font_size":19.56811869688071,"yaxis_font_size":8.882077451968307,"xaxis_angle":60,"xaxis_location":"bottom","yaxis_location":"right","xaxis_title":null,"yaxis_title":null,"xaxis_title_font_size":14,"yaxis_title_font_size":14,"bins":16,"manual_breaks":false,"symbreaks":false,"print_values":false,"show_legend":false,"legend_scaler":1,"legend_title":null,"legend_location":"fl","legend_colors":["#A50026","#C62327","#E14730","#F46D43","#FB9957","#FEBF70","#FEE090","#FFF5AF","#F6FBD2","#E0F3F8","#BDE2EE","#99CAE1","#74ADD1","#5687BE","#4060AA","#313695"],"legend_bins":16,"legend_breaks":[1376.33444025392,1397.748509604536,1419.162578955151,1440.576648305767,1461.990717656382,1483.404787006998,1504.818856357614,1526.232925708229,1547.646995058845,1569.061064409461,1590.475133760076,1611.889203110692,1633.303272461308,1654.717341811923,1676.131411162539,1697.545480513154,1718.95954986377],"legend_type":"histogram","legend_fill":null,"brush_color":"#0000FF","na_color":"#777777","show_grid":false,"cellnote_row":null,"cellnote_col":null,"cellnote_val":"Value","cellnote_fontsize":12,"cellnote_color":"#222222","anim_duration":500,"rsc_labs":null,"csc_labs":null,"rsc_cols":null,"csc_cols":null,"rsc_colnames":null,"csc_colnames":null},"params":{"x":[[1512.67444846853,1524.38429708253,1550.27207284915,1519.7780417929,1520.06357435392],[1561.30875902952,1570.74389611103,1627.21023948102,1651.47367197939,1634.44632920583],[1576.63791960213,1628.42724839736,1608.51523890725,1616.08361927539,1557.2163739724],[1656.96201831395,1665.3824776172,1664.90117580739,1625.16326535425,1656.47391749356],[1514.43411886068,1508.14947843857,1476.57953302028,1476.00000220596,1454.05112906095],[1639.8985542767,1592.77510993975,1506.14156670333,1522.83178474057,1542.17726434036],[1595.65430605727,1666.95060639138,1635.63723543329,1607.14764940748,1632.06509023318],[1605.6204331177,1582.94790504378,1570.68229795798,1551.70054004674,1569.05465786663],[1555.1078567886,1569.19854819752,1527.7787602557,1523.80077313072,1560.75644491914],[1509.71784031169,1562.8205244272,1630.96593421075,1574.57827813814,1535.78398560703],[1701.38991054323,1685.2187777345,1630.52982908631,1589.7350837464,1557.87987446839],[1566.98877523302,1607.74436139635,1620.3165437361,1640.34993532929,1698.08476062686],[1478.85179111583,1445.65107793474,1504.98187979653,1467.92473152407,1438.98519145015],[1526.5049150039,1544.37345563264,1539.8832416206,1574.20439608446,1588.11034448848],[1549.13681374206,1543.85977978626,1488.24103296942,1510.86005935333,1525.45934327251],[1480.45560640429,1553.32828573041,1434.31615730159,1406.20069907906,1376.33444025392],[1429.40556595611,1476.12631089762,1537.741681863,1470.3253221136,1432.11419110617],[1550.74278843979,1613.49978926728,1499.66765571752,1528.62283910374,1519.97634593925],[1430.18002219685,1476.4338017454,1526.24381800319,1540.46447241793,1490.51370512921],[1418.93203809966,1443.23702321107,1522.30087172596,1542.32500860699,1534.72572798248],[1589.06242934521,1629.60229767264,1660.6423232838,1611.82957080678,1651.67182948902],[1495.97513208041,1451.24660514032,1459.44246528156,1479.81727028121,1421.18398715602],[1656.87764209445,1581.8912514508,1563.53295497089,1541.4511691175,1530.8549731291],[1536.72616511443,1540.51558383358,1507.37785549516,1490.5631257992,1508.03557223412],[1471.3398894551,1558.42061708834,1582.48287511866,1599.75961467429,1483.54343049066],[1686.62213213113,1614.2565323513,1532.88332567394,1620.41503463869,1636.31335678913],[1574.40149597503,1523.80303657426,1594.23549547306,1624.77690346162,1553.16010180199],[1510.30990414437,1549.58165005976,1615.1236322277,1603.74336384501,1499.31302365654],[1558.4768520169,1537.4355800111,1558.85780952639,1577.91082670512,1598.80106842693],[1488.52187764128,1538.03189088608,1551.04616446765,1542.84501103341,1544.69880275807],[1496.44987214584,1491.69854058294,1495.50016942319,1459.55745393397,1403.80524124735],[1483.98712332132,1475.70619178927,1498.65755632984,1532.78767754634,1520.37003142317],[1574.95622016406,1604.62881698707,1669.72804839429,1715.07649731947,1664.92826004451],[1486.78048669238,1402.23092570608,1453.99755407262,1459.83721166018,1446.74601780738],[1493.83644104974,1479.83166452604,1522.86838375384,1595.19112908394,1591.780486244],[1515.0312287571,1519.42702091569,1543.37535945497,1548.07831197217,1593.71140649371],[1579.51000821405,1614.2702485511,1615.83247121655,1596.15993315009,1576.03364945818],[1411.28539549387,1414.80101212856,1437.39345219228,1430.88043160432,1451.39245070255],[1555.8490420389,1489.53077056954,1534.59424883204,1521.25092457512,1586.33485278124],[1597.98500032975,1533.50698723227,1499.81603299404,1547.63881711105,1592.61414113649],[1518.49579859322,1512.51060353417,1518.10820715048,1472.04152875592,1434.61920249465],[1602.36266797743,1583.39148011706,1564.06168608165,1527.57589087254,1576.46007952382],[1697.19116734729,1662.54980643912,1644.57473872262,1613.22893532663,1624.94754259248],[1609.25599352881,1586.18552937609,1645.45104573771,1658.28863043249,1682.25779558028],[1530.77249563548,1551.61238900243,1557.36197712224,1561.70698735271,1476.49739666233],[1593.18290610251,1624.90164489328,1622.45585318748,1622.51263481242,1622.34408131677],[1511.32781709341,1532.10631420611,1522.90188912158,1538.9174388074,1590.51414918714],[1659.0953248619,1617.89185980108,1644.61585810405,1577.53325293967,1618.83897667987],[1499.10648831142,1463.13990598665,1407.70860118702,1434.10076875591,1431.9552113991],[1434.66728999672,1530.14930319956,1468.12443622149,1421.00284173873,1415.2636835915],[1484.80935965187,1535.87178750297,1538.77076686347,1499.61447262912,1500.20347050199],[1691.67530842287,1710.06774234641,1712.64058348823,1709.60012040407,1718.95954986377],[1500.48848156975,1546.41234253271,1513.73790526523,1490.20096915518,1561.59983250371],[1542.96143870694,1528.34470206231,1515.11665340196,1581.5417911021,1493.44101483545],[1491.8046603384,1492.4760762238,1467.11315763616,1432.85652842629,1416.62992048399],[1495.72104515261,1537.92346945028,1570.52099094794,1513.0364024491,1444.48649105825],[1452.77508698586,1433.35096279793,1474.95319980629,1495.98570960872,1473.41928002717],[1419.61859155146,1495.99027339962,1503.40930319442,1477.81765822422,1490.80933226226],[1513.6630734391,1547.65411484947,1562.42707347876,1530.07340407892,1576.95885653223],[1470.82453940017,1502.42175365881,1552.08590688683,1554.81332657619,1497.0170127248],[1501.4754281015,1442.90795647538,1418.8544291134,1495.55013302134,1535.58944377323],[1512.07001893565,1547.70040486256,1442.77961740998,1451.75946364358,1505.65351455269],[1531.73191143975,1482.1580046564,1494.49518878197,1506.82164632306,1442.86071464255],[1515.38090799704,1522.16274304648,1549.30635835698,1579.9908545394,1563.19285279073],[1595.38354109134,1623.26886162337,1651.83479324746,1600.9677022479,1554.17558422033],[1510.31072612236,1546.6004294301,1587.38970954708,1520.52896833624,1450.36024817785],[1437.98746993282,1491.5425149934,1488.53077095295,1455.35146427799,1396.50866473842],[1534.86083543358,1546.65503172294,1582.40697507086,1607.53690665576,1559.7562357607],[1517.27527162293,1530.18591998986,1549.3751104283,1567.98998753865,1538.70492569747],[1535.0793024726,1498.23193653291,1420.9148843586,1508.71391680647,1510.01050296972],[1491.5105208088,1498.82420260669,1442.11347273514,1427.36282041704,1489.01331276386]],"Rowv":[[[[[[[[1,51],[[15,24],53]],[9,18]],[[45,54],[56,66]]],[[6,23],[8,42]]],[[[[10,28],25],[27,68]],[[[[14,29],[[[30,59],[36,47]],[64,69]]],35],[39,40]]]],[[[[[[5,41],63],[16,[[31,55],[50,67]]]],[[[[13,22],34],57],[38,49]]],[[61,70],[62,71]]],[[17,58],[[19,20],[32,60]]]]],[[[[2,[12,44]],33],[[[3,37],65],[[7,46],21]]],[[[[[4,43],48],11],26],52]]],"Colv":true,"distfun":["function (x, method = \"euclidean\", diag = FALSE, upper = FALSE, ","    p = 2) ","{","    if (!is.na(pmatch(method, \"euclidian\"))) ","        method <- \"euclidean\"","    METHODS <- c(\"euclidean\", \"maximum\", \"manhattan\", \"canberra\", ","        \"binary\", \"minkowski\")","    method <- pmatch(method, METHODS)","    if (is.na(method)) ","        stop(\"invalid distance method\")","    if (method == -1) ","        stop(\"ambiguous distance method\")","    x <- as.matrix(x)","    N <- nrow(x)","    attrs <- if (method == 6L) ","        list(Size = N, Labels = dimnames(x)[[1L]], Diag = diag, ","            Upper = upper, method = METHODS[method], p = p, call = match.call(), ","            class = \"dist\")","    else list(Size = N, Labels = dimnames(x)[[1L]], Diag = diag, ","        Upper = upper, method = METHODS[method], call = match.call(), ","        class = \"dist\")","    .Call(C_Cdist, x, method, attrs, p)","}"],"hclustfun":["function (d, method = \"complete\", members = NULL) ","{","    METHODS <- c(\"ward.D\", \"single\", \"complete\", \"average\", \"mcquitty\", ","        \"median\", \"centroid\", \"ward.D2\")","    if (method == \"ward\") {","        message(\"The \\\"ward\\\" method has been renamed to \\\"ward.D\\\"; note new \\\"ward.D2\\\"\")","        method <- \"ward.D\"","    }","    i.meth <- pmatch(method, METHODS)","    if (is.na(i.meth)) ","        stop(\"invalid clustering method\", paste(\"\", method))","    if (i.meth == -1) ","        stop(\"ambiguous clustering method\", paste(\"\", method))","    n <- as.integer(attr(d, \"Size\"))","    if (is.null(n)) ","        stop(\"invalid dissimilarities\")","    if (is.na(n) || n > 65536L) ","        stop(\"size cannot be NA nor exceed 65536\")","    if (n < 2) ","        stop(\"must have n >= 2 objects to cluster\")","    len <- as.integer(n * (n - 1)/2)","    if (length(d) != len) ","        (if (length(d) < len) ","            stop","        else warning)(\"dissimilarities of improper length\")","    if (is.null(members)) ","        members <- rep(1, n)","    else if (length(members) != n) ","        stop(\"invalid length of members\")","    storage.mode(d) <- \"double\"","    hcl <- .Fortran(C_hclust, n = n, len = len, method = as.integer(i.meth), ","        ia = integer(n), ib = integer(n), crit = double(n), members = as.double(members), ","        nn = integer(n), disnn = double(n), diss = d)","    hcass <- .Fortran(C_hcass2, n = n, ia = hcl$ia, ib = hcl$ib, ","        order = integer(n), iia = integer(n), iib = integer(n))","    structure(list(merge = cbind(hcass$iia[1L:(n - 1)], hcass$iib[1L:(n - ","        1)]), height = hcl$crit[1L:(n - 1)], order = hcass$order, ","        labels = attr(d, \"Labels\"), method = METHODS[i.meth], ","        call = match.call(), dist.method = attr(d, \"method\")), ","        class = \"hclust\")","}"],"dendrogram":"row","reorderfun":["function (d, w) ","reorder(d, w)"],"k_row":null,"k_col":null,"symm":false,"revC":null,"scale":"none","scale.by.range":false,"na.rm":true,"na.value":null,"digits":3,"cellnote":null,"cellnote_scale":false,"labRow":null,"labCol":["Rating_2011","Rating_2012","Rating_2013","Rating_2014","Rating_2015"],"col":"RdYlBu","symbreaks":false,"na.color":"#777777","rng":null,"breaks":null,"RowSideColors":null,"ColSideColors":null,"RowColorsPalette":["blue","orange","black"],"ColColorsPalette":["cyan","maroon","grey"]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lebebr01\.github\.io\/finite-quarto\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<div class="social-links">
+<p><a href="mailto:brandon-lebeau@uiowa.edu" title="Email"> <i class="fa fa-envelope"></i> </a> <a href="https://twitter.com/blebeau11" title="Twitter"> <i class="fa fa-twitter"></i> </a> <a href="https://github.com/lebebr01" title="GitHub"> <i class="fa fa-github"></i> </a></p>
+</div>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Brandon LeBeau</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
+
+  <meta name="author" content="Brandon LeBeau">
+  <meta name="dcterms.date" content="2019-06-12">
+  <title>Brandon LeBeau – Data Visualization - Static and Interactive Graphics using R</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Data Visualization - Static and Interactive Graphics using R</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Brandon LeBeau 
+</div>
+</div>
+</div>
+
+  <p class="date">2019-06-12</p>
+</section>
+<section class="slide level2">
+
+<h1>
+Data Visualization - Static and Interactive Graphics using R
+</h1>
+<h2>
+Brandon LeBeau
+</h2>
+<h3>
+University of Iowa
+</h3>
+</section>
+<section id="about-me" class="title-slide slide level1 center">
+<h1>About Me</h1>
+<ul>
+<li>I’m an Assistant Professor in the College of Education
+<ul>
+<li>I enjoy model building, particularly longitudinal models, and statistical programming.</li>
+</ul></li>
+<li>I’ve used R for over 10 years.
+<ul>
+<li>I have 4 R packages, 3 on CRAN, 1 on GitHub
+<ul>
+<li>simglm</li>
+<li>pdfsearch</li>
+<li>highlightHTML</li>
+<li>SPSStoR</li>
+</ul></li>
+</ul></li>
+<li>GitHub Repository for this workshop: <a href="https://github.com/lebebr01/iowa_data_science" class="uri">https://github.com/lebebr01/iowa_data_science</a></li>
+</ul>
+</section>
+
+<section id="why-teach-the-tidyverse" class="title-slide slide level1 center">
+<h1>Why teach the tidyverse</h1>
+<ul>
+<li>The tidyverse is a series of packages developed by Hadley Wickham and his team at RStudio. <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a></li>
+<li>I teach/use the tidyverse for 3 major reasons:
+<ul>
+<li>Simple functions that do one thing well</li>
+<li>Consistent implementations across functions within tidyverse (i.e.&nbsp;common APIs)</li>
+<li>Provides a framework for data manipulation</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="course-setup" class="title-slide slide level1 center">
+<h1>Course Setup</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="explore-data" class="title-slide slide level1 center">
+<h1>Explore Data</h1>
+
+<img data-src="../figure/data-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk data</p></section>
+
+<section id="first-ggplot" class="title-slide slide level1 center">
+<h1>First ggplot</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> midwest) <span class="sc">+</span></span>
+<span id="cb3-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/plot1-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk plot1</p></section>
+
+<section id="equivalent-code" class="title-slide slide level1 center">
+<h1>Equivalent Code</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
+<span id="cb4-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/plot1_reduced-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk plot1_reduced</p></section>
+
+<section id="your-turn" class="title-slide slide level1 center">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>Try plotting <code>popdensity</code> by <code>state</code>.</li>
+<li>Try plotting <code>county</code> by <code>state</code>.
+<ul>
+<li>Does this plot work?</li>
+</ul></li>
+<li>Bonus: Try just using the <code>ggplot(data = midwest)</code> from above.
+<ul>
+<li>What do you get?</li>
+<li>Does this make sense?</li>
+</ul></li>
+</ol>
+</section>
+
+<section id="add-aesthetics" class="title-slide slide level1 center">
+<h1>Add Aesthetics</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
+<span id="cb5-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/aesthetic-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk aesthetic</p></section>
+
+<section id="global-aesthetics" class="title-slide slide level1 center">
+<h1>Global Aesthetics</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
+<span id="cb6-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege), <span class="at">color =</span> <span class="st">'pink'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/global_aes-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk global_aes</p></section>
+
+<section id="your-turn-1" class="title-slide slide level1 center">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>Instead of using colors, make the shape of the points different for each state.</li>
+<li>Instead of color, use <code>alpha</code> instead.
+<ul>
+<li>What does this do to the plot?</li>
+</ul></li>
+<li>Try the following command: <code>colors()</code>.
+<ul>
+<li>Try a few colors to find your favorite.</li>
+</ul></li>
+<li>What happens if you use the following code:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span> </span>
+<span id="cb7-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> <span class="st">'green'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="additional-geoms" class="title-slide slide level1 center">
+<h1>Additional Geoms</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
+<span id="cb8-2"><a></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/smooth-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk smooth</p></section>
+
+<section id="add-more-aesthetics" class="title-slide slide level1 center">
+<h1>Add more Aesthetics</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
+<span id="cb9-2"><a></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">linetype =</span> state), </span>
+<span id="cb9-3"><a></a>              <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/smooth_states-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk smooth_states</p></section>
+
+<section id="your-turn-2" class="title-slide slide level1 center">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>It is possible to combine geoms, which we will do next, but try it first. Try to recreate this plot. <img data-src="../figure/combine-1.png" alt="plot of chunk combine"></li>
+</ol>
+</section>
+
+<section id="layered-ggplot" class="title-slide slide level1 center">
+<h1>Layered ggplot</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
+<span id="cb10-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state)) <span class="sc">+</span></span>
+<span id="cb10-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state), </span>
+<span id="cb10-4"><a></a>              <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/combine_geoms-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk combine_geoms</p></section>
+
+<section id="remove-duplicate-aesthetics" class="title-slide slide level1 center">
+<h1>Remove duplicate aesthetics</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>(midwest, </span>
+<span id="cb11-2"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state)) <span class="sc">+</span></span>
+<span id="cb11-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/two_geoms-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk two_geoms</p></section>
+
+<section id="your-turn-3" class="title-slide slide level1 center">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>Can you recreate the following figure? <img data-src="../figure/differ_aes-1.png" alt="plot of chunk differ_aes"></li>
+</ol>
+</section>
+
+<section id="brief-plot-customization" class="title-slide slide level1 center">
+<h1>Brief plot customization</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">ggplot</span>(midwest, </span>
+<span id="cb12-2"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state)) <span class="sc">+</span></span>
+<span id="cb12-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb12-4"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Population Density"</span>, </span>
+<span id="cb12-5"><a></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80000</span>, <span class="dv">20000</span>)) <span class="sc">+</span> </span>
+<span id="cb12-6"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Percent College Graduates"</span>) <span class="sc">+</span> </span>
+<span id="cb12-7"><a></a>  <span class="fu">scale_color_discrete</span>(<span class="st">"State"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="brief-plot-customization-output" class="title-slide slide level1 center">
+<h1>Brief plot customization Output</h1>
+
+<img data-src="../figure/breaks_x2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk breaks_x2</p></section>
+
+<section id="change-plot-theme" class="title-slide slide level1 center">
+<h1>Change plot theme</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">ggplot</span>(midwest, </span>
+<span id="cb13-2"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state)) <span class="sc">+</span></span>
+<span id="cb13-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb13-5"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/theme_bw-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk theme_bw</p></section>
+
+<section id="more-themes" class="title-slide slide level1 center">
+<h1>More themes</h1>
+<ul>
+<li>Themes in ggplot2: <a href="http://ggplot2.tidyverse.org/reference/ggtheme.html" class="uri">http://ggplot2.tidyverse.org/reference/ggtheme.html</a></li>
+<li>Themes from ggthemes package: <a href="https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html" class="uri">https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html</a></li>
+</ul>
+</section>
+
+<section id="base-plot-for-reference" class="title-slide slide level1 center">
+<h1>Base plot for reference</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(midwest, </span>
+<span id="cb14-2"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state)) <span class="sc">+</span></span>
+<span id="cb14-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb14-4"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Population Density"</span>, </span>
+<span id="cb14-5"><a></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80000</span>, <span class="dv">20000</span>)) <span class="sc">+</span> </span>
+<span id="cb14-6"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Percent College Graduates"</span>) <span class="sc">+</span> </span>
+<span id="cb14-7"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="add-plot-title-or-subtitle" class="title-slide slide level1 center">
+<h1>Add plot title or subtitle</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>p1 <span class="sc">+</span> </span>
+<span id="cb15-2"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Percent College Educated by Population Density"</span>,</span>
+<span id="cb15-3"><a></a>       <span class="at">subtitle =</span> <span class="st">"County level data for five midwest states"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/title_subtitle_ggplot2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk title_subtitle_ggplot2</p></section>
+
+<section id="color-options" class="title-slide slide level1 center">
+<h1>Color Options</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>p1 <span class="sc">+</span> <span class="fu">scale_color_grey</span>(<span class="st">"State"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/grey_color-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk grey_color</p></section>
+
+<section id="using-colorbrewer2.org" class="title-slide slide level1 center">
+<h1>Using colorbrewer2.org</h1>
+<ul>
+<li><a href="http://colorbrewer2.org" class="uri">http://colorbrewer2.org</a></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>p1 <span class="sc">+</span> <span class="fu">scale_color_brewer</span>(<span class="st">"State"</span>, <span class="at">palette =</span> <span class="st">'Dark2'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/color_brewer-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk color_brewer</p></section>
+
+<section id="two-additional-color-options" class="title-slide slide level1 center">
+<h1>Two additional color options</h1>
+<ul>
+<li>viridis: <a href="https://github.com/sjmgarnier/viridis" class="uri">https://github.com/sjmgarnier/viridis</a></li>
+<li>scico: <a href="https://github.com/thomasp85/scico" class="uri">https://github.com/thomasp85/scico</a></li>
+</ul>
+</section>
+
+<section id="viridis-colors" class="title-slide slide level1 center">
+<h1>viridis colors</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">library</span>(viridis)</span>
+<span id="cb18-2"><a></a>p1 <span class="sc">+</span> <span class="fu">scale_color_viridis</span>(<span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/viridis-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk viridis</p></section>
+
+<section id="viridis-colors-1" class="title-slide slide level1 center">
+<h1>viridis colors</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>p1 <span class="sc">+</span> <span class="fu">scale_color_viridis</span>(<span class="at">option =</span> <span class="st">'cividis'</span>, <span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/viridis2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk viridis2</p></section>
+
+<section id="zoom-in-on-a-plot" class="title-slide slide level1 center">
+<h1>Zoom in on a plot</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> midwest, </span>
+<span id="cb20-2"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state)) <span class="sc">+</span></span>
+<span id="cb20-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb20-4"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Population Density"</span>) <span class="sc">+</span> </span>
+<span id="cb20-5"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Percent College Graduates"</span>) <span class="sc">+</span> </span>
+<span id="cb20-6"><a></a>  <span class="fu">scale_color_discrete</span>(<span class="st">"State"</span>) <span class="sc">+</span> </span>
+<span id="cb20-7"><a></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15000</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="zoom-in-on-a-plot-output" class="title-slide slide level1 center">
+<h1>Zoom in on a plot output</h1>
+
+<img data-src="../figure/zoom_out-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk zoom_out</p></section>
+
+<section id="zoom-using-scale_x_continuous---bad-practice" class="title-slide slide level1 center">
+<h1>Zoom using <code>scale_x_continuous</code> - Bad Practice</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> midwest, </span>
+<span id="cb21-2"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state)) <span class="sc">+</span></span>
+<span id="cb21-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb21-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb21-5"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Population Density"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15000</span>)) <span class="sc">+</span> </span>
+<span id="cb21-6"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Percent College Graduates"</span>) <span class="sc">+</span> </span>
+<span id="cb21-7"><a></a>  <span class="fu">scale_color_discrete</span>(<span class="st">"State"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="comparing-output" class="title-slide slide level1 center">
+<h1>Comparing output</h1>
+<pre><code>## `geom_smooth()` using method = 'loess' and formula 'y ~ x'</code></pre>
+<pre><code>## Warning: Removed 16 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 16 rows containing missing values (geom_point).</code></pre>
+<pre><code>## `geom_smooth()` using method = 'loess' and formula 'y ~ x'</code></pre>
+
+<img data-src="../figure/zoom_x_output-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk zoom_x_output</p></section>
+
+<section id="lord-of-the-rings-data" class="title-slide slide level1 center">
+<h1>Lord of the Rings Data</h1>
+<ul>
+<li>Data from Jenny Bryan: <a href="https://github.com/jennybc/lotr" class="uri">https://github.com/jennybc/lotr</a></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>lotr <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">'https://raw.githubusercontent.com/jennybc/lotr/master/lotr_clean.tsv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Film = col_character(),
+##   Chapter = col_character(),
+##   Character = col_character(),
+##   Race = col_character(),
+##   Words = col_integer()
+## )</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">head</span>(lotr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>## # A tibble: 6 x 5
+##   Film                       Chapter                Character Race   Words
+##   &lt;chr&gt;                      &lt;chr&gt;                  &lt;chr&gt;     &lt;chr&gt;  &lt;int&gt;
+## 1 The Fellowship Of The Ring 01: Prologue           Bilbo     Hobbit     4
+## 2 The Fellowship Of The Ring 01: Prologue           Elrond    Elf        5
+## 3 The Fellowship Of The Ring 01: Prologue           Galadriel Elf      460
+## 4 The Fellowship Of The Ring 02: Concerning Hobbits Bilbo     Hobbit   214
+## 5 The Fellowship Of The Ring 03: The Shire          Bilbo     Hobbit    70
+## 6 The Fellowship Of The Ring 03: The Shire          Frodo     Hobbit   128</code></pre>
+</section>
+
+<section id="geoms-for-single-variables" class="title-slide slide level1 center">
+<h1>Geoms for single variables</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Words)) <span class="sc">+</span> </span>
+<span id="cb30-2"><a></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb30-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+
+<img data-src="../figure/histogram-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk histogram</p></section>
+
+<section id="customize-histogram" class="title-slide slide level1 center">
+<h1>Customize histogram</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Words)) <span class="sc">+</span> </span>
+<span id="cb32-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
+<span id="cb32-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/cust_hist-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk cust_hist</p></section>
+
+<section id="customize-histogram-2" class="title-slide slide level1 center">
+<h1>Customize histogram 2</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Words)) <span class="sc">+</span> </span>
+<span id="cb33-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">25</span>) <span class="sc">+</span> </span>
+<span id="cb33-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/cust_hist2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk cust_hist2</p></section>
+
+<section id="histograms-by-other-variables---likely-not-useful" class="title-slide slide level1 center">
+<h1>Histograms by other variables - likely not useful</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Words, <span class="at">color =</span> Film)) <span class="sc">+</span> </span>
+<span id="cb34-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">25</span>) <span class="sc">+</span> </span>
+<span id="cb34-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/hist_film-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk hist_film</p></section>
+
+<section id="histograms-by-other-variables---one-alternative" class="title-slide slide level1 center">
+<h1>Histograms by other variables - one alternative</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Words)) <span class="sc">+</span> </span>
+<span id="cb35-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">25</span>) <span class="sc">+</span> </span>
+<span id="cb35-3"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb35-4"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Film)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/hist_film_alt-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk hist_film_alt</p></section>
+
+<section id="your-turn-4" class="title-slide slide level1 center">
+<h1>Your Turn</h1>
+<ol type="1">
+<li><p>With more than two groups, histograms are difficult to interpret due to overlap. Instead, use the <code>geom_density</code> to create a density plot for <code>Words</code> for each film.</p></li>
+<li><p>Using <code>geom_boxplot</code>, create boxplots with <code>Words</code> as the y variable and <code>Film</code> as the x variable. Bonus: facet this plot by the variable <code>Race</code>. Bonus2: Zoom in on the bulk of the data.</p></li>
+</ol>
+</section>
+
+<section id="rotation-of-axis-labels" class="title-slide slide level1 center">
+<h1>Rotation of axis labels</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Film, <span class="at">y =</span> Words)) <span class="sc">+</span> </span>
+<span id="cb36-2"><a></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb36-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Race) <span class="sc">+</span> </span>
+<span id="cb36-4"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb36-5"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/rotate-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk rotate</p></section>
+
+<section id="many-times-coord_flip-is-better" class="title-slide slide level1 center">
+<h1>Many times <code>coord_flip</code> is better</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Film, <span class="at">y =</span> Words)) <span class="sc">+</span> </span>
+<span id="cb37-2"><a></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb37-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Race) <span class="sc">+</span> </span>
+<span id="cb37-4"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb37-5"><a></a>  <span class="fu">coord_flip</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/flip-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk flip</p></section>
+
+<section id="bar-graphs" class="title-slide slide level1 center">
+<h1>Bar graphs</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Race)) <span class="sc">+</span> </span>
+<span id="cb38-2"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> </span>
+<span id="cb38-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/simple_bar-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk simple_bar</p></section>
+
+<section id="add-aesthetic" class="title-slide slide level1 center">
+<h1>Add aesthetic</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Race)) <span class="sc">+</span></span>
+<span id="cb39-2"><a></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Film)) <span class="sc">+</span> </span>
+<span id="cb39-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/bar_fill-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk bar_fill</p></section>
+
+<section id="stacked-bars-relative" class="title-slide slide level1 center">
+<h1>Stacked Bars Relative</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Race)) <span class="sc">+</span> </span>
+<span id="cb40-2"><a></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Film), <span class="at">position =</span> <span class="st">'fill'</span>) <span class="sc">+</span> </span>
+<span id="cb40-3"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb40-4"><a></a>  <span class="fu">ylab</span>(<span class="st">"Proportion"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/stacked-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk stacked</p></section>
+
+<section id="dodged-bars" class="title-slide slide level1 center">
+<h1>Dodged Bars</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Race)) <span class="sc">+</span> </span>
+<span id="cb41-2"><a></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Film), <span class="at">position =</span> <span class="st">'dodge'</span>) <span class="sc">+</span> </span>
+<span id="cb41-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/unnamed-chunk-1-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk unnamed-chunk-1</p></section>
+
+<section id="change-bar-col-bar_coloror" class="title-slide slide level1 center">
+<h1>Change Bar Col bar_coloror</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="fu">ggplot</span>(lotr, <span class="fu">aes</span>(<span class="at">x =</span> Race)) <span class="sc">+</span> </span>
+<span id="cb42-2"><a></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Film), <span class="at">position =</span> <span class="st">'fill'</span>) <span class="sc">+</span> </span>
+<span id="cb42-3"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb42-4"><a></a>  <span class="fu">ylab</span>(<span class="st">"Proportion"</span>) <span class="sc">+</span> </span>
+<span id="cb42-5"><a></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">option =</span> <span class="st">'cividis'</span>, <span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+<img data-src="../figure/bar_color-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk bar_color</p></section>
+
+<section id="your-turn-5" class="title-slide slide level1 center">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>Using the gss_cat data, create a bar chart of the variable <code>partyid</code>.</li>
+<li>Add the variable <code>marital</code> to the bar chart created in step 1. Do you prefer a stacked or dodged version?</li>
+<li>Take steps to make one of the plots above close to publication quality.</li>
+</ol>
+</section>
+
+<section id="additional-ggplot2-resources" class="title-slide slide level1 center">
+<h1>Additional ggplot2 resources</h1>
+<ul>
+<li>ggplot2 website: <a href="http://docs.ggplot2.org/current/index.html" class="uri">http://docs.ggplot2.org/current/index.html</a></li>
+<li>ggplot2 book: <a href="http://www.springer.com/us/book/9780387981413" class="uri">http://www.springer.com/us/book/9780387981413</a></li>
+<li>R graphics cookbook: <a href="http://www.cookbook-r.com/Graphs/" class="uri">http://www.cookbook-r.com/Graphs/</a></li>
+</ul>
+</section>
+
+<section id="additional-r-resources" class="title-slide slide level1 center">
+<h1>Additional R Resources</h1>
+<ul>
+<li>R for Data Science: <a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a></li>
+</ul>
+</section>
+
+<section id="moving-to-interactive-graphics" class="title-slide slide level1 center">
+<h1>Moving to Interactive Graphics</h1>
+<ul>
+<li>Why interactive graphics?
+<ul>
+<li>Created specifically for the web.</li>
+<li>Can focus, explore, zoom, or remove data at will.</li>
+<li>Allows users to customize their experience.</li>
+<li>It is fun!</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="interactive-graphics-with-plotly" class="title-slide slide level1 center">
+<h1>Interactive graphics with plotly</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">install.packages</span>(<span class="st">"plotly"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="first-interactive-plot" class="title-slide slide level1 center">
+<h1>First Interactive Plot</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="fu">library</span>(plotly)</span>
+<span id="cb44-2"><a></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> midwest) <span class="sc">+</span></span>
+<span id="cb44-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege))</span>
+<span id="cb44-4"><a></a><span class="fu">print</span>(<span class="fu">ggplotly</span>(p))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="customized-interactive-plot" class="title-slide slide level1 center">
+<h1>Customized Interactive Plot</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(midwest, </span>
+<span id="cb45-2"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state)) <span class="sc">+</span></span>
+<span id="cb45-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb45-4"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Population Density"</span>, </span>
+<span id="cb45-5"><a></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">80000</span>, <span class="dv">20000</span>)) <span class="sc">+</span> </span>
+<span id="cb45-6"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Percent College Graduates"</span>) <span class="sc">+</span> </span>
+<span id="cb45-7"><a></a>  <span class="fu">scale_color_discrete</span>(<span class="st">"State"</span>) <span class="sc">+</span> </span>
+<span id="cb45-8"><a></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb45-9"><a></a><span class="fu">print</span>(<span class="fu">ggplotly</span>(p))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="your-turn-6" class="title-slide slide level1 center">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>Using the <code>starwars</code> data, create a static ggplot and use the <code>ggplotly</code> function to turn it interactive.</li>
+</ol>
+</section>
+
+<section id="lord-of-the-rings-data-1" class="title-slide slide level1 center">
+<h1>Lord of the Rings Data</h1>
+<ul>
+<li>Data from Jenny Bryan: <a href="https://github.com/jennybc/lotr" class="uri">https://github.com/jennybc/lotr</a></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>lotr <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">'https://raw.githubusercontent.com/jennybc/lotr/master/lotr_clean.tsv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Film = col_character(),
+##   Chapter = col_character(),
+##   Character = col_character(),
+##   Race = col_character(),
+##   Words = col_integer()
+## )</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>lotr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>## # A tibble: 682 x 5
+##    Film                       Chapter                Character Race  Words
+##    &lt;chr&gt;                      &lt;chr&gt;                  &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;
+##  1 The Fellowship Of The Ring 01: Prologue           Bilbo     Hobb~     4
+##  2 The Fellowship Of The Ring 01: Prologue           Elrond    Elf       5
+##  3 The Fellowship Of The Ring 01: Prologue           Galadriel Elf     460
+##  4 The Fellowship Of The Ring 02: Concerning Hobbits Bilbo     Hobb~   214
+##  5 The Fellowship Of The Ring 03: The Shire          Bilbo     Hobb~    70
+##  6 The Fellowship Of The Ring 03: The Shire          Frodo     Hobb~   128
+##  7 The Fellowship Of The Ring 03: The Shire          Gandalf   Wiza~   197
+##  8 The Fellowship Of The Ring 03: The Shire          Hobbit K~ Hobb~    10
+##  9 The Fellowship Of The Ring 03: The Shire          Hobbits   Hobb~    12
+## 10 The Fellowship Of The Ring 04: Very Old Friends   Bilbo     Hobb~   339
+## # ... with 672 more rows</code></pre>
+</section>
+
+<section id="create-plotly-by-hand" class="title-slide slide level1 center">
+<h1>Create plotly by hand</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a><span class="fu">plot_ly</span>(lotr, <span class="at">x =</span> <span class="sc">~</span>Words) <span class="sc">%&gt;%</span> <span class="fu">add_histogram</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="subplots" class="title-slide slide level1 center">
+<h1>Subplots</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>one_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(d) {</span>
+<span id="cb51-2"><a></a>  <span class="fu">plot_ly</span>(d, <span class="at">x =</span> <span class="sc">~</span>Words) <span class="sc">%&gt;%</span></span>
+<span id="cb51-3"><a></a>    <span class="fu">add_histogram</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb51-4"><a></a>    <span class="fu">add_annotations</span>(</span>
+<span id="cb51-5"><a></a>      <span class="sc">~</span><span class="fu">unique</span>(Film), <span class="at">x =</span> <span class="fl">0.5</span>, <span class="at">y =</span> <span class="dv">1</span>, </span>
+<span id="cb51-6"><a></a>      <span class="at">xref =</span> <span class="st">"paper"</span>, <span class="at">yref =</span> <span class="st">"paper"</span>, <span class="at">showarrow =</span> <span class="cn">FALSE</span></span>
+<span id="cb51-7"><a></a>    )</span>
+<span id="cb51-8"><a></a>}</span>
+<span id="cb51-9"><a></a></span>
+<span id="cb51-10"><a></a>lotr <span class="sc">%&gt;%</span></span>
+<span id="cb51-11"><a></a>  <span class="fu">split</span>(.<span class="sc">$</span>Film) <span class="sc">%&gt;%</span></span>
+<span id="cb51-12"><a></a>  <span class="fu">lapply</span>(one_plot) <span class="sc">%&gt;%</span> </span>
+<span id="cb51-13"><a></a>  <span class="fu">subplot</span>(<span class="at">nrows =</span> <span class="dv">1</span>, <span class="at">shareX =</span> <span class="cn">TRUE</span>, <span class="at">titleX =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-14"><a></a>  <span class="fu">hide_legend</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="grouped-bar-plot" class="title-slide slide level1 center">
+<h1>Grouped bar plot</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a><span class="fu">plot_ly</span>(lotr, <span class="at">x =</span> <span class="sc">~</span>Race, <span class="at">color =</span> <span class="sc">~</span>Film) <span class="sc">%&gt;%</span> <span class="fu">add_histogram</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="plot-of-proportions" class="title-slide slide level1 center">
+<h1>Plot of proportions</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="co"># number of diamonds by cut and clarity (n)</span></span>
+<span id="cb53-2"><a></a>lotr_count <span class="ot">&lt;-</span> <span class="fu">count</span>(lotr, Race, Film)</span>
+<span id="cb53-3"><a></a><span class="co"># number of diamonds by cut (nn)</span></span>
+<span id="cb53-4"><a></a>lotr_prop <span class="ot">&lt;-</span> <span class="fu">left_join</span>(lotr_count, <span class="fu">count</span>(lotr_count, Race, <span class="at">wt =</span> n))</span>
+<span id="cb53-5"><a></a>lotr_prop <span class="sc">%&gt;%</span></span>
+<span id="cb53-6"><a></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> nn) <span class="sc">%&gt;%</span></span>
+<span id="cb53-7"><a></a>  <span class="fu">plot_ly</span>(<span class="at">x =</span> <span class="sc">~</span>Race, <span class="at">y =</span> <span class="sc">~</span>prop, <span class="at">color =</span> <span class="sc">~</span>Film) <span class="sc">%&gt;%</span></span>
+<span id="cb53-8"><a></a>  <span class="fu">add_bars</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb53-9"><a></a>  <span class="fu">layout</span>(<span class="at">barmode =</span> <span class="st">"stack"</span>) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="your-turn-7" class="title-slide slide level1 center">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>Using the <code>gss_cat</code> data, create a histrogram for the <code>tvhours</code> variable.</li>
+<li>Using the <code>gss_cat</code> data, create a bar chart showing the <code>partyid</code> variable by the <code>marital</code> status.</li>
+</ol>
+</section>
+
+<section id="scatterplots-by-hand" class="title-slide slide level1 center">
+<h1>Scatterplots by Hand</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a><span class="fu">plot_ly</span>(midwest, <span class="at">x =</span> <span class="sc">~</span>popdensity, <span class="at">y =</span> <span class="sc">~</span>percollege) <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a></a>  <span class="fu">add_markers</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="change-symbol" class="title-slide slide level1 center">
+<h1>Change symbol</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a><span class="fu">plot_ly</span>(midwest, <span class="at">x =</span> <span class="sc">~</span>popdensity, <span class="at">y =</span> <span class="sc">~</span>percollege) <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a></a>  <span class="fu">add_markers</span>(<span class="at">symbol =</span> <span class="sc">~</span>state) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="change-color" class="title-slide slide level1 center">
+<h1>Change color</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a><span class="fu">plot_ly</span>(midwest, <span class="at">x =</span> <span class="sc">~</span>popdensity, <span class="at">y =</span> <span class="sc">~</span>percollege) <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a></a>  <span class="fu">add_markers</span>(<span class="at">color =</span> <span class="sc">~</span>state, <span class="at">colors =</span> viridis<span class="sc">::</span><span class="fu">viridis</span>(<span class="dv">5</span>)) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="line-graph" class="title-slide slide level1 center">
+<h1>Line Graph</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>storms_yearly <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb57-3"><a></a>  <span class="fu">summarise</span>(<span class="at">num =</span> <span class="fu">length</span>(<span class="fu">unique</span>(name)))</span>
+<span id="cb57-4"><a></a></span>
+<span id="cb57-5"><a></a><span class="fu">plot_ly</span>(storms_yearly, <span class="at">x =</span> <span class="sc">~</span>year, <span class="at">y =</span> <span class="sc">~</span>num) <span class="sc">%&gt;%</span></span>
+<span id="cb57-6"><a></a>  <span class="fu">add_lines</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="your-turn-8" class="title-slide slide level1 center">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>Using the <code>gss_cat</code> data, create a scatterplot showing the <code>age</code> and <code>tvhours</code> variables.</li>
+<li>Compute the average time spent watching tv by year and marital status. Then, plot the average time spent watching tv by year and marital status.</li>
+</ol>
+</section>
+
+<section id="highcharter-highcharts-for-r" class="title-slide slide level1 center">
+<h1>Highcharter; Highcharts for R</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"jbkunst/highcharter"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="hchart-function" class="title-slide slide level1 center">
+<h1><code>hchart</code> function</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a><span class="fu">library</span>(highcharter)</span>
+<span id="cb59-2"><a></a></span>
+<span id="cb59-3"><a></a>lotr_count <span class="ot">&lt;-</span> lotr <span class="sc">%&gt;%</span></span>
+<span id="cb59-4"><a></a>  <span class="fu">count</span>(Film, Race)</span>
+<span id="cb59-5"><a></a></span>
+<span id="cb59-6"><a></a><span class="fu">hchart</span>(lotr_count, <span class="st">"column"</span>, <span class="fu">hcaes</span>(<span class="at">x =</span> Race, <span class="at">y =</span> n, <span class="at">group =</span> Film)) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="a-second-hchart" class="title-slide slide level1 center">
+<h1>A second <code>hchart</code></h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a><span class="fu">hchart</span>(midwest, <span class="st">"scatter"</span>, <span class="fu">hcaes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">group =</span> state)) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="histogram" class="title-slide slide level1 center">
+<h1>Histogram</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a><span class="fu">hchart</span>(lotr<span class="sc">$</span>Words) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="your-turn-9" class="title-slide slide level1 center">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>Using the <code>hchart</code> function, create a bar chart or histogram with the <code>gss_cat</code> data.</li>
+<li>Using the <code>hchart</code> function, create a scatterplot with the <code>gss_cat</code> data.</li>
+</ol>
+</section>
+
+<section id="build-highcharts-from-scratch" class="title-slide slide level1 center">
+<h1>Build Highcharts from scratch</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a></a>hc <span class="ot">&lt;-</span> <span class="fu">highchart</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb62-2"><a></a>  <span class="fu">hc_xAxis</span>(<span class="at">categories =</span> lotr_count<span class="sc">$</span>Race) <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a></a>  <span class="fu">hc_add_series</span>(<span class="at">name =</span> <span class="st">'The Fellowship Of The Ring'</span>, </span>
+<span id="cb62-4"><a></a>                <span class="at">data =</span> <span class="fu">filter</span>(lotr_count, Film <span class="sc">==</span> <span class="st">'The Fellowship Of The Ring'</span>)<span class="sc">$</span>n) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-5"><a></a>  <span class="fu">hc_add_series</span>(<span class="at">name =</span> <span class="st">'The Two Towers'</span>, </span>
+<span id="cb62-6"><a></a>                <span class="at">data =</span> <span class="fu">filter</span>(lotr_count, Film <span class="sc">==</span> <span class="st">'The Two Towers'</span>)<span class="sc">$</span>n) <span class="sc">%&gt;%</span></span>
+<span id="cb62-7"><a></a>  <span class="fu">hc_add_series</span>(<span class="at">name =</span> <span class="st">'The Return Of The King'</span>, </span>
+<span id="cb62-8"><a></a>                <span class="at">data =</span> <span class="fu">filter</span>(lotr_count, Film <span class="sc">==</span> <span class="st">'The Return Of The King'</span>)<span class="sc">$</span>n)</span>
+<span id="cb62-9"><a></a>hc <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="change-chart-type" class="title-slide slide level1 center">
+<h1>Change Chart type</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a></a>hc <span class="ot">&lt;-</span> hc <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a></a>  <span class="fu">hc_chart</span>(<span class="at">type =</span> <span class="st">'column'</span>)</span>
+<span id="cb63-3"><a></a>hc <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="change-colors" class="title-slide slide level1 center">
+<h1>Change Colors</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a></a>hc <span class="ot">&lt;-</span> hc <span class="sc">%&gt;%</span></span>
+<span id="cb64-2"><a></a>  <span class="fu">hc_colors</span>(<span class="fu">substr</span>(<span class="fu">viridis</span>(<span class="dv">3</span>), <span class="dv">0</span>, <span class="dv">7</span>))</span>
+<span id="cb64-3"><a></a>hc <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="modify-axes" class="title-slide slide level1 center">
+<h1>Modify Axes</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a></a>hc <span class="ot">&lt;-</span> hc <span class="sc">%&gt;%</span></span>
+<span id="cb65-2"><a></a>  <span class="fu">hc_xAxis</span>(<span class="at">title =</span> <span class="fu">list</span>(<span class="at">text =</span> <span class="st">"Race"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb65-3"><a></a>  <span class="fu">hc_yAxis</span>(<span class="at">title =</span> <span class="fu">list</span>(<span class="at">text =</span> <span class="st">"Number of Words Spoken"</span>),</span>
+<span id="cb65-4"><a></a>           <span class="at">showLastLabel =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb65-5"><a></a>hc <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="add-title-subtitle-move-legend" class="title-slide slide level1 center">
+<h1>Add title, subtitle, move legend</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a></a>hc <span class="ot">&lt;-</span> hc <span class="sc">%&gt;%</span></span>
+<span id="cb66-2"><a></a>  <span class="fu">hc_title</span>(<span class="at">text =</span> <span class="st">'Number of Words Spoken in Lord of the Rings Films'</span>,</span>
+<span id="cb66-3"><a></a>           <span class="at">align =</span> <span class="st">'left'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb66-4"><a></a>  <span class="fu">hc_subtitle</span>(<span class="at">text =</span> <span class="st">'Broken down by &lt;i&gt;Film&lt;/i&gt; and &lt;b&gt;Race&lt;/b&gt;'</span>, </span>
+<span id="cb66-5"><a></a>              <span class="at">align =</span> <span class="st">'left'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb66-6"><a></a>  <span class="fu">hc_legend</span>(<span class="at">align =</span> <span class="st">'right'</span>, <span class="at">verticalAlign =</span> <span class="st">'top'</span>, <span class="at">layout =</span> <span class="st">'vertical'</span>,</span>
+<span id="cb66-7"><a></a>            <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">80</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb66-8"><a></a>  <span class="fu">hc_exporting</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb66-9"><a></a>hc <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="your-turn-10" class="title-slide slide level1 center">
+<h1>Your Turn</h1>
+<ol type="1">
+<li>Build up a plot from scratch, getting the figure close to publication quality using the <code>gss_cat</code> data.</li>
+</ol>
+</section>
+
+<section id="correlation-matrices" class="title-slide slide level1 center">
+<h1>Correlation Matrices</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a></a><span class="fu">select</span>(storms, wind, pressure, ts_diameter, hu_diameter) <span class="sc">%&gt;%</span></span>
+<span id="cb67-2"><a></a>  <span class="fu">cor</span>(<span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb67-3"><a></a>  <span class="fu">hchart</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="leaflet-example" class="title-slide slide level1 center">
+<h1>Leaflet Example</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb68-2"><a></a></span>
+<span id="cb68-3"><a></a>storms <span class="sc">%&gt;%</span></span>
+<span id="cb68-4"><a></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Ike'</span>, <span class="st">'Katrina'</span>), year <span class="sc">&gt;</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb68-5"><a></a>  <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb68-6"><a></a>  <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb68-7"><a></a>  <span class="fu">addCircles</span>(<span class="at">lng =</span> <span class="sc">~</span>long, <span class="at">lat =</span> <span class="sc">~</span>lat, <span class="at">popup =</span> <span class="sc">~</span>name, <span class="at">weight =</span> <span class="dv">1</span>,</span>
+<span id="cb68-8"><a></a>             <span class="at">radius =</span> <span class="sc">~</span>wind<span class="sc">*</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="gganimate" class="title-slide slide level1 center">
+<h1>gganimate</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a><span class="fu">install.packages</span>(<span class="st">"gganimate"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+
+<section id="gganimate-example" class="title-slide slide level1 center">
+<h1>gganimate example</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a></a><span class="fu">library</span>(gganimate)</span>
+<span id="cb70-2"><a></a></span>
+<span id="cb70-3"><a></a><span class="fu">ggplot</span>(storms, <span class="fu">aes</span>(<span class="at">x =</span> pressure, <span class="at">y =</span> wind, <span class="at">color =</span> status)) <span class="sc">+</span> </span>
+<span id="cb70-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb70-5"><a></a>  <span class="fu">xlab</span>(<span class="st">"Pressure"</span>) <span class="sc">+</span> </span>
+<span id="cb70-6"><a></a>  <span class="fu">ylab</span>(<span class="st">"Wind Speed (MPH)"</span>) <span class="sc">+</span></span>
+<span id="cb70-7"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>status) <span class="sc">+</span></span>
+<span id="cb70-8"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb70-9"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Year: {frame_time}'</span>) <span class="sc">+</span></span>
+<span id="cb70-10"><a></a>  <span class="fu">transition_time</span>(<span class="fu">as.integer</span>(year)) <span class="sc">+</span> </span>
+<span id="cb70-11"><a></a>  <span class="fu">ease_aes</span>(<span class="st">'linear'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+
+<section id="gganimate-output" class="title-slide slide level1 center">
+<h1>gganimate output</h1>
+
+<img data-src="../figure/storms.gif" class="r-stretch"></section>
+
+<section id="additional-resources" class="title-slide slide level1 center">
+<h1>Additional Resources</h1>
+<ul>
+<li>plotly for R book: <a href="https://plotly-book.cpsievert.me/" class="uri">https://plotly-book.cpsievert.me/</a></li>
+<li>plotly: <a href="https://plot.ly/" class="uri">https://plot.ly/</a></li>
+<li>highcharter: <a href="http://jkunst.com/highcharter/index.html" class="uri">http://jkunst.com/highcharter/index.html</a></li>
+<li>highcharts: <a href="https://www.highcharts.com/" class="uri">https://www.highcharts.com/</a></li>
+<li>htmlwidgets: <a href="https://www.htmlwidgets.org/" class="uri">https://www.htmlwidgets.org/</a></li>
+<li>gganimate: <a href="https://gganimate.com/" class="uri">https://gganimate.com/</a></li>
+</ul>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/lebebr01\.github\.io\/finite-quarto\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

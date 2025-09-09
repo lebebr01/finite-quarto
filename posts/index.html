@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Educate-R – Brandon LeBeau</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-55373f81aad687d9e5c9f061504c548c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-95bd368a27abdcadd26b2436c52b31a5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      page: 5,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="alternate" type="application/rss+xml" title="Brandon LeBeau" href="index.xml" data-external="1"></head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Brandon LeBeau</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../posts/"> 
+<span class="menu-text">Educate-R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../publications/"> 
+<span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../presentations/"> 
+<span class="menu-text">Presentations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../packages/"> 
+<span class="menu-text">R Packages</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../workshops/"> 
+<span class="menu-text">Workshops</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about/"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Educate-R</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(23)</span></div><div class="category" data-category="QWVyYQ==">Aera <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q2x1c3RlciUyMEFuYWx5c2lz">Cluster Analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q29kZQ==">Code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q29sbGVnZSUyMEZvb3RiYWxs">College Football <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q3Nz">Css <span class="quarto-category-count">(2)</span></div><div class="category" data-category="RGF0YS50YWJsZQ==">Data.table <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RHBseXI=">Dplyr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R2dwbG90Mg==">Ggplot2 <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Z2dwbG90Mg==">ggplot2 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R3JhcGhpY3M=">Graphics <span class="quarto-category-count">(2)</span></div><div class="category" data-category="R3Vp">Gui <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SGlnaGxpZ2h0aHRtbA==">Highlighthtml <span class="quarto-category-count">(3)</span></div><div class="category" data-category="SHRtbA==">Html <span class="quarto-category-count">(4)</span></div><div class="category" data-category="SmF2YXNjcmlwdA==">Javascript <span class="quarto-category-count">(2)</span></div><div class="category" data-category="TGF0ZXg=">Latex <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWFya2Rvd24=">Markdown <span class="quarto-category-count">(5)</span></div><div class="category" data-category="UGFja2FnZQ==">Package <span class="quarto-category-count">(6)</span></div><div class="category" data-category="UGRm">Pdf <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGRmc2VhcmNo">Pdfsearch <span class="quarto-category-count">(2)</span></div><div class="category" data-category="UGx5cg==">Plyr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(23)</span></div><div class="category" data-category="UmNoYXJ0cw==">Rcharts <span class="quarto-category-count">(2)</span></div><div class="category" data-category="U2VxdWVuY2U=">Sequence <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2hpbnk=">Shiny <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2ltZ2xt">Simglm <span class="quarto-category-count">(3)</span></div><div class="category" data-category="U2ltdWxhdGlvbg==">Simulation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2xpZHk=">Slidy <span class="quarto-category-count">(2)</span></div><div class="category" data-category="U3BlZWR0ZXN0">Speedtest <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U3Bzcw==">Spss <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGVhY2hpbmc=">Teaching <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGlkeQ==">Tidy <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VHJlbmQ=">Trend <span class="quarto-category-count">(1)</span></div><div class="category" data-category="WG1s">Xml <span class="quarto-category-count">(1)</span></div></div></div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Educate-R</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+
+
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="UiUyQ1NoaW55JTJDVGVhY2hpbmc=" data-listing-file-modified-sort="1757436683362" data-listing-reading-time-sort="3" data-listing-word-count-sort="479">
+<div class="thumbnail"><a href="../posts/2013-12-30-guessCorr.html" class="no-external">
+
+<p class="card-img-top"><img src="../figs/GuessingCorrelations.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2013-12-30-guessCorr.html" class="no-external">Guessing Correlations: A shiny app</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2hpbnk='); return false;">Shiny</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('VGVhY2hpbmc='); return false;">Teaching</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2013-12-30-guessCorr.html" class="no-external">
+A recent hobby of mine (as with many other R users) is to play around with the relatively new R package: <em>shiny</em>. I started creating demo applications about a year ago just to…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2013-12-30-guessCorr.html" class="no-external">
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="UiUyQ1NpbWdsbSUyQ1NpbXVsYXRpb24lMkNUaWR5" data-listing-date-sort="1560229200000" data-listing-file-modified-sort="1757437046055" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2073">
+<div class="thumbnail"><a href="../posts/simglm-0-7-4.html" class="no-external">
+
+<p class="card-img-top"><img src="simglm-0-7-4_files/figure-html/error-dist-1.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/simglm-0-7-4.html" class="no-external">simglm v0.7.4: Tidy Simulation</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2ltZ2xt'); return false;">Simglm</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2ltdWxhdGlvbg=='); return false;">Simulation</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('VGlkeQ=='); return false;">Tidy</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/simglm-0-7-4.html" class="no-external">
+I’m happy to formally announce a major update to the simglm R package. In brief, the updated package contains a new more robust syntax for simulating data, adds parallel…<code></code>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/simglm-0-7-4.html" class="no-external">
+<div class="listing-date">
+Jun 11, 2019
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="UiUyQ1BkZnNlYXJjaCUyQ1BkZg==" data-listing-date-sort="1534914000000" data-listing-file-modified-sort="1757436691899" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1027">
+<div class="thumbnail"><a href="../posts/pdfsearch-0-3-0.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/pdfsearch-0-3-0.html" class="no-external">pdfsearch v0.3.0</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGRmc2VhcmNo'); return false;">Pdfsearch</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGRm'); return false;">Pdf</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/pdfsearch-0-3-0.html" class="no-external">
+I’m happy to formally announce a major update to the developmental version of the pdfsearch R package. In brief, this version includes support for splitting the PDF by…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/pdfsearch-0-3-0.html" class="no-external">
+<div class="listing-date">
+Aug 22, 2018
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="UiUyQ0NvbGxlZ2UlMjBGb290YmFsbCUyQ0NsdXN0ZXIlMjBBbmFseXNpcw==" data-listing-date-sort="1512367200000" data-listing-file-modified-sort="1757436691372" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="970">
+<div class="thumbnail"><a href="../posts/cluster-coaches.html" class="no-external">
+
+<p class="card-img-top"><img src="cluster-coaches_files/figure-html/dendrogram-1.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/cluster-coaches.html" class="no-external">Hierarchical Cluster Analysis of Coach ELO Ratings</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q29sbGVnZSUyMEZvb3RiYWxs'); return false;">College Football</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q2x1c3RlciUyMEFuYWx5c2lz'); return false;">Cluster Analysis</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/cluster-coaches.html" class="no-external">
+For the past few years (quickly approaching a decade), a colleague and I started scraping information about college football coaches to explore the question, which coach…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/cluster-coaches.html" class="no-external">
+<div class="listing-date">
+Dec 4, 2017
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="UiUyQ1NpbWdsbSUyQ1BhY2thZ2U=" data-listing-date-sort="1500872400000" data-listing-file-modified-sort="1757437417353" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1499">
+<div class="thumbnail"><a href="../posts/simglm-jsm.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/simglm-jsm.html" class="no-external">Announcing <code>simglm</code> version 0.6.0: Power and Simulation of Generalized Linear Mixed Models</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2ltZ2xt'); return false;">Simglm</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGFja2FnZQ=='); return false;">Package</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/simglm-jsm.html" class="no-external">
+The <code>simglm</code> package has an update on CRAN bumping the version up to 0.6.0. This update has added the ability to simulate count data (poisson) and also has fixed (I think) the…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/simglm-jsm.html" class="no-external">
+<div class="listing-date">
+Jul 24, 2017
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="UiUyQ1NpbWdsbSUyQ1BhY2thZ2U=" data-listing-date-sort="1495515600000" data-listing-file-modified-sort="1757437113128" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1139">
+<div class="thumbnail"><a href="../posts/2017-05-23-simglm-submission-to-cran-this-week.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2017-05-23-simglm-submission-to-cran-this-week.html" class="no-external">simglm submission to CRAN this week</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2ltZ2xt'); return false;">Simglm</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGFja2FnZQ=='); return false;">Package</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2017-05-23-simglm-submission-to-cran-this-week.html" class="no-external">
+This is a quick note looking for any further feedback on the simglm package prior to CRAN submission later this week. The goal is to submit Thursday or Friday this week. The…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2017-05-23-simglm-submission-to-cran-this-week.html" class="no-external">
+<div class="listing-date">
+May 23, 2017
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="UiUyQ1BhY2thZ2UlMkNIaWdobGlnaHRodG1sJTJDTWFya2Rvd24lMkNIdG1s" data-listing-date-sort="1483423200000" data-listing-file-modified-sort="1757436689775" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="990">
+<div class="thumbnail"><a href="../posts/2017-01-03-use-css-to-format-markdown-or-html-files.html" class="no-external">
+
+<p class="card-img-top"><img data-src="../post/2017-01-03-highlighthtml_files/highlight_table.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2017-01-03-use-css-to-format-markdown-or-html-files.html" class="no-external">Use CSS to format markdown or HTML files</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGFja2FnZQ=='); return false;">Package</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SGlnaGxpZ2h0aHRtbA=='); return false;">Highlighthtml</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TWFya2Rvd24='); return false;">Markdown</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SHRtbA=='); return false;">Html</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2017-01-03-use-css-to-format-markdown-or-html-files.html" class="no-external">
+Markdown (and Rmarkdown) are great ways to quickly develop material without worrying about the formatting. The documents can then be compiled using the <code>knitr</code> or <code>rmarkdown</code> pac…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2017-01-03-use-css-to-format-markdown-or-html-files.html" class="no-external">
+<div class="listing-date">
+Jan 3, 2017
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="UiUyQ1BkZnNlYXJjaCUyQ1BhY2thZ2U=" data-listing-date-sort="1480658400000" data-listing-file-modified-sort="1757436689315" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="629">
+<div class="thumbnail"><a href="../posts/2016-12-02-introduction-of-the-pdfsearch-package.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2016-12-02-introduction-of-the-pdfsearch-package.html" class="no-external">Introduction of the pdfsearch package</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGRmc2VhcmNo'); return false;">Pdfsearch</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGFja2FnZQ=='); return false;">Package</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2016-12-02-introduction-of-the-pdfsearch-package.html" class="no-external">
+I’m happy to introduce an add-on package, <code>pdfsearch</code>, that adds the ability to do keyword searches on pdf files. This add-on package uses the excellent <code>pdftools</code> package from…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2016-12-02-introduction-of-the-pdfsearch-package.html" class="no-external">
+<div class="listing-date">
+Dec 2, 2016
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="UiUyQ1NlcXVlbmNlJTJDU3BlZWR0ZXN0" data-listing-date-sort="1433048400000" data-listing-file-modified-sort="1757436688846" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="532">
+<div class="thumbnail"><a href="../posts/2015-05-31-speed-test-of-sequence-generation-for-unbalance....html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2015-05-31-speed-test-of-sequence-generation-for-unbalance....html" class="no-external">Speed test of sequence generation for unbalanced simulation</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2VxdWVuY2U='); return false;">Sequence</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U3BlZWR0ZXN0'); return false;">Speedtest</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2015-05-31-speed-test-of-sequence-generation-for-unbalance....html" class="no-external">
+I have a simulation package that allows for the simulation of regression models including nested data structures. You can see the package on github here: simReg. Over the…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2015-05-31-speed-test-of-sequence-generation-for-unbalance....html" class="no-external">
+<div class="listing-date">
+May 31, 2015
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-categories="UiUyQ0dyYXBoaWNzJTJDR2dwbG90Mg==" data-listing-date-sort="1427086800000" data-listing-file-modified-sort="1757436688404" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1100">
+<div class="thumbnail"><a href="../posts/2015-03-23-remove-leading-0-with-ggplot2.html" class="no-external">
+
+<p class="card-img-top"><img data-src="2015-03-23-remove-leading-0-with-ggplot2_files/figure-html/plotwith0-1.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2015-03-23-remove-leading-0-with-ggplot2.html" class="no-external">Remove leading 0 with ggplot2</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('R3JhcGhpY3M='); return false;">Graphics</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('R2dwbG90Mg=='); return false;">Ggplot2</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2015-03-23-remove-leading-0-with-ggplot2.html" class="no-external">
+I recently had an occasion while working on a three variable interaction plot for a paper where I wanted to remove the leading 0’s in the x-axis text labels using <code>ggplot2</code>.…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2015-03-23-remove-leading-0-with-ggplot2.html" class="no-external">
+<div class="listing-date">
+Mar 23, 2015
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-categories="UiUyQ0dyYXBoaWNzJTJDR2dwbG90MiUyQ1RyZW5k" data-listing-date-sort="1407214800000" data-listing-file-modified-sort="1757436687968" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="472">
+<div class="thumbnail"><a href="../posts/2014-08-05-dodged-bar-charts-why-not-a-line-graph.html" class="no-external">
+
+<p class="card-img-top"><img data-src="2014-08-05-dodged-bar-charts-why-not-a-line-graph_files/figure-html/bar-1.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2014-08-05-dodged-bar-charts-why-not-a-line-graph.html" class="no-external">Dodged bar charts, why not a line graph?</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('R3JhcGhpY3M='); return false;">Graphics</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('R2dwbG90Mg=='); return false;">Ggplot2</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('VHJlbmQ='); return false;">Trend</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2014-08-05-dodged-bar-charts-why-not-a-line-graph.html" class="no-external">
+I often see graphs that are poorly implemented in that they do not achieve their goal. One such type of graph that I see are dodged bar charts. Here is an example of a…<code></code>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2014-08-05-dodged-bar-charts-why-not-a-line-graph.html" class="no-external">
+<div class="listing-date">
+Aug 5, 2014
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-categories="UiUyQ0hpZ2hsaWdodGh0bWwlMkNQYWNrYWdlJTJDQ3NzJTJDTWFya2Rvd24lMkNIdG1s" data-listing-date-sort="1406696400000" data-listing-file-modified-sort="1757436687477" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="644">
+<div class="thumbnail"><a href="../posts/2014-07-30-format-markdown-documents-in-r.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2014-07-30-format-markdown-documents-in-r.html" class="no-external">Format Markdown Documents in R</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SGlnaGxpZ2h0aHRtbA=='); return false;">Highlighthtml</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGFja2FnZQ=='); return false;">Package</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q3Nz'); return false;">Css</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TWFya2Rvd24='); return false;">Markdown</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SHRtbA=='); return false;">Html</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2014-07-30-format-markdown-documents-in-r.html" class="no-external">
+Have you ever used a markdown file to create an html file? Have you ever wanted to quickly format the subsequent html file to add some color or other aspects? If your answer…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2014-07-30-format-markdown-documents-in-r.html" class="no-external">
+<div class="listing-date">
+Jul 30, 2014
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="12" data-categories="UiUyQ1JjaGFydHMlMkNKYXZhc2NyaXB0JTJDQWVyYQ==" data-listing-date-sort="1396414800000" data-listing-file-modified-sort="1757436687068" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1088">
+<div class="thumbnail"><a href="../posts/2014-04-02-aera-preview.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2014-04-02-aera-preview.html" class="no-external">AERA Preview</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UmNoYXJ0cw=='); return false;">Rcharts</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SmF2YXNjcmlwdA=='); return false;">Javascript</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('QWVyYQ=='); return false;">Aera</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2014-04-02-aera-preview.html" class="no-external">
+The American Educational Research Association (AERA) annual conference is this weekend in Philadelphia. I was lucky to have a paper accepted into the conference. I am…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2014-04-02-aera-preview.html" class="no-external">
+<div class="listing-date">
+Apr 2, 2014
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="13" data-categories="UiUyQ0NvZGUlMkNYbWw=" data-listing-date-sort="1395896400000" data-listing-file-modified-sort="1757436686473" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="565">
+<div class="thumbnail"><a href="../posts/2014-03-27-evolution-of-code.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2014-03-27-evolution-of-code.html" class="no-external">Evolution of Code</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q29kZQ=='); return false;">Code</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('WG1s'); return false;">Xml</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2014-03-27-evolution-of-code.html" class="no-external">
+Recently while scraping some data from the college football data warehouse site, I started to realize the evolution of my code. To preface this, I am definitely not a…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2014-03-27-evolution-of-code.html" class="no-external">
+<div class="listing-date">
+Mar 27, 2014
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="14" data-categories="UiUyQ0hpZ2hsaWdodGh0bWwlMkNNYXJrZG93biUyQ0h0bWw=" data-listing-date-sort="1394773200000" data-listing-file-modified-sort="1757436685831" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="527">
+<div class="thumbnail"><a href="../posts/2014-03-14-update-to-highlighthtml-package.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2014-03-14-update-to-highlighthtml-package.html" class="no-external">Update to highlightHTML package</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SGlnaGxpZ2h0aHRtbA=='); return false;">Highlighthtml</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TWFya2Rvd24='); return false;">Markdown</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SHRtbA=='); return false;">Html</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2014-03-14-update-to-highlighthtml-package.html" class="no-external">
+I’ve added a new functionality to my <code>highlightHTML</code> package. This package post-processes HTML files and injects CSS and adds tags to create some further customization (for…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2014-03-14-update-to-highlighthtml-package.html" class="no-external">
+<div class="listing-date">
+Mar 14, 2014
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="15" data-categories="UiUyQ1JjaGFydHMlMkNKYXZhc2NyaXB0JTJDSHRtbCUyQ1NsaWR5" data-listing-date-sort="1393826400000" data-listing-file-modified-sort="1757436685295" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="19" data-listing-word-count-sort="3796">
+<div class="thumbnail"><a href="../posts/2014-03-03-rcharts-in-slidy.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2014-03-03-rcharts-in-slidy.html" class="no-external">rCharts in slidy</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UmNoYXJ0cw=='); return false;">Rcharts</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SmF2YXNjcmlwdA=='); return false;">Javascript</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SHRtbA=='); return false;">Html</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2xpZHk='); return false;">Slidy</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2014-03-03-rcharts-in-slidy.html" class="no-external">
+My last post I talked about using <code>rCharts</code> to create interactive graphics for my presentation. They seemed to go over pretty well in my interviews and helped me greatly as I…<em></em><em></em>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2014-03-03-rcharts-in-slidy.html" class="no-external">
+<div class="listing-date">
+Mar 3, 2014
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="16" data-categories="UiUyQ0d1aQ==" data-listing-date-sort="1391320800000" data-listing-file-modified-sort="1757436684725" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="764">
+<div class="thumbnail"><a href="../posts/2014-02-02-picking-a-gui-interface-for-r.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2014-02-02-picking-a-gui-interface-for-r.html" class="no-external">Picking a gui interface for R</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('R3Vp'); return false;">Gui</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2014-02-02-picking-a-gui-interface-for-r.html" class="no-external">
+Recently I decided to switch statistical programs used for the master’s level introductory statistics course I teach here at the University of Arkansas. Historically this…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2014-02-02-picking-a-gui-interface-for-r.html" class="no-external">
+<div class="listing-date">
+Feb 2, 2014
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="17" data-categories="UiUyQ1BseXIlMkNEcGx5cg==" data-listing-date-sort="1390543200000" data-listing-file-modified-sort="1757436684302" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="628">
+<div class="thumbnail"><a href="../posts/2014-01-24-when-i-use-plyrdplyr.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2014-01-24-when-i-use-plyrdplyr.html" class="no-external">When I use <code>plyr</code>/<code>dplyr</code></a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGx5cg=='); return false;">Plyr</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RHBseXI='); return false;">Dplyr</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2014-01-24-when-i-use-plyrdplyr.html" class="no-external">
+My last post I talked about how I use the <em>data.table</em> package for aggregating and removing duplicate observations. Although I use the <em>data.table</em> package quite often, there…<em></em><em></em>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2014-01-24-when-i-use-plyrdplyr.html" class="no-external">
+<div class="listing-date">
+Jan 24, 2014
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="18" data-categories="UiUyQ0RhdGEudGFibGU=" data-listing-date-sort="1388988000000" data-listing-file-modified-sort="1757436683857" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="829">
+<div class="thumbnail"><a href="../posts/2014-01-06-two-of-my-favorite-datatable-features.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2014-01-06-two-of-my-favorite-datatable-features.html" class="no-external">Two of my favorite data.table features</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YS50YWJsZQ=='); return false;">Data.table</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2014-01-06-two-of-my-favorite-datatable-features.html" class="no-external">
+When I started to use the <em>data.table</em> package I was primarily using it to aggregate. I had read about <em>data.table</em> and its blazing speed compared to the other options from base…<em></em><em></em>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2014-01-06-two-of-my-favorite-datatable-features.html" class="no-external">
+<div class="listing-date">
+Jan 6, 2014
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="19" data-categories="UiUyQ1Nwc3MlMkNQYWNrYWdl" data-listing-date-sort="1385445600000" data-listing-file-modified-sort="1757436682857" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="503">
+<div class="thumbnail"><a href="../posts/2013-11-26-spsstor-an-r-package-to-convert-spss-syntax.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2013-11-26-spsstor-an-r-package-to-convert-spss-syntax.html" class="no-external">SPSStoR An R package to convert SPSS syntax</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U3Bzcw=='); return false;">Spss</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGFja2FnZQ=='); return false;">Package</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2013-11-26-spsstor-an-r-package-to-convert-spss-syntax.html" class="no-external">
+My first statistical software package I used as an undergrad was SPSS. I was fortunate during my senior year at Luther College to be initially introduced to R. I did not…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2013-11-26-spsstor-an-r-package-to-convert-spss-syntax.html" class="no-external">
+<div class="listing-date">
+Nov 26, 2013
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="20" data-categories="UiUyQ01hcmtkb3duJTJDTGF0ZXglMkNTbGlkeQ==" data-listing-date-sort="1384754400000" data-listing-file-modified-sort="1757436682432" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="660">
+<div class="thumbnail"><a href="../posts/2013-11-18-formatting-markdown-table-with-r.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2013-11-18-formatting-markdown-table-with-r.html" class="no-external">Formatting Markdown Table with R</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TWFya2Rvd24='); return false;">Markdown</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TGF0ZXg='); return false;">Latex</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2xpZHk='); return false;">Slidy</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2013-11-18-formatting-markdown-table-with-r.html" class="no-external">
+This past August I took an opportunity to step back into the University academic world as a Visiting Assistant Professor at the University of Arkansas. I have enjoyed the…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2013-11-18-formatting-markdown-table-with-r.html" class="no-external">
+<div class="listing-date">
+Nov 18, 2013
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="21" data-categories="UiUyQ01hcmtkb3duJTJDQ3Nz" data-listing-date-sort="1383282000000" data-listing-file-modified-sort="1757436681780" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="675">
+<div class="thumbnail"><a href="../posts/2013-11-01-formatting-markdown-table-with-r.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2013-11-01-formatting-markdown-table-with-r.html" class="no-external">Formatting Markdown Table with R</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TWFya2Rvd24='); return false;">Markdown</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q3Nz'); return false;">Css</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2013-11-01-formatting-markdown-table-with-r.html" class="no-external">
+This past summer when the twin cities R user group was starting to get back up and running, I offered to present on some R related things that I was working on. One thing I…
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2013-11-01-formatting-markdown-table-with-r.html" class="no-external">
+<div class="listing-date">
+Nov 1, 2013
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="22" data-categories="UiUyQ2dncGxvdDI=" data-listing-date-sort="1367557200000" data-listing-file-modified-sort="1757444330842" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1074">
+<div class="thumbnail"><a href="../posts/2013-05-03-blog-logo.html" class="no-external">
+
+<p class="card-img-top"><img data-src="2013-05-03-blog-logo_files/figure-html/logo-1.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../posts/2013-05-03-blog-logo.html" class="no-external">Blog Logo</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Z2dwbG90Mg=='); return false;">ggplot2</div>
+
+</div>
+<div class="delink listing-description"><a href="../posts/2013-05-03-blog-logo.html" class="no-external">
+Here is the code used to create the blog logo. Took a bit of trial and error, especially with the official R logo.
+</a></div>
+</div>
+<div class="metadata">
+<a href="../posts/2013-05-03-blog-logo.html" class="no-external">
+<div class="listing-date">
+May 3, 2013
+</div>
+<div class="listing-author">
+Brandon LeBeau
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+<nav id="listing-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
+</div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lebebr01\.github\.io\/finite-quarto\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<div class="social-links">
+<p><a href="mailto:brandon-lebeau@uiowa.edu" title="Email"> <i class="fa fa-envelope"></i> </a> <a href="https://twitter.com/blebeau11" title="Twitter"> <i class="fa fa-twitter"></i> </a> <a href="https://github.com/lebebr01" title="GitHub"> <i class="fa fa-github"></i> </a></p>
+</div>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Brandon LeBeau</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
