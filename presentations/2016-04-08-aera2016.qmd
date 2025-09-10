@@ -9,12 +9,6 @@ tags: [slides, IRT, Linking]
 format: revealjs
 ---
 
-<h1>Informative vs uninformative prior distributions with characteristic curve linking methods</h1>
-<h2>Brandon LeBeau, Keyu Chen, Wei Cheng Liu, and Aaron McVay</h2>
-<h3>University of Iowa</h3>
-
-
-
 # Linking overview
 - With item response theory (IRT), the ability scale is arbitrarily defined (commonly mean of 0 and sd of 1).
 - Linking is useful to help place individual ability and IRT item parameters on the same scale.
@@ -28,7 +22,7 @@ format: revealjs
 
 
 # Linking Transformation
-<img src="/figs/link.PNG" alt="" height = "400" width="800"/>
+<img src="/images/link.PNG" alt="" height = "400" width="800"/>
 
 
 
@@ -41,7 +35,7 @@ format: revealjs
 
 
 # Common-item NEG Design
-<img src="/figs/commonitem.png" alt="" height = "500" width="1200"/>
+<img src="/images/commonitem.png" alt="" height = "500" width="1200"/>
 
 
 
@@ -58,7 +52,7 @@ format: revealjs
 
 
 # Simulation Design
-<img src="/figs/simulation_conditions.png" alt="" height = "500" width="1200"/>
+<img src="/images/simulation_conditions.png" alt="" height = "500" width="1200"/>
 
 
 
@@ -85,12 +79,12 @@ format: revealjs
 # Study Outcomes
 - Bias in the transformation constants (A and B) were explored descriptively and inferentially:
 
-<img src="/figs/bias.PNG" alt="" height = "200" width="800"/>
+<img src="/images/bias.PNG" alt="" height = "200" width="800"/>
 
 
 
 # Simulation recovery
-<img src="/figs/heatmap_b.png" alt="" height = "500" width="1200"/>
+<img src="/images/heatmap_b.png" alt="" height = "500" width="1200"/>
 
 
 
@@ -155,12 +149,12 @@ format: revealjs
 
 
 # Results A Constant
-<img src="/figs/a_ab_bias_large.png" alt="" height = "500" width="1200"/>
+<img src="/images/a_ab_bias_large.png" alt="" height = "500" width="1200"/>
 
 
 
 # Results B Constant
-<img src="/figs/b_ab_bias_large.png" alt="" height = "500" width="1200"/>
+<img src="/images/b_ab_bias_large.png" alt="" height = "500" width="1200"/>
 
 
 

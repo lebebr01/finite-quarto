@@ -7,12 +7,6 @@ tags: [slides, r, simglm, package]
 format: revealjs
 ---
 
-<h1>Simulation and Power Analysis of Generalized Linear Mixed Models</h1>
-<h2>Brandon LeBeau</h2>
-<h3>University of Iowa</h3>
-
-
-
 # Overview
 1. Power
 2. `simglm` package
@@ -36,7 +30,7 @@ power <- sapply(seq_along(n), function(i)
   power.t.test(n = n[i], delta = .15, sd = 1, type = 'two.sample')$power)
 ```
 
-![plot of chunk visualize](/figs/visualize-1.png)
+![plot of chunk visualize](/images/visualize-1.png)
 
 
 
@@ -120,7 +114,7 @@ power_out <- sim_pow(fixed = fixed, fixed_param = fixed_param, cov_param = NULL,
 
 
 # Plot Results
-![plot of chunk power_out_figure](/figs/power_out_figure-1.png)
+![plot of chunk power_out_figure](/images/power_out_figure-1.png)
 
 
 
@@ -146,7 +140,7 @@ power_out <- sim_pow(fixed = fixed, fixed_param = fixed_param, cov_param = NULL,
 
 
 # Results
-![plot of chunk power_factor](/figs/power_factor-1.png)
+![plot of chunk power_factor](/images/power_factor-1.png)
 
 
 

@@ -7,13 +7,6 @@ tags: [slides, software, analysis]
 format: revealjs
 ---
 
-<h1>Tidy Meta-Analytic Data</h1>
-<h2>Brandon LeBeau & Ariel M. Aloe</h2>
-<h3>University of Iowa</h3>
-
-
-
-
 # Rationale
 
 - Data entry is an important component for quantitative studies
@@ -72,7 +65,7 @@ format: revealjs
 
 # Column Example(s)
 
-![](/figs/data-screen.png)
+![](/images/data-screen.png)
 
 
 
@@ -93,14 +86,14 @@ format: revealjs
 
 # Date Conversion Excel
 
-![](/figs/date-convert.gif)
+![](/images/date-convert.gif)
 
 
 
 
 # Highlighting Cells
 
-![](/figs/data-highlighting.gif)
+![](/images/data-highlighting.gif)
 
 
 

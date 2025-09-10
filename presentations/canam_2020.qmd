@@ -7,12 +7,6 @@ tags: [slides, software, analysis]
 format: revealjs
 ---
 
-<h1>Evolution of Statistical Software and Quantitative Methods</h1>
-<h2>Brandon LeBeau & Ariel M. Aloe</h2>
-<h3>University of Iowa</h3>
-
-
-
 # Rationale
 - Extension of work done by Robert Muenchen (http://r4stats.com/articles/popularity/). 
     + Focus is on statistical software
@@ -117,19 +111,19 @@ format: revealjs
 
 
 # How many articles obtained?
-![](/figs/pdf-time-1.png)
+![](/images/pdf-time-1.png)
 
 
 
 
 # Software Counts
-![](/figs/count-software-1.png)
+![](/images/count-software-1.png)
 
 
 
 
 # Software Keywords by Discipline
-![](/figs/discipline-software-1.png)
+![](/images/discipline-software-1.png)
 
 
 
@@ -188,7 +182,7 @@ format: revealjs
 
 
 # Analysis keywords
-![](/figs/model-discipline-1.png)
+![](/images/model-discipline-1.png)
 
 
 
@@ -247,42 +241,42 @@ format: revealjs
 
 
 # General Software Keyword Percentages by Year - Education
-![](/figs/software-year-at1-1.png)
+![](/images/software-year-at1-1.png)
 
 
 
 
 # Specialty Software Keyword Percentages by Year - Education
-![](/figs/software-year-spec-1.png)
+![](/images/software-year-spec-1.png)
 
 
 
 
 # Analysis Keyword Percentages by Year - Education
-![](/figs/model-year-at1-1.png)
+![](/images/model-year-at1-1.png)
 
 
 
 
 
 # Analysis Keyword Percentages by Year - Education
-![](/figs/model-year-other-1.png)
+![](/images/model-year-other-1.png)
 
 
 
 
 # Interaction between Software and Analysis - Education
-![s](/figs/software-statmethods-1.png)
+![s](/images/software-statmethods-1.png)
 
 
 
 # Interaction between Software and Analysis by Year - Education
-![](/figs/software-statmethods-year-1.png)
+![](/images/software-statmethods-year-1.png)
 
 
 
 # Interaction between Software and Analysis by Year - Education
-![](/figs/software-statmethods-year2-1.png)
+![](/images/software-statmethods-year2-1.png)
 
 
 

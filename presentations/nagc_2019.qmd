@@ -10,12 +10,6 @@ tags: [slides, irt, above-level, high-achieving]
 format: revealjs
 ---
 
-<h1>Differentiating Among Gifted Learners: A Comparison of Classical Test Theory and Item Response Theory on Above-Level Testing</h1>
-<h2>Brandon LeBeau, Susan G. Assouline, Duhita Mahatmya, Ann Lupkowski-Shoplik</h2>
-<h3>Belin-Blank Center, University of Iowa</h3>
-
-
-
 # Above Level Testing
 
 - Participate in a Talent Search (for example, a university-based talent search)
@@ -24,7 +18,7 @@ format: revealjs
 
 
 # Above-level testing helps us discover talented students and tailor educational options for them
-![](/figs/bell-curve.jpg)
+![](/images/bell-curve.jpg)
 
 
 
@@ -120,7 +114,7 @@ format: revealjs
 
     
 # IRT Uses Student Response Strings
-![](/figs/theta_overtime_color.png) 
+![](/images/theta_overtime_color.png) 
 
 
 
@@ -133,23 +127,23 @@ format: revealjs
 
 
 # CTT Violin Plots
-![](/figs/NPR_violin.png)
+![](/images/NPR_violin.png)
 
 
 
 # Differentiating students
-![](/figs/rawscore_math_english_aptitude_color.png)
+![](/images/rawscore_math_english_aptitude_color.png)
 
 
 
 
 # Average Aptitude Estimates
-![](/figs/average_numcorrent.png)
+![](/images/average_numcorrent.png)
 
 
 
 # Identify students ready for additional challenge
-![](/figs/classification.png)
+![](/images/classification.png)
 
 
 
@@ -162,12 +156,12 @@ format: revealjs
 
 
 # Proportion Correct
-![](/figs/prop_correct.png)
+![](/images/prop_correct.png)
 
 
 
 # Explore Aptitude for Identification
-![](/figs/math_accuracy.png)
+![](/images/math_accuracy.png)
 
 
 

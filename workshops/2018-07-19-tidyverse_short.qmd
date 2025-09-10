@@ -56,7 +56,7 @@ library(tidyverse)
 
 
 # Explore Data
-![plot of chunk data](/figure/data-1.png)
+![plot of chunk data](/images/data-1.png)
 
 
 
@@ -67,7 +67,7 @@ ggplot(data = midwest) +
   geom_point(mapping = aes(x = popdensity, y = percollege))
 ```
 
-![plot of chunk plot1](/figure/plot1-1.png)
+![plot of chunk plot1](/images/plot1-1.png)
 
 
 
@@ -78,7 +78,7 @@ ggplot(midwest) +
   geom_point(aes(x = popdensity, y = percollege))
 ```
 
-![plot of chunk plot1_reduced](/figure/plot1_reduced-1.png)
+![plot of chunk plot1_reduced](/images/plot1_reduced-1.png)
 
 
 
@@ -99,7 +99,7 @@ ggplot(midwest) +
   geom_point(aes(x = popdensity, y = percollege, color = state))
 ```
 
-![plot of chunk aesthetic](/figure/aesthetic-1.png)
+![plot of chunk aesthetic](/images/aesthetic-1.png)
 
 
 
@@ -110,7 +110,7 @@ ggplot(midwest) +
   geom_point(aes(x = popdensity, y = percollege), color = 'pink')
 ```
 
-![plot of chunk global_aes](/figure/global_aes-1.png)
+![plot of chunk global_aes](/images/global_aes-1.png)
 
 
 
@@ -136,7 +136,7 @@ ggplot(midwest) +
   geom_smooth(aes(x = popdensity, y = percollege))
 ```
 
-![plot of chunk smooth](/figure/smooth-1.png)
+![plot of chunk smooth](/images/smooth-1.png)
 
 
 
@@ -148,13 +148,13 @@ ggplot(midwest) +
               se = FALSE)
 ```
 
-![plot of chunk smooth_states](/figure/smooth_states-1.png)
+![plot of chunk smooth_states](/images/smooth_states-1.png)
 
 
 
 # Your Turn
 1. It is possible to combine geoms, which we will do next, but try it first. Try to recreate this plot.
-![plot of chunk combine](/figure/combine-1.png)
+![plot of chunk combine](/images/combine-1.png)
 
 
 
@@ -167,7 +167,7 @@ ggplot(midwest) +
               se = FALSE)
 ```
 
-![plot of chunk combine_geoms](/figure/combine_geoms-1.png)
+![plot of chunk combine_geoms](/images/combine_geoms-1.png)
 
 
 
@@ -180,13 +180,13 @@ ggplot(midwest,
   geom_smooth(se = FALSE)
 ```
 
-![plot of chunk two_geoms](/figure/two_geoms-1.png)
+![plot of chunk two_geoms](/images/two_geoms-1.png)
 
 
 
 # Your Turn
 1. Can you recreate the following figure?
-![plot of chunk differ_aes](/figure/differ_aes-1.png)
+![plot of chunk differ_aes](/images/differ_aes-1.png)
 
 
 
@@ -205,7 +205,7 @@ ggplot(midwest,
 
 
 # Brief plot customization Output
-![plot of chunk breaks_x2](/figure/breaks_x2-1.png)
+![plot of chunk breaks_x2](/images/breaks_x2-1.png)
 
 
 
@@ -357,7 +357,7 @@ install.packages('fivethirtyeight')
 library(fivethirtyeight)
 ```
 
-![plot of chunk congress](/figure/congress-1.png)
+![plot of chunk congress](/images/congress-1.png)
 
 
 
@@ -606,7 +606,7 @@ filter(congress_age, incumbent)
 
 
 # All boolean options
-![](/figure/boolean.png)
+![](/images/boolean.png)
 
 
 
@@ -991,7 +991,7 @@ ggplot(num_dem, aes(x = congress, y = prop_democrat)) +
 
 
 # Explore trend output
-![plot of chunk trend2](/figure/trend2-1.png)
+![plot of chunk trend2](/images/trend2-1.png)
 
 
 

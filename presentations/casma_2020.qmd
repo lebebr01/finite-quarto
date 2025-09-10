@@ -7,12 +7,6 @@ tags: [slides, irt, above-level, high-achieving]
 format: revealjs
 ---
 
-<h1>Measuring Psychological Constructs over a Developmental Span: Methodological Approaches</h1>
-<h2>Brandon LeBeau</h2>
-<h3>University of Iowa</h3>
-
-
-
 # Background
 - Petersen, I. T., Lindhiem, O., LeBeau, B., Bates, J. E., Pettit, G. S., Lansford, J. E., & Dodge, K. A. (2018). Development of internalizing problems from adolescence to emerging adulthood: Accounting for heterotypic continuity with vertical scaling. Developmental psychology, 54(3), 586.
 - Peterson, I.T. & LeBeau, B. (In Press). Language Ability in the Development of Externalizing Behavior Problems in Childhood. Journal of Educational Psychology.
@@ -43,12 +37,12 @@ format: revealjs
 
 
 # Internalizing Problems
-![](/figs/ysr-yasr.png)
+![](/images/ysr-yasr.png)
 
 
 
 # Growth Internalizing Problems
-![](/figs/ysr-yasr-growth.png)
+![](/images/ysr-yasr-growth.png)
 
 
 
@@ -68,12 +62,12 @@ format: revealjs
 
 
 # Linking example
-![](/figs/linking_result_presentation.png)
+![](/images/linking_result_presentation.png)
 
 
 
 # Growth Trajectories
-![](/figs/mixed-models-language.png)
+![](/images/mixed-models-language.png)
 
 
 
@@ -82,17 +76,17 @@ format: revealjs
 
 
 # Linking Design
-![](/figs/linking-rater-figure.png)
+![](/images/linking-rater-figure.png)
 
 
 
 # Model Implied Trajectories
-![](/figs/model-implied-trajectories.png)
+![](/images/model-implied-trajectories.png)
 
 
 
 # Language Effect
-![](/figs/language-rater.png)
+![](/images/language-rater.png)
 
 
 
@@ -153,12 +147,12 @@ format: revealjs
 
 
 # Standardized Slope
-![](/figs/standardized-slope-est.png)
+![](/images/standardized-slope-est.png)
 
 
 o
 # Correlations
-![](/figs/correlation-est.png)
+![](/images/correlation-est.png)
 
 
 

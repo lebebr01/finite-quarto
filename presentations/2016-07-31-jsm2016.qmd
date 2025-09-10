@@ -6,11 +6,6 @@ tags: [slides, IRT, cfb, GLMM]
 format: revealjs
 ---
 
-<h1>Estimating NCAA Football Coaches’ Abilities An Application of Item Response Theory</h1>
-<h2>Brandon LeBeau, Andrew Zieffler, and Kyle Nickodem</h2>
-<h3>University of Iowa & University of Minnesota</h3>
-
-
 
 # Background
 - Began after Tim Brewster was fired at the University of Minnesota.
@@ -35,7 +30,7 @@ format: revealjs
 
 
 # Model
-![](/figs/cfbmodel.png)
+![](/images/cfbmodel.png)
 
 
 
@@ -50,22 +45,22 @@ format: revealjs
 
 
 # Team Effect
-![](/figs/teameffect.png)
+![](/images/teameffect.png)
 
 
 
 # Ability Estimates
-<img src="/figs/ISU.svg" alt="" height="525px" width="1000px">
+<img src="/images/ISU.svg" alt="" height="525px" width="1000px">
 
 
 
 # Iowa State made good hire?
-<img src="/figs/ISU_good_hire.svg" alt="" height="525px" width="1000px">
+<img src="/images/ISU_good_hire.svg" alt="" height="525px" width="1000px">
 
 
 
 # Fire Tim Brewster?
-<img src="/figs/UMN.svg" alt="" height="525px" width="1000px">
+<img src="/images/UMN.svg" alt="" height="525px" width="1000px">
 
 
 
@@ -79,17 +74,17 @@ format: revealjs
 
 
 # 6 Coaches on the Hot Seat
-<img src="/figs/Hot_seat_coach_plot.svg" alt="" height="525px" width="1000px">
+<img src="/images/Hot_seat_coach_plot.svg" alt="" height="525px" width="1000px">
 
 
 
 # Which of these 6 should be fired?
-<img src="/figs/Hot_seat_relative_plot.svg" alt="" height="525px" width="1000px">
+<img src="/images/Hot_seat_relative_plot.svg" alt="" height="525px" width="1000px">
 
 
 
 # Back to Minnesota
-<img src="/figs/Minnesota-Coaches-2.png" alt="" height="525px" width="1000px">
+<img src="/images/Minnesota-Coaches-2.png" alt="" height="525px" width="1000px">
     
 
 

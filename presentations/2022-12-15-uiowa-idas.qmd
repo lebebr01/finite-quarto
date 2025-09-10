@@ -7,13 +7,6 @@ tags: [slides, software, statistics, education]
 format: revealjs
 ---
 
-<h1>Using IDAS in an Intro Stats Course</h1>
-<h2>Brandon LeBeau</h2>
-<h3>University of Iowa</h3>
-
-
-
-
 # Intro Stats Assumptions
 
 
@@ -21,7 +14,7 @@ format: revealjs
 
 # All Math
 
-![](/figs/thomas-t-OPpCbAAKWv8-unsplash.jpg)
+![](/images/thomas-t-OPpCbAAKWv8-unsplash.jpg)
 
 <p class="stext">
 Photo by <a href="https://unsplash.com/@pyssling240?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Thomas T</a> on <a href="https://unsplash.com/s/photos/equations?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -32,7 +25,7 @@ Photo by <a href="https://unsplash.com/@pyssling240?utm_source=unsplash&utm_medi
 
 # All hand calculations
 
-![](/figs/aaron-lefler-ySZdYkPGEbs-unsplash.jpg)
+![](/images/aaron-lefler-ySZdYkPGEbs-unsplash.jpg)
 
 <p class="stext">
 Photo by <a href="https://unsplash.com/@alefler?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Aaron Lefler</a> on <a href="https://unsplash.com/s/photos/graphing-calculator?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -43,7 +36,7 @@ Photo by <a href="https://unsplash.com/@alefler?utm_source=unsplash&utm_medium=r
 
 # Not Reality
 
-![](/figs/minh-pham-HI6gy-p-WBI-unsplash.jpg)
+![](/images/minh-pham-HI6gy-p-WBI-unsplash.jpg)
 
 <p class="stext">
 Photo by <a href="https://unsplash.com/@minhphamdesign?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Minh Pham</a> on <a href="https://unsplash.com/s/photos/virtual-reality?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -59,7 +52,7 @@ Photo by <a href="https://unsplash.com/@minhphamdesign?utm_source=unsplash&utm_m
 
 # Data based, Applied
 
-![](/figs/markus-winkler-IrRbSND5EUc-unsplash.jpg)
+![](/images/markus-winkler-IrRbSND5EUc-unsplash.jpg)
 
 <p class="stext">
 Photo by <a href="https://unsplash.com/@markuswinkler?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Markus Winkler</a> on <a href="https://unsplash.com/s/photos//figs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -70,7 +63,7 @@ Photo by <a href="https://unsplash.com/@markuswinkler?utm_source=unsplash&utm_me
 
 # Include code
 
-![](/figs/trevor-vannoy-ufnhDMFOZ_M-unsplash.jpg)
+![](/images/trevor-vannoy-ufnhDMFOZ_M-unsplash.jpg)
 
 <p class="stext">
 Photo by <a href="https://unsplash.com/@tvannoy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Trevor Vannoy</a> on <a href="https://unsplash.com/s/photos/computation?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -86,7 +79,7 @@ Photo by <a href="https://unsplash.com/@tvannoy?utm_source=unsplash&utm_medium=r
 
 # Differing levels of computer literacy
 
-![](/figs/nathan-anderson-KHSPGJ3zP0M-unsplash.jpg)
+![](/images/nathan-anderson-KHSPGJ3zP0M-unsplash.jpg)
 
 <p class="stext">
 Photo by <a href="https://unsplash.com/@nathananderson?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nathan Anderson</a> on <a href="https://unsplash.com/s/photos/repair-computer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -97,7 +90,7 @@ Photo by <a href="https://unsplash.com/@nathananderson?utm_source=unsplash&utm_m
 
 # Unfamiliar with code
 
-![](/figs/phd-comics.png)
+![](/images/phd-comics.png)
 
 <p class="stext">
 <https://phdcomics.com/comics.php?f=1688>
@@ -126,14 +119,14 @@ Photo by <a href="https://unsplash.com/@nathananderson?utm_source=unsplash&utm_m
 
 # Benefits - No Setup
 
-![](/figs/computer-setup.png)
+![](/images/computer-setup.png)
 
 
 
 
 # Benefits - Interesting Data
 
-![](/figs/interesting-data.png)
+![](/images/interesting-data.png)
 
 
 

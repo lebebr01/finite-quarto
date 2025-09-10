@@ -6,12 +6,6 @@ tags: [slides, IRT, Field Test]
 format: revealjs
 ---
 
-<h1>Assessing the validity of item response theory models when calibrating field test items</h1>
-<h2>Brandon LeBeau</h2>
-<h3>University of Iowa</h3>
-
-
-
 # Validity for IRT Models
 - Validity is important for any assessment and the argument should begin with psychometrics. 
 - How the psychometrics is performed directly impacts properties of the assessment that are assessed later for evidence of validity.
@@ -21,7 +15,7 @@ format: revealjs
 
 
 # IRT Model
-<img src="/figs/irt.PNG" alt="" height = "200" width="1200"/>
+<img src="/images/irt.PNG" alt="" height = "200" width="1200"/>
 
 
 
@@ -78,22 +72,22 @@ format: revealjs
 
 
 # Example ICC Math FT Item 3PL
-<img src="/figs/iccgr3math57.png" alt="" height = "500" width="1200"/>
+<img src="/images/iccgr3math57.png" alt="" height = "500" width="1200"/>
 
 
 
 # Example ICC Math FT Item 2PL
-<img src="/figs/iccgr3math572pl.png" alt="" height = "500" width="1200"/>
+<img src="/images/iccgr3math572pl.png" alt="" height = "500" width="1200"/>
 
 
 
 # Example ICC ELA FT Item 3PL
-<img src="/figs/iccread653pl.png" alt="" height = "500" width="1200"/>
+<img src="/images/iccread653pl.png" alt="" height = "500" width="1200"/>
 
 
 
 # Example ICC ELA FT Item 2PL
-<img src="/figs/iccread652pl.png" alt="" height = "500" width="1200"/>
+<img src="/images/iccread652pl.png" alt="" height = "500" width="1200"/>
 
 
 
@@ -105,17 +99,17 @@ format: revealjs
 
 
 # b and c est and SE
-<img src="/figs/pairs_bc_ela.png" alt="" height = "500" width="1200"/>
+<img src="/images/pairs_bc_ela.png" alt="" height = "500" width="1200"/>
 
 
 
 # a and c est and SE
-<img src="/figs/pairs_ac_ela.png" alt="" height = "500" width="1200"/>
+<img src="/images/pairs_ac_ela.png" alt="" height = "500" width="1200"/>
 
 
 
 # a and b est and SE
-<img src="/figs/pairs_ab_ela.png" alt="" height = "500" width="1200"/>
+<img src="/images/pairs_ab_ela.png" alt="" height = "500" width="1200"/>
 
 
 

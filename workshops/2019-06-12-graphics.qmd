@@ -49,7 +49,7 @@ library(tidyverse)
 
 
 # Explore Data
-![plot of chunk data](/figure/data-1.png)
+![plot of chunk data](/images/data-1.png)
 
 
 
@@ -60,7 +60,7 @@ ggplot(data = midwest) +
   geom_point(mapping = aes(x = popdensity, y = percollege))
 ```
 
-![plot of chunk plot1](/figure/plot1-1.png)
+![plot of chunk plot1](/images/plot1-1.png)
 
 
 
@@ -71,7 +71,7 @@ ggplot(midwest) +
   geom_point(aes(x = popdensity, y = percollege))
 ```
 
-![plot of chunk plot1_reduced](/figure/plot1_reduced-1.png)
+![plot of chunk plot1_reduced](/images/plot1_reduced-1.png)
 
 
 
@@ -93,7 +93,7 @@ ggplot(midwest) +
   geom_point(aes(x = popdensity, y = percollege, color = state))
 ```
 
-![plot of chunk aesthetic](/figure/aesthetic-1.png)
+![plot of chunk aesthetic](/images/aesthetic-1.png)
 
 
 
@@ -104,7 +104,7 @@ ggplot(midwest) +
   geom_point(aes(x = popdensity, y = percollege), color = 'pink')
 ```
 
-![plot of chunk global_aes](/figure/global_aes-1.png)
+![plot of chunk global_aes](/images/global_aes-1.png)
 
 
 
@@ -130,7 +130,7 @@ ggplot(midwest) +
   geom_smooth(aes(x = popdensity, y = percollege))
 ```
 
-![plot of chunk smooth](/figure/smooth-1.png)
+![plot of chunk smooth](/images/smooth-1.png)
 
 
 
@@ -142,13 +142,13 @@ ggplot(midwest) +
               se = FALSE)
 ```
 
-![plot of chunk smooth_states](/figure/smooth_states-1.png)
+![plot of chunk smooth_states](/images/smooth_states-1.png)
 
 
 
 # Your Turn
 1. It is possible to combine geoms, which we will do next, but try it first. Try to recreate this plot.
-![plot of chunk combine](/figure/combine-1.png)
+![plot of chunk combine](/images/combine-1.png)
 
 
 
@@ -161,7 +161,7 @@ ggplot(midwest) +
               se = FALSE)
 ```
 
-![plot of chunk combine_geoms](/figure/combine_geoms-1.png)
+![plot of chunk combine_geoms](/images/combine_geoms-1.png)
 
 
 
@@ -174,13 +174,13 @@ ggplot(midwest,
   geom_smooth(se = FALSE)
 ```
 
-![plot of chunk two_geoms](/figure/two_geoms-1.png)
+![plot of chunk two_geoms](/images/two_geoms-1.png)
 
 
 
 # Your Turn
 1. Can you recreate the following figure?
-![plot of chunk differ_aes](/figure/differ_aes-1.png)
+![plot of chunk differ_aes](/images/differ_aes-1.png)
 
 
 
@@ -199,7 +199,7 @@ ggplot(midwest,
 
 
 # Brief plot customization Output
-![plot of chunk breaks_x2](/figure/breaks_x2-1.png)
+![plot of chunk breaks_x2](/images/breaks_x2-1.png)
 
 
 
@@ -213,7 +213,7 @@ ggplot(midwest,
   theme_bw()
 ```
 
-![plot of chunk theme_bw](/figure/theme_bw-1.png)
+![plot of chunk theme_bw](/images/theme_bw-1.png)
 
 
 
@@ -245,7 +245,7 @@ p1 +
        subtitle = "County level data for five midwest states")
 ```
 
-![plot of chunk title_subtitle_ggplot2](/figure/title_subtitle_ggplot2-1.png)
+![plot of chunk title_subtitle_ggplot2](/images/title_subtitle_ggplot2-1.png)
 
 
 
@@ -255,7 +255,7 @@ p1 +
 p1 + scale_color_grey("State")
 ```
 
-![plot of chunk grey_color](/figure/grey_color-1.png)
+![plot of chunk grey_color](/images/grey_color-1.png)
 
 
 
@@ -267,7 +267,7 @@ p1 + scale_color_grey("State")
 p1 + scale_color_brewer("State", palette = 'Dark2')
 ```
 
-![plot of chunk color_brewer](/figure/color_brewer-1.png)
+![plot of chunk color_brewer](/images/color_brewer-1.png)
 
 
 
@@ -284,7 +284,7 @@ library(viridis)
 p1 + scale_color_viridis(discrete = TRUE)
 ```
 
-![plot of chunk viridis](/figure/viridis-1.png)
+![plot of chunk viridis](/images/viridis-1.png)
 
 
 
@@ -294,7 +294,7 @@ p1 + scale_color_viridis(discrete = TRUE)
 p1 + scale_color_viridis(option = 'cividis', discrete = TRUE)
 ```
 
-![plot of chunk viridis2](/figure/viridis2-1.png)
+![plot of chunk viridis2](/images/viridis2-1.png)
 
 
 
@@ -313,7 +313,7 @@ ggplot(data = midwest,
 
 
 # Zoom in on a plot output
-![plot of chunk zoom_out](/figure/zoom_out-1.png)
+![plot of chunk zoom_out](/images/zoom_out-1.png)
 
 
 
@@ -349,7 +349,7 @@ ggplot(data = midwest,
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-![plot of chunk zoom_x_output](/figure/zoom_x_output-1.png)
+![plot of chunk zoom_x_output](/images/zoom_x_output-1.png)
 
 
 
@@ -402,7 +402,7 @@ ggplot(lotr, aes(x = Words)) +
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![plot of chunk histogram](/figure/histogram-1.png)
+![plot of chunk histogram](/images/histogram-1.png)
 
 
 
@@ -414,7 +414,7 @@ ggplot(lotr, aes(x = Words)) +
   theme_bw()
 ```
 
-![plot of chunk cust_hist](/figure/cust_hist-1.png)
+![plot of chunk cust_hist](/images/cust_hist-1.png)
 
 
 
@@ -426,7 +426,7 @@ ggplot(lotr, aes(x = Words)) +
   theme_bw()
 ```
 
-![plot of chunk cust_hist2](/figure/cust_hist2-1.png)
+![plot of chunk cust_hist2](/images/cust_hist2-1.png)
 
 
 
@@ -438,7 +438,7 @@ ggplot(lotr, aes(x = Words, color = Film)) +
   theme_bw()
 ```
 
-![plot of chunk hist_film](/figure/hist_film-1.png)
+![plot of chunk hist_film](/images/hist_film-1.png)
 
 
 
@@ -451,7 +451,7 @@ ggplot(lotr, aes(x = Words)) +
   facet_wrap(~ Film)
 ```
 
-![plot of chunk hist_film_alt](/figure/hist_film_alt-1.png)
+![plot of chunk hist_film_alt](/images/hist_film_alt-1.png)
 
 
 
@@ -473,7 +473,7 @@ ggplot(lotr, aes(x = Film, y = Words)) +
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-![plot of chunk rotate](/figure/rotate-1.png)
+![plot of chunk rotate](/images/rotate-1.png)
 
 
 
@@ -487,7 +487,7 @@ ggplot(lotr, aes(x = Film, y = Words)) +
   coord_flip()
 ```
 
-![plot of chunk flip](/figure/flip-1.png)
+![plot of chunk flip](/images/flip-1.png)
 
 
 
@@ -499,7 +499,7 @@ ggplot(lotr, aes(x = Race)) +
   theme_bw()
 ```
 
-![plot of chunk simple_bar](/figure/simple_bar-1.png)
+![plot of chunk simple_bar](/images/simple_bar-1.png)
 
 
 
@@ -511,7 +511,7 @@ ggplot(lotr, aes(x = Race)) +
   theme_bw()
 ```
 
-![plot of chunk bar_fill](/figure/bar_fill-1.png)
+![plot of chunk bar_fill](/images/bar_fill-1.png)
 
 
 
@@ -524,7 +524,7 @@ ggplot(lotr, aes(x = Race)) +
   ylab("Proportion")
 ```
 
-![plot of chunk stacked](/figure/stacked-1.png)
+![plot of chunk stacked](/images/stacked-1.png)
 
 
 
@@ -536,7 +536,7 @@ ggplot(lotr, aes(x = Race)) +
   theme_bw()
 ```
 
-![plot of chunk unnamed-chunk-1](/figure/unnamed-chunk-1-1.png)
+![plot of chunk unnamed-chunk-1](/images/unnamed-chunk-1-1.png)
 
 
 
@@ -550,7 +550,7 @@ ggplot(lotr, aes(x = Race)) +
   scale_fill_viridis(option = 'cividis', discrete = TRUE)
 ```
 
-![plot of chunk bar_color](/figure/bar_color-1.png)
+![plot of chunk bar_color](/images/bar_color-1.png)
 
 
 
@@ -931,7 +931,7 @@ ggplot(storms, aes(x = pressure, y = wind, color = status)) +
 
 
 # gganimate output
-![](/figure/storms.gif)
+![](/images/storms.gif)
 
 
 

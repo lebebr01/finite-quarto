@@ -7,13 +7,6 @@ tags: [slides, analysis, IRT]
 format: revealjs
 ---
 
-<h1>Linking with the Bayesian Item Response Theory Model</h1>
-<h2>Brandon LeBeau & Xiaoting Zhong</h2>
-<h3>University of Iowa</h3>
-
-
-
-
 # Research Problem
 
 + IRT models specified as linear mixed models are not new (e.g., Adams, Wilson, & Wu, 1997; Kamata, 2001; Mellenbergh, 1994; Rijmen et al., 2003).
@@ -110,21 +103,21 @@ $$
 
 # Fixed Effect Results - Time 2
 
-![](/figs/time2_posterior.png)
+![](/images/time2_posterior.png)
 
 
 
 
 # Fixed Effect Results - Time 3
 
-![](/figs/time3_posterior.png)
+![](/images/time3_posterior.png)
 
 
 
 
 # Recovering Ability
 
-![](/figs/ability_posterior.png)
+![](/images/ability_posterior.png)
 
 
 

@@ -6,12 +6,6 @@ tags: [slides, R, shiny, package]
 format: revealjs
 ---
 
-<h1>Extending accessibility of open-source statistical software to the masses: A shiny case study</h1>
-<h2>Brandon LeBeau</h2>
-<h3>University of Iowa</h3>
-
-
-
 # R
 - R is an open source statistical programming language.
     - Pros:

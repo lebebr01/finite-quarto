@@ -6,14 +6,8 @@ tags: [r, slides, shiny, buildform]
 format: revealjs
 ---
 
-<h1>Interactively building test forms from an IRT perspective: An application of R and Shiny</h1>
-<h2>Brandon LeBeau</h2>
-<h3>University of Iowa</h3>
-
-
-
 # Overview
-<img src=" /figs/flowchart.png" alt=""/>
+<img src=" /images/flowchart.png" alt=""/>
 
 
 
@@ -25,7 +19,7 @@ format: revealjs
     - Cons:
         + Need to be comfortable with code
         
-<img src="/figs/Rlogo.png" alt=""/>
+<img src="/images/Rlogo.png" alt=""/>
 
 
 
@@ -34,8 +28,8 @@ format: revealjs
     - Commonly a document that contains both analysis and text.
     - This can be done with `Rmarkdown` and `knitr.`
     
-<img src="/figs/rmarkdown.PNG" alt=""/>
-<img src="/figs/knitr.PNG" alt=""/>
+<img src="/images/rmarkdown.PNG" alt=""/>
+<img src="/images/knitr.PNG" alt=""/>
 
 
 
@@ -44,7 +38,7 @@ format: revealjs
     + Data analysts may use `R`
     + `Shiny` is a great option for code novices
     
-<img src="/figs/shiny.PNG" alt=""/>
+<img src="/images/shiny.PNG" alt=""/>
 
 
     
@@ -57,7 +51,7 @@ format: revealjs
 
 
 # Iterative Analysis Structure
-<img src="/figs/useless_meeting.PNG" alt=""/>
+<img src="/images/useless_meeting.PNG" alt=""/>
 
 
 
@@ -65,7 +59,7 @@ format: revealjs
 - `Shiny` is an interactive web application framework for R.
     + Example: <http://shiny.rstudio.com/gallery/movie-explorer.html>
 
-<img src="/figs/shiny_example.PNG" alt=""/>
+<img src="/images/shiny_example.PNG" alt=""/>
 
 
 
@@ -128,7 +122,7 @@ shinyServer(function(input, output) {
 
 
 # Interactivity is Key
-<img src="/figs/interactivity.png" alt=""/>
+<img src="/images/interactivity.png" alt=""/>
 
 
 
@@ -191,7 +185,7 @@ shinyServer(function(input, output) {
 
 
 # Logistic Curve
-<img src="/figs/logistic-1.png" alt=""/>
+<img src="/images/logistic-1.png" alt=""/>
 
 
 
@@ -236,7 +230,7 @@ shiny::runGitHub('lebebr01/BuildForm', subdir = 'R', ref = 'testmodule')
 
 
 # Summary
-<img src="/figs/flowchart.png" alt=""/>
+<img src="/images/flowchart.png" alt=""/>
 
 
 

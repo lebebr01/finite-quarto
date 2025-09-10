@@ -4,7 +4,9 @@ page-layout: full
 toc: false
 listing:
   - id: latest-posts
-    contents: "posts/*.qmd"
+    contents: 
+      - "posts/*.qmd"
+      - "!posts/index.qmd"
     type: table
     sort: "date desc"
     sort-ui: false # Hides the sort buttons
@@ -12,12 +14,14 @@ listing:
     fields: [date, title]
     max-items: 3
   - id: latest-pubs
-    contents: "publications/*.qmd"
+    contents: 
+      - "publications/*.qmd"
+      - "!publications/index.qmd"
     type: table # or 'grid'
     sort: "date desc"
     sort-ui: false # Hides the sort buttons
     filter-ui: false # Hides the filter box
-    fields: [date, title, description]
+    fields: [date, title]
     max-items: 3
 ---
 
@@ -53,6 +57,28 @@ listing:
 
 :::
 
+:::
+
+---
+
+::: {.grid}
+:::{.g-col-6}
+![](images/portrait.jpg)
+:::
+:::{.g-col-6}
+Education:
+Ph.D. Quantitative Methods in Education, 2013 (University of Minnesota)
+
+Contact:
+
+{{< fa envelope >}}  &nbsp; **[brandon dot c dot lebeau@gmail.com](mailto:brandon.c.lebeau@gmail.com)**
+
+{{< fa brands linkedin >}} &nbsp; **[https://www.linkedin.com/in/blebeau11/](https://www.linkedin.com/in/blebeau11/)**
+
+ {{< fa brands github >}} &nbsp; **[https://github.com/lebebr01](https://github.com/lebebr01)**
+
+ {{< ai google-scholar >}} &nbsp; **[Publications](https://scholar.google.com/citations?user=QT9Nun0AAAAJ&hl=en)**
+:::
 :::
 
 <!-- Custom CSS for homepage layout -->
