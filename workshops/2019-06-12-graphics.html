@@ -261,21 +261,21 @@ University of Iowa
 <section id="explore-data" class="title-slide slide level1 center">
 <h1>Explore Data</h1>
 
-<img data-src="../figure/data-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk data</p></section>
+<img data-src="../images/data-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk data</p></section>
 
 <section id="first-ggplot" class="title-slide slide level1 center">
 <h1>First ggplot</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> midwest) <span class="sc">+</span></span>
 <span id="cb3-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/plot1-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk plot1</p></section>
+<img data-src="../images/plot1-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk plot1</p></section>
 
 <section id="equivalent-code" class="title-slide slide level1 center">
 <h1>Equivalent Code</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
 <span id="cb4-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/plot1_reduced-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk plot1_reduced</p></section>
+<img data-src="../images/plot1_reduced-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk plot1_reduced</p></section>
 
 <section id="your-turn" class="title-slide slide level1 center">
 <h1>Your Turn</h1>
@@ -298,14 +298,14 @@ University of Iowa
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
 <span id="cb5-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/aesthetic-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk aesthetic</p></section>
+<img data-src="../images/aesthetic-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk aesthetic</p></section>
 
 <section id="global-aesthetics" class="title-slide slide level1 center">
 <h1>Global Aesthetics</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
 <span id="cb6-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege), <span class="at">color =</span> <span class="st">'pink'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/global_aes-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk global_aes</p></section>
+<img data-src="../images/global_aes-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk global_aes</p></section>
 
 <section id="your-turn-1" class="title-slide slide level1 center">
 <h1>Your Turn</h1>
@@ -330,7 +330,7 @@ University of Iowa
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
 <span id="cb8-2"><a></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/smooth-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk smooth</p></section>
+<img data-src="../images/smooth-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk smooth</p></section>
 
 <section id="add-more-aesthetics" class="title-slide slide level1 center">
 <h1>Add more Aesthetics</h1>
@@ -338,12 +338,12 @@ University of Iowa
 <span id="cb9-2"><a></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">linetype =</span> state), </span>
 <span id="cb9-3"><a></a>              <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/smooth_states-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk smooth_states</p></section>
+<img data-src="../images/smooth_states-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk smooth_states</p></section>
 
 <section id="your-turn-2" class="title-slide slide level1 center">
 <h1>Your Turn</h1>
 <ol type="1">
-<li>It is possible to combine geoms, which we will do next, but try it first. Try to recreate this plot. <img data-src="../figure/combine-1.png" alt="plot of chunk combine"></li>
+<li>It is possible to combine geoms, which we will do next, but try it first. Try to recreate this plot. <img data-src="../images/combine-1.png" alt="plot of chunk combine"></li>
 </ol>
 </section>
 
@@ -354,7 +354,7 @@ University of Iowa
 <span id="cb10-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state), </span>
 <span id="cb10-4"><a></a>              <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/combine_geoms-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk combine_geoms</p></section>
+<img data-src="../images/combine_geoms-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk combine_geoms</p></section>
 
 <section id="remove-duplicate-aesthetics" class="title-slide slide level1 center">
 <h1>Remove duplicate aesthetics</h1>
@@ -363,12 +363,12 @@ University of Iowa
 <span id="cb11-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb11-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/two_geoms-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk two_geoms</p></section>
+<img data-src="../images/two_geoms-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk two_geoms</p></section>
 
 <section id="your-turn-3" class="title-slide slide level1 center">
 <h1>Your Turn</h1>
 <ol type="1">
-<li>Can you recreate the following figure? <img data-src="../figure/differ_aes-1.png" alt="plot of chunk differ_aes"></li>
+<li>Can you recreate the following figure? <img data-src="../images/differ_aes-1.png" alt="plot of chunk differ_aes"></li>
 </ol>
 </section>
 
@@ -386,7 +386,7 @@ University of Iowa
 <section id="brief-plot-customization-output" class="title-slide slide level1 center">
 <h1>Brief plot customization Output</h1>
 
-<img data-src="../figure/breaks_x2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk breaks_x2</p></section>
+<img data-src="../images/breaks_x2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk breaks_x2</p></section>
 
 <section id="change-plot-theme" class="title-slide slide level1 center">
 <h1>Change plot theme</h1>
@@ -396,7 +396,7 @@ University of Iowa
 <span id="cb13-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
 <span id="cb13-5"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/theme_bw-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk theme_bw</p></section>
+<img data-src="../images/theme_bw-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk theme_bw</p></section>
 
 <section id="more-themes" class="title-slide slide level1 center">
 <h1>More themes</h1>
@@ -423,13 +423,13 @@ University of Iowa
 <span id="cb15-2"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Percent College Educated by Population Density"</span>,</span>
 <span id="cb15-3"><a></a>       <span class="at">subtitle =</span> <span class="st">"County level data for five midwest states"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/title_subtitle_ggplot2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk title_subtitle_ggplot2</p></section>
+<img data-src="../images/title_subtitle_ggplot2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk title_subtitle_ggplot2</p></section>
 
 <section id="color-options" class="title-slide slide level1 center">
 <h1>Color Options</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>p1 <span class="sc">+</span> <span class="fu">scale_color_grey</span>(<span class="st">"State"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/grey_color-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk grey_color</p></section>
+<img data-src="../images/grey_color-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk grey_color</p></section>
 
 <section id="using-colorbrewer2.org" class="title-slide slide level1 center">
 <h1>Using colorbrewer2.org</h1>
@@ -438,7 +438,7 @@ University of Iowa
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>p1 <span class="sc">+</span> <span class="fu">scale_color_brewer</span>(<span class="st">"State"</span>, <span class="at">palette =</span> <span class="st">'Dark2'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/color_brewer-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk color_brewer</p></section>
+<img data-src="../images/color_brewer-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk color_brewer</p></section>
 
 <section id="two-additional-color-options" class="title-slide slide level1 center">
 <h1>Two additional color options</h1>
@@ -453,13 +453,13 @@ University of Iowa
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">library</span>(viridis)</span>
 <span id="cb18-2"><a></a>p1 <span class="sc">+</span> <span class="fu">scale_color_viridis</span>(<span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/viridis-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk viridis</p></section>
+<img data-src="../images/viridis-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk viridis</p></section>
 
 <section id="viridis-colors-1" class="title-slide slide level1 center">
 <h1>viridis colors</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>p1 <span class="sc">+</span> <span class="fu">scale_color_viridis</span>(<span class="at">option =</span> <span class="st">'cividis'</span>, <span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/viridis2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk viridis2</p></section>
+<img data-src="../images/viridis2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk viridis2</p></section>
 
 <section id="zoom-in-on-a-plot" class="title-slide slide level1 center">
 <h1>Zoom in on a plot</h1>
@@ -475,7 +475,7 @@ University of Iowa
 <section id="zoom-in-on-a-plot-output" class="title-slide slide level1 center">
 <h1>Zoom in on a plot output</h1>
 
-<img data-src="../figure/zoom_out-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk zoom_out</p></section>
+<img data-src="../images/zoom_out-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk zoom_out</p></section>
 
 <section id="zoom-using-scale_x_continuous---bad-practice" class="title-slide slide level1 center">
 <h1>Zoom using <code>scale_x_continuous</code> - Bad Practice</h1>
@@ -495,7 +495,7 @@ University of Iowa
 <pre><code>## Warning: Removed 16 rows containing missing values (geom_point).</code></pre>
 <pre><code>## `geom_smooth()` using method = 'loess' and formula 'y ~ x'</code></pre>
 
-<img data-src="../figure/zoom_x_output-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk zoom_x_output</p></section>
+<img data-src="../images/zoom_x_output-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk zoom_x_output</p></section>
 
 <section id="lord-of-the-rings-data" class="title-slide slide level1 center">
 <h1>Lord of the Rings Data</h1>
@@ -530,7 +530,7 @@ University of Iowa
 <span id="cb30-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 
-<img data-src="../figure/histogram-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk histogram</p></section>
+<img data-src="../images/histogram-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk histogram</p></section>
 
 <section id="customize-histogram" class="title-slide slide level1 center">
 <h1>Customize histogram</h1>
@@ -538,7 +538,7 @@ University of Iowa
 <span id="cb32-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
 <span id="cb32-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/cust_hist-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk cust_hist</p></section>
+<img data-src="../images/cust_hist-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk cust_hist</p></section>
 
 <section id="customize-histogram-2" class="title-slide slide level1 center">
 <h1>Customize histogram 2</h1>
@@ -546,7 +546,7 @@ University of Iowa
 <span id="cb33-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">25</span>) <span class="sc">+</span> </span>
 <span id="cb33-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/cust_hist2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk cust_hist2</p></section>
+<img data-src="../images/cust_hist2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk cust_hist2</p></section>
 
 <section id="histograms-by-other-variables---likely-not-useful" class="title-slide slide level1 center">
 <h1>Histograms by other variables - likely not useful</h1>
@@ -554,7 +554,7 @@ University of Iowa
 <span id="cb34-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">25</span>) <span class="sc">+</span> </span>
 <span id="cb34-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/hist_film-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk hist_film</p></section>
+<img data-src="../images/hist_film-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk hist_film</p></section>
 
 <section id="histograms-by-other-variables---one-alternative" class="title-slide slide level1 center">
 <h1>Histograms by other variables - one alternative</h1>
@@ -563,7 +563,7 @@ University of Iowa
 <span id="cb35-3"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
 <span id="cb35-4"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Film)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/hist_film_alt-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk hist_film_alt</p></section>
+<img data-src="../images/hist_film_alt-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk hist_film_alt</p></section>
 
 <section id="your-turn-4" class="title-slide slide level1 center">
 <h1>Your Turn</h1>
@@ -581,7 +581,7 @@ University of Iowa
 <span id="cb36-4"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
 <span id="cb36-5"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/rotate-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk rotate</p></section>
+<img data-src="../images/rotate-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk rotate</p></section>
 
 <section id="many-times-coord_flip-is-better" class="title-slide slide level1 center">
 <h1>Many times <code>coord_flip</code> is better</h1>
@@ -591,7 +591,7 @@ University of Iowa
 <span id="cb37-4"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
 <span id="cb37-5"><a></a>  <span class="fu">coord_flip</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/flip-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk flip</p></section>
+<img data-src="../images/flip-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk flip</p></section>
 
 <section id="bar-graphs" class="title-slide slide level1 center">
 <h1>Bar graphs</h1>
@@ -599,7 +599,7 @@ University of Iowa
 <span id="cb38-2"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> </span>
 <span id="cb38-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/simple_bar-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk simple_bar</p></section>
+<img data-src="../images/simple_bar-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk simple_bar</p></section>
 
 <section id="add-aesthetic" class="title-slide slide level1 center">
 <h1>Add aesthetic</h1>
@@ -607,7 +607,7 @@ University of Iowa
 <span id="cb39-2"><a></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Film)) <span class="sc">+</span> </span>
 <span id="cb39-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/bar_fill-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk bar_fill</p></section>
+<img data-src="../images/bar_fill-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk bar_fill</p></section>
 
 <section id="stacked-bars-relative" class="title-slide slide level1 center">
 <h1>Stacked Bars Relative</h1>
@@ -616,7 +616,7 @@ University of Iowa
 <span id="cb40-3"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
 <span id="cb40-4"><a></a>  <span class="fu">ylab</span>(<span class="st">"Proportion"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/stacked-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk stacked</p></section>
+<img data-src="../images/stacked-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk stacked</p></section>
 
 <section id="dodged-bars" class="title-slide slide level1 center">
 <h1>Dodged Bars</h1>
@@ -624,7 +624,7 @@ University of Iowa
 <span id="cb41-2"><a></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Film), <span class="at">position =</span> <span class="st">'dodge'</span>) <span class="sc">+</span> </span>
 <span id="cb41-3"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/unnamed-chunk-1-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk unnamed-chunk-1</p></section>
+<img data-src="../images/unnamed-chunk-1-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk unnamed-chunk-1</p></section>
 
 <section id="change-bar-col-bar_coloror" class="title-slide slide level1 center">
 <h1>Change Bar Col bar_coloror</h1>
@@ -634,7 +634,7 @@ University of Iowa
 <span id="cb42-4"><a></a>  <span class="fu">ylab</span>(<span class="st">"Proportion"</span>) <span class="sc">+</span> </span>
 <span id="cb42-5"><a></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">option =</span> <span class="st">'cividis'</span>, <span class="at">discrete =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/bar_color-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk bar_color</p></section>
+<img data-src="../images/bar_color-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk bar_color</p></section>
 
 <section id="your-turn-5" class="title-slide slide level1 center">
 <h1>Your Turn</h1>
@@ -933,30 +933,28 @@ University of Iowa
 
 <section id="gganimate" class="title-slide slide level1 center">
 <h1>gganimate</h1>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a><span class="fu">install.packages</span>(<span class="st">"gganimate"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+
 </section>
 
 <section id="gganimate-example" class="title-slide slide level1 center">
 <h1>gganimate example</h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a></a><span class="fu">library</span>(gganimate)</span>
-<span id="cb70-2"><a></a></span>
-<span id="cb70-3"><a></a><span class="fu">ggplot</span>(storms, <span class="fu">aes</span>(<span class="at">x =</span> pressure, <span class="at">y =</span> wind, <span class="at">color =</span> status)) <span class="sc">+</span> </span>
-<span id="cb70-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb70-5"><a></a>  <span class="fu">xlab</span>(<span class="st">"Pressure"</span>) <span class="sc">+</span> </span>
-<span id="cb70-6"><a></a>  <span class="fu">ylab</span>(<span class="st">"Wind Speed (MPH)"</span>) <span class="sc">+</span></span>
-<span id="cb70-7"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>status) <span class="sc">+</span></span>
-<span id="cb70-8"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb70-9"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Year: {frame_time}'</span>) <span class="sc">+</span></span>
-<span id="cb70-10"><a></a>  <span class="fu">transition_time</span>(<span class="fu">as.integer</span>(year)) <span class="sc">+</span> </span>
-<span id="cb70-11"><a></a>  <span class="fu">ease_aes</span>(<span class="st">'linear'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a><span class="fu">library</span>(gganimate)</span>
+<span id="cb69-2"><a></a></span>
+<span id="cb69-3"><a></a><span class="fu">ggplot</span>(storms, <span class="fu">aes</span>(<span class="at">x =</span> pressure, <span class="at">y =</span> wind, <span class="at">color =</span> status)) <span class="sc">+</span> </span>
+<span id="cb69-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb69-5"><a></a>  <span class="fu">xlab</span>(<span class="st">"Pressure"</span>) <span class="sc">+</span> </span>
+<span id="cb69-6"><a></a>  <span class="fu">ylab</span>(<span class="st">"Wind Speed (MPH)"</span>) <span class="sc">+</span></span>
+<span id="cb69-7"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>status) <span class="sc">+</span></span>
+<span id="cb69-8"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb69-9"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Year: {frame_time}'</span>) <span class="sc">+</span></span>
+<span id="cb69-10"><a></a>  <span class="fu">transition_time</span>(<span class="fu">as.integer</span>(year)) <span class="sc">+</span> </span>
+<span id="cb69-11"><a></a>  <span class="fu">ease_aes</span>(<span class="st">'linear'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 
 <section id="gganimate-output" class="title-slide slide level1 center">
 <h1>gganimate output</h1>
 
-<img data-src="../figure/storms.gif" class="r-stretch"></section>
+<img data-src="../images/storms.gif" class="r-stretch"></section>
 
 <section id="additional-resources" class="title-slide slide level1 center">
 <h1>Additional Resources</h1>
@@ -1186,6 +1184,44 @@ University of Iowa
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

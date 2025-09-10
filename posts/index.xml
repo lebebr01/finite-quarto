@@ -8504,6 +8504,53 @@ font-style: inherit;"># print data</span></span>
   <pubDate>Mon, 06 Jan 2014 06:00:00 GMT</pubDate>
 </item>
 <item>
+  <title>Guessing Correlations: A shiny app</title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://lebebr01.github.io/finite-quarto/posts/2013-12-30-guessCorr.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>A recent hobby of mine (as with many other R users) is to play around with the relatively new R package: <em>shiny</em>. I started creating demo applications about a year ago just to figure out how powerful the platform could be, but it was not until this fall that I started creating some applications for others to use.</p>
+<p>I encountered a problem this fall at the University of Arkansas due to the huge Java exploit going public. As a result of this, Java was blocked on all of the computers in the classrooms that I used for my intro statistics courses. Most days this does not impact my lectures, however on a few days throughout the semester I use applets to help show certain concepts.</p>
+<p>Enter my solution, create shiny applications that attempts to mimic many of the same features found in the Java applets using <em>shiny</em>. The application I’ve been working on lately is an application that allows users to estimate the correlation based on a scatterplot of data.</p>
+<p>You can run the shiny application from my github page using the following commands (make sure you have the shiny package installed first:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">shiny<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">runGitHub</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">repo =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"shinyApps"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">username =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"lebebr01"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">subdir =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"guessCorr"</span>)</span></code></pre></div></div>
+</div>
+<p>This should open a session in your browser that should look like the following: <img src="https://lebebr01.github.io/finite-quarto/figs/GuessingCorrelations.png" class="img-fluid"></p>
+<p>As you can see from this screenshot, there is a scatterplot in the main window and the user inputs a guess into the text box. When they hit the ‘Submit Guess’ button, the grey panel above the scatterplot updates to give hints about the direction the actual correlation is compared to the guess. Once the user is within .05 (.05 above or below) the actual correlation, the actual correlation is printed in the top text box.</p>
+<p>The app also includes the ability to restrict the range of the scatterplot. This can be seen in the image below (and can be done on the app by clicking the ‘Restriction of Range’ checkbox): <img src="https://lebebr01.github.io/finite-quarto/figs/GuessingCorrelationsRR.png" class="img-fluid"></p>
+<p>When that checkbox is clicked, a new slider shows up that restricts the range of the original scatterplot. The data that lies outside of the restricted range shows up as a light grey in the updated graph. Now the user attempts to guess the correlation for the restricted range data. The correlation for the entire data can be seen in the graph.</p>
+<p>The one thing I was unable to implement was a second button that allows the user to click it to refresh the data to guess at another correlation. The ‘Submit Button’ in <em>shiny</em> is too cumbersome and I could not get two ‘Action Buttons’ to work side by side, although this may be possible. Lastly, adding the option for a counter as an indication of how well the user is doing could make it an interesting contest in the classroom.</p>
+
+
+
+ ]]></description>
+  <category>R</category>
+  <category>Shiny</category>
+  <category>Teaching</category>
+  <guid>https://lebebr01.github.io/finite-quarto/posts/2013-12-30-guessCorr.html</guid>
+  <pubDate>Mon, 30 Dec 2013 06:00:00 GMT</pubDate>
+</item>
+<item>
   <title>SPSStoR An R package to convert SPSS syntax</title>
   <dc:creator>Brandon LeBeau</dc:creator>
   <link>https://lebebr01.github.io/finite-quarto/posts/2013-11-26-spsstor-an-r-package-to-convert-spss-syntax.html</link>
@@ -8612,62 +8659,6 @@ font-style: inherit;">spss_to_r</span>(file)</span></code></pre></div></div>
   <category>Package</category>
   <guid>https://lebebr01.github.io/finite-quarto/posts/2013-11-26-spsstor-an-r-package-to-convert-spss-syntax.html</guid>
   <pubDate>Tue, 26 Nov 2013 06:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Formatting Markdown Table with R</title>
-  <dc:creator>Brandon LeBeau</dc:creator>
-  <link>https://lebebr01.github.io/finite-quarto/posts/2013-11-18-formatting-markdown-table-with-r.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<p>This past August I took an opportunity to step back into the University academic world as a <a href="http://http://coehp.uark.edu/12216.php">Visiting Assistant Professor</a> at the <a href="http://www.uark.edu">University of Arkansas</a>. I have enjoyed the transition back into the academic world, including a more flexible schedule, variation in topics/duties, and collaborating with colleagues.</p>
-<p>However, there has been some growing pains, especially regarding creating my own slides for the courses I teach. Although I am using the same books/curriculum used in previous semesters, I am making my own slides and adding my own pieces as I see fit. In addition, I do not use powerpoint, which all of the existing slides are in. Therefore, I am creating my own versions of the slides using a combination of <a href="http://www.r-project.org/">R</a>, <a href="http://yihui.name/knitr/">knitr</a>, <a href="http://daringfireball.net/projects/markdown/">markdown</a>, <a href="http://johnmacfarlane.net/pandoc/">pandoc</a>, <a href="http://www.w3.org/Talks/Tools/Slidy2/">slidy</a>, and <a href="http://www.latex-project.org/">LaTeX</a>. Below is my general process of making my slides and the slides I put online for students to have access to.</p>
-<section id="step-1---create-source-file" class="level2">
-<h2 class="anchored" data-anchor-id="step-1---create-source-file">Step 1 - Create Source File</h2>
-<p>I start with a <em>Rmd</em> file. This allows me to embed R code into the source document. This is particularly useful for me to include plots of distributions, graphically showing how ANOVA works, etc. Once I am finished editing my <em>Rmd</em>, if I am using <a href="http://www.rstudio.com/">Rstudio</a> I just use the <em>Knit HTML</em> button to automatically generate the markdown and HTML file for me. Alternatively, the <em>knit</em> command from the <strong>knitr</strong> package will create the markdown file for you (but not the HTML file, although for me the HTML file is not needed in this step). The defaults of the <em>knit</em> command work fine for me.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">knit</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">input =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'/path/to/file.Rmd'</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">output =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'/path/to/file.md'</span>)</span></code></pre></div></div>
-</div>
-</section>
-<section id="step-2---create-html-presentation" class="level2">
-<h2 class="anchored" data-anchor-id="step-2---create-html-presentation">Step 2 - Create HTML Presentation</h2>
-<p>Once we have the markdown file, I now use pandoc to create my HTML presentation. There are a few ways to create HTML presentation slides, but I personally like slidy the best. I like slidy because it easily fills the whole screen and also allows for content to go over the edges of the slide. If content goes outside of the edges of a single slide, you can scroll to see the missing content. I find this useful if I want to blow up an image or have two plots where I can show one then scroll to the second. The pandoc command I use looks something like this:</p>
-<p>pandoc -s –mathjax -i -t slidy inputfile.md -o outfile.html</p>
-</section>
-<section id="step-3-optional---edit-css-for-html-presentation" class="level2">
-<h2 class="anchored" data-anchor-id="step-3-optional---edit-css-for-html-presentation">Step 3 (Optional) - Edit CSS for HTML Presentation</h2>
-<p>I use a custom CSS file to style my HTML presentation so it uses some of the official colors from the University of Arkansas. For example, my header titles use the Arkansas red. To use a custom CSS file, you just need to find the line that mentions CSS in the HTML file and change it to reflect your custom file. The defaults look good, although perhaps slightly bland.</p>
-</section>
-<section id="step-4---create-pdf-slides" class="level2">
-<h2 class="anchored" data-anchor-id="step-4---create-pdf-slides">Step 4 - Create pdf slides</h2>
-<p>I then create a different set of slides using LaTeX that I post on the blackboard site for each of my courses. Pandoc is how I get the <em>tex</em> file to compile with LaTeX. The command is very simple:</p>
-<p>pandoc -s inputfile.md -o outfile.tex</p>
-<p>Two things I change, I make sure the base text size is 12 pt.&nbsp;I also make sure to use the <em>float</em> package and change any figure positions from <em>htbp</em> to <em>H</em> which forces the figures to stay in position and not float around. Then I compile the resulting <em>tex</em> using Rstudio or from the command line with:</p>
-<p>pdflatex -interaction=nonstopmode -synctex=1 outfile.tex</p>
-<p>In my opinion this creates great looking html presentations that are highly customizable. One thing to note is that by default to get the slideshow, you need to be connected to the internet. Both <strong>slidy</strong> and <strong>mathjax</strong> refer to javascript files that are on downloaded directly from the web. You should be able to download these files, store them locally, and refer to the local versions.</p>
-
-
-</section>
-
- ]]></description>
-  <category>R</category>
-  <category>Markdown</category>
-  <category>Latex</category>
-  <category>Slidy</category>
-  <guid>https://lebebr01.github.io/finite-quarto/posts/2013-11-18-formatting-markdown-table-with-r.html</guid>
-  <pubDate>Mon, 18 Nov 2013 06:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

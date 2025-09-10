@@ -277,21 +277,21 @@ University of Iowa
 <section id="explore-data" class="title-slide slide level1 center">
 <h1>Explore Data</h1>
 
-<img data-src="../figure/data-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk data</p></section>
+<img data-src="../images/data-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk data</p></section>
 
 <section id="first-ggplot" class="title-slide slide level1 center">
 <h1>First ggplot</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> midwest) <span class="sc">+</span></span>
 <span id="cb6-2"><a></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/plot1-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk plot1</p></section>
+<img data-src="../images/plot1-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk plot1</p></section>
 
 <section id="equivalent-code" class="title-slide slide level1 center">
 <h1>Equivalent Code</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
 <span id="cb7-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/plot1_reduced-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk plot1_reduced</p></section>
+<img data-src="../images/plot1_reduced-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk plot1_reduced</p></section>
 
 <section id="your-turn" class="title-slide slide level1 center">
 <h1>Your Turn</h1>
@@ -314,14 +314,14 @@ University of Iowa
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
 <span id="cb8-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/aesthetic-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk aesthetic</p></section>
+<img data-src="../images/aesthetic-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk aesthetic</p></section>
 
 <section id="global-aesthetics" class="title-slide slide level1 center">
 <h1>Global Aesthetics</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
 <span id="cb9-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege), <span class="at">color =</span> <span class="st">'pink'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/global_aes-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk global_aes</p></section>
+<img data-src="../images/global_aes-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk global_aes</p></section>
 
 <section id="your-turn-1" class="title-slide slide level1 center">
 <h1>Your Turn</h1>
@@ -346,7 +346,7 @@ University of Iowa
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>(midwest) <span class="sc">+</span></span>
 <span id="cb11-2"><a></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/smooth-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk smooth</p></section>
+<img data-src="../images/smooth-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk smooth</p></section>
 
 <section id="add-more-aesthetics" class="title-slide slide level1 center">
 <h1>Add more Aesthetics</h1>
@@ -354,12 +354,12 @@ University of Iowa
 <span id="cb12-2"><a></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">linetype =</span> state), </span>
 <span id="cb12-3"><a></a>              <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/smooth_states-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk smooth_states</p></section>
+<img data-src="../images/smooth_states-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk smooth_states</p></section>
 
 <section id="your-turn-2" class="title-slide slide level1 center">
 <h1>Your Turn</h1>
 <ol type="1">
-<li>It is possible to combine geoms, which we will do next, but try it first. Try to recreate this plot. <img data-src="../figure/combine-1.png" alt="plot of chunk combine"></li>
+<li>It is possible to combine geoms, which we will do next, but try it first. Try to recreate this plot. <img data-src="../images/combine-1.png" alt="plot of chunk combine"></li>
 </ol>
 </section>
 
@@ -370,7 +370,7 @@ University of Iowa
 <span id="cb13-3"><a></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> popdensity, <span class="at">y =</span> percollege, <span class="at">color =</span> state), </span>
 <span id="cb13-4"><a></a>              <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/combine_geoms-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk combine_geoms</p></section>
+<img data-src="../images/combine_geoms-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk combine_geoms</p></section>
 
 <section id="remove-duplicate-aesthetics" class="title-slide slide level1 center">
 <h1>Remove duplicate aesthetics</h1>
@@ -379,12 +379,12 @@ University of Iowa
 <span id="cb14-3"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb14-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/two_geoms-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk two_geoms</p></section>
+<img data-src="../images/two_geoms-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk two_geoms</p></section>
 
 <section id="your-turn-3" class="title-slide slide level1 center">
 <h1>Your Turn</h1>
 <ol type="1">
-<li>Can you recreate the following figure? <img data-src="../figure/differ_aes-1.png" alt="plot of chunk differ_aes"></li>
+<li>Can you recreate the following figure? <img data-src="../images/differ_aes-1.png" alt="plot of chunk differ_aes"></li>
 </ol>
 </section>
 
@@ -402,7 +402,7 @@ University of Iowa
 <section id="brief-plot-customization-output" class="title-slide slide level1 center">
 <h1>Brief plot customization Output</h1>
 
-<img data-src="../figure/breaks_x2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk breaks_x2</p></section>
+<img data-src="../images/breaks_x2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk breaks_x2</p></section>
 
 <section id="additional-ggplot2-resources" class="title-slide slide level1 center">
 <h1>Additional ggplot2 resources</h1>
@@ -490,7 +490,7 @@ University of Iowa
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="fu">install.packages</span>(<span class="st">'fivethirtyeight'</span>)</span>
 <span id="cb38-2"><a></a><span class="fu">library</span>(fivethirtyeight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img data-src="../figure/congress-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk congress</p></section>
+<img data-src="../images/congress-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk congress</p></section>
 
 <section id="using-filter" class="title-slide slide level1 center">
 <h1>Using <code>filter</code></h1>
@@ -691,7 +691,7 @@ University of Iowa
 <section id="all-boolean-options" class="title-slide slide level1 center">
 <h1>All boolean options</h1>
 
-<img data-src="../figure/boolean.png" class="r-stretch"></section>
+<img data-src="../images/boolean.png" class="r-stretch"></section>
 
 <section id="using-count" class="title-slide slide level1 center">
 <h1>Using <code>count</code></h1>
@@ -1025,7 +1025,7 @@ University of Iowa
 <section id="explore-trend-output" class="title-slide slide level1 center">
 <h1>Explore trend output</h1>
 
-<img data-src="../figure/trend2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk trend2</p></section>
+<img data-src="../images/trend2-1.png" class="r-stretch quarto-figure-center"><p class="caption">plot of chunk trend2</p></section>
 
 <section id="your-turn-9" class="title-slide slide level1 center">
 <h1>Your Turn</h1>
