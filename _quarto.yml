@@ -5,6 +5,9 @@ project:
 website:
   title: "Brandon LeBeau"
   description: "Academic website and blog"
+  site-url: https://brandonlebeau.org
+  open-graph: true
+  google-analytics: "G-14CK5K9RD6"
   
   navbar:
     background: "#101730"
@@ -34,13 +37,13 @@ website:
     left: |
       <div class="social-links">
         <a href="mailto:brandon-lebeau@uiowa.edu" title="Email">
-          <i class="fa fa-envelope"></i>
+          <i class="fa fa-envelope fa-lg"></i>
         </a>
         <a href="https://twitter.com/blebeau11" title="Twitter">
-          <i class="fa-brands fa-linkedin"></i>
+          <i class="fa-brands fa-linkedin fa-lg"></i>
         </a>
         <a href="https://github.com/lebebr01" title="GitHub">
-          <i class="fa-brands fa-github"></i>
+          <i class="fa-brands fa-github fa-lg"></i>
         </a>
       </div>
     right: |
