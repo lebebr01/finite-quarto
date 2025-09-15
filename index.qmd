@@ -51,9 +51,9 @@ listing:
 Ph.D. Quantitative Methods in Education, 2013 (University of Minnesota)
 
 **Contact:**  
-{{< fa envelope >}} &nbsp; **[brandon dot c dot lebeau@gmail.com](mailto:brandon.c.lebeau@gmail.com)**  
-{{< fa brands linkedin >}} &nbsp; **[LinkedIn](https://www.linkedin.com/in/blebeau11/)**  
-{{< fa brands github >}} &nbsp; **[GitHub](https://github.com/lebebr01)**  
-{{< ai google-scholar >}} &nbsp; **[Publications](https://scholar.google.com/citations?user=QT9Nun0AAAAJ&hl=en)**
+{{< fa envelope size=2x >}} &nbsp; **[brandon dot c dot lebeau@gmail.com](mailto:brandon.c.lebeau@gmail.com)**  
+{{< fa brands linkedin size=2x >}} &nbsp; **[LinkedIn](https://www.linkedin.com/in/blebeau11/)**  
+{{< fa brands github size=2x >}} &nbsp; **[GitHub](https://github.com/lebebr01)**  
+{{< ai google-scholar size=2x >}} &nbsp; **[Publications](https://scholar.google.com/citations?user=QT9Nun0AAAAJ&hl=en)**
 
 ---
