@@ -1,0 +1,11 @@
+/* Final hard override for container widths */
+html body #quarto-content.quarto-container,
+html body #quarto-content.page-columns,
+html body main.content,
+html body .container,
+html body .container-fluid {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
