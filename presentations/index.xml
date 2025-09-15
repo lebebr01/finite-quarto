@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Brandon LeBeau</title>
+<link>https://brandonlebeau.org/presentations/</link>
+<atom:link href="https://brandonlebeau.org/presentations/index.xml" rel="self" type="application/rss+xml"/>
+<description>Academic website and blog</description>
+<generator>quarto-1.8.24</generator>
+<lastBuildDate>Thu, 30 Mar 2023 05:00:00 GMT</lastBuildDate>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau &amp; Xiaoting Zhong</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2023-03-30-ncme.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2023-03-30-ncme.html</guid>
+  <pubDate>Thu, 30 Mar 2023 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2022-12-15-uiowa-idas.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2022-12-15-uiowa-idas.html</guid>
+  <pubDate>Thu, 15 Dec 2022 06:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau &amp; Ariel M. Aloe</dc:creator>
+  <link>https://brandonlebeau.org/presentations/canam_2021.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/canam_2021.html</guid>
+  <pubDate>Fri, 29 Oct 2021 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau &amp; Ariel M. Aloe</dc:creator>
+  <link>https://brandonlebeau.org/presentations/canam_2020.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/canam_2020.html</guid>
+  <pubDate>Fri, 24 Apr 2020 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/casma_2020.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/casma_2020.html</guid>
+  <pubDate>Fri, 14 Feb 2020 06:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/nagc_2019.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/nagc_2019.html</guid>
+  <pubDate>Fri, 08 Nov 2019 06:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2018-07-31-jsm2018.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2018-07-31-jsm2018.html</guid>
+  <pubDate>Tue, 31 Jul 2018 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2017-08-02-jsm2017.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2017-08-02-jsm2017.html</guid>
+  <pubDate>Wed, 02 Aug 2017 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2017-02-24-csp2017.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2017-02-24-csp2017.html</guid>
+  <pubDate>Fri, 24 Feb 2017 06:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2016-10-07-canam.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2016-10-07-canam.html</guid>
+  <pubDate>Fri, 07 Oct 2016 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2016-07-31-jsm2016.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2016-07-31-jsm2016.html</guid>
+  <pubDate>Sun, 31 Jul 2016 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2016-06-29-user2016.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2016-06-29-user2016.html</guid>
+  <pubDate>Wed, 29 Jun 2016 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2016-04-09-ncme2016.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2016-04-09-ncme2016.html</guid>
+  <pubDate>Sat, 09 Apr 2016 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2016-04-08-aera2016.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2016-04-08-aera2016.html</guid>
+  <pubDate>Fri, 08 Apr 2016 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2016-02-18-cspshiny.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2016-02-18-cspshiny.html</guid>
+  <pubDate>Thu, 18 Feb 2016 06:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/presentations/2015-12-04-centraliowaruser.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/presentations/2015-12-04-centraliowaruser.html</guid>
+  <pubDate>Fri, 04 Dec 2015 06:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>

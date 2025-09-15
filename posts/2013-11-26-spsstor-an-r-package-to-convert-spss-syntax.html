@@ -105,9 +105,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-14CK5K9RD6"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
+</script>
 
 
 <link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="SPSStoR An R package to convert SPSS syntax – Brandon LeBeau">
+<meta property="og:description" content="Academic website and blog">
+<meta property="og:site_name" content="Brandon LeBeau">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -331,7 +343,7 @@ x %&gt;% summarise_each(funs(mean(., na.rm = TRUE), sd(., na.rm = TRUE), min(., 
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/brandonlebeau\.org");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

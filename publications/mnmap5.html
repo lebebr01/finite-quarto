@@ -75,9 +75,21 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-14CK5K9RD6"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
+</script>
 
 
 <link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="A Multi-Institutional Study of High School Mathematics Curricula and College Mathematics Achievement and Course Taking – Brandon LeBeau">
+<meta property="og:description" content="This study examined the relationship between high school mathematics curricula and student achievement and course-taking patterns over 4 years of college course taking for a sample of over 10,000 s…">
+<meta property="og:site_name" content="Brandon LeBeau">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -284,7 +296,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/brandonlebeau\.org");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

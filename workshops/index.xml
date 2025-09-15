@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Brandon LeBeau</title>
+<link>https://brandonlebeau.org/workshops/</link>
+<atom:link href="https://brandonlebeau.org/workshops/index.xml" rel="self" type="application/rss+xml"/>
+<description>Academic website and blog</description>
+<generator>quarto-1.8.24</generator>
+<lastBuildDate>Wed, 12 Jun 2019 05:00:00 GMT</lastBuildDate>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/workshops/2019-06-12-graphics.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/workshops/2019-06-12-graphics.html</guid>
+  <pubDate>Wed, 12 Jun 2019 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/workshops/2018-07-19-tidyverse_short.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/workshops/2018-07-19-tidyverse_short.html</guid>
+  <pubDate>Thu, 19 Jul 2018 05:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/workshops/2018-01-10-tidyverse.html</link>
+  <description><![CDATA[ undefined ]]></description>
+  <guid>https://brandonlebeau.org/workshops/2018-01-10-tidyverse.html</guid>
+  <pubDate>Wed, 10 Jan 2018 06:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>
