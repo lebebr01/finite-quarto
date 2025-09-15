@@ -1,0 +1,17 @@
+---
+title: "About"
+---
+
+## Education
+
+**Ph.D. Quantitative Methods in Education**  
+University of Minnesota, 2013
+
+## Contact Information
+
+{{< fa envelope >}} &nbsp; **[brandon dot c dot lebeau@gmail.com](mailto:brandon.c.lebeau@gmail.com)**  
+{{< fa brands linkedin >}} &nbsp; **[LinkedIn](https://www.linkedin.com/in/blebeau11/)**  
+{{< fa brands github >}} &nbsp; **[GitHub](https://github.com/lebebr01)**  
+{{< ai google-scholar >}} &nbsp; **[Publications](https://scholar.google.com/citations?user=QT9Nun0AAAAJ&hl=en)**
+
+<!-- You can add more content about yourself here -->

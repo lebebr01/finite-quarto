@@ -51,8 +51,10 @@ format:
     theme: 
       - cosmo
       - custom.scss
+    css: styles.css
     toc: true
     toc-location: right
+    page-layout: full
     highlight-style: github
     link-external-newwindow: true
     

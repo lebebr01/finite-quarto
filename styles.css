@@ -1,0 +1,14 @@
+/* General spacing for sections */
+section {
+  margin-bottom: 2rem;
+}
+
+/* Ensure buttons have a bit of spacing */
+.btn {
+  margin-top: 1rem;
+}
+
+/* Portrait image alignment (optional backup to inline style) */
+img[style*="float: left"] {
+  margin-bottom: 1rem;
+}

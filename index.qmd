@@ -9,103 +9,51 @@ listing:
       - "!posts/index.qmd"
     type: table
     sort: "date desc"
-    sort-ui: false # Hides the sort buttons
-    filter-ui: false # Hides the filter box
+    sort-ui: false
+    filter-ui: false
     fields: [date, title]
     max-items: 3
   - id: latest-pubs
     contents: 
       - "publications/*.qmd"
       - "!publications/index.qmd"
-    type: table # or 'grid'
+    type: table
     sort: "date desc"
-    sort-ui: false # Hides the sort buttons
-    filter-ui: false # Hides the filter box
+    sort-ui: false
+    filter-ui: false
     fields: [date, title]
     max-items: 3
 ---
 
-::: {.grid}
-
-::: {.g-col-12 .g-col-md-7 .g-col-lg-6}
-
-## Recent Educate-R Posts
+# Recent Educate-R Posts
 
 :::{#latest-posts}
 :::
 
-<footer>
-<nav>
 [All Educate-R Posts](/posts/){.btn .btn-outline-primary}
-</nav>
-</footer>
 
-:::
+---
 
-::: {.g-col-12 .g-col-md-5 .g-col-lg-5 .g-col-lg-offset-1}
-
-## Recent Publications
+# Recent Publications
 
 :::{#latest-pubs}
 :::
 
-<footer>
-<nav>
 [All Publications](/publications/){.btn .btn-outline-primary}
-</nav>
-</footer>
-
-:::
-
-:::
 
 ---
 
-::: {.grid}
-:::{.g-col-6}
-![](images/portrait.jpg)
-:::
-:::{.g-col-6}
-Education:
+# About Me
+
+![](images/LeBeauAnalytics_LeBeau.Brandon-5.jpg){style="float: left; margin-right: 1rem; width: 300px;"}
+
+**Education:**  
 Ph.D. Quantitative Methods in Education, 2013 (University of Minnesota)
 
-Contact:
+**Contact:**  
+{{< fa envelope >}} &nbsp; **[brandon dot c dot lebeau@gmail.com](mailto:brandon.c.lebeau@gmail.com)**  
+{{< fa brands linkedin >}} &nbsp; **[LinkedIn](https://www.linkedin.com/in/blebeau11/)**  
+{{< fa brands github >}} &nbsp; **[GitHub](https://github.com/lebebr01)**  
+{{< ai google-scholar >}} &nbsp; **[Publications](https://scholar.google.com/citations?user=QT9Nun0AAAAJ&hl=en)**
 
-{{< fa envelope >}}  &nbsp; **[brandon dot c dot lebeau@gmail.com](mailto:brandon.c.lebeau@gmail.com)**
-
-{{< fa brands linkedin >}} &nbsp; **[https://www.linkedin.com/in/blebeau11/](https://www.linkedin.com/in/blebeau11/)**
-
- {{< fa brands github >}} &nbsp; **[https://github.com/lebebr01](https://github.com/lebebr01)**
-
- {{< ai google-scholar >}} &nbsp; **[Publications](https://scholar.google.com/citations?user=QT9Nun0AAAAJ&hl=en)**
-:::
-:::
-
-<!-- Custom CSS for homepage layout -->
-<style>
-.grid {
-    margin-top: 2rem;
-}
-
-.compact {
-    list-style: none;
-    margin-left: 0;
-}
-
-.compact li {
-    margin-bottom: 1rem;
-    padding-left: 0;
-}
-
-.fa-ul {
-    margin-left: 2em;
-}
-
-.fa-li {
-    left: -2em;
-}
-
-footer {
-    margin-top: 2rem;
-}
-</style>
+---
