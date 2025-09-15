@@ -1,58 +1,14 @@
-/* Ensure main content spans full width */
-main.content,
-#quarto-content,
-.page-columns {
-  max-width: 100% !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+/* General spacing for sections */
+section {
+  margin-bottom: 2rem;
 }
 
-/* Prevent Bootstrap container from restricting width */
-.container,
-.container-fluid {
-  max-width: 100% !important;
-  width: 100% !important;
-}
-/* Remove side padding from grid system */
-.grid {
-  max-width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  margin-top: 2rem;
+/* Ensure buttons have a bit of spacing */
+.btn {
+  margin-top: 1rem;
 }
 
-/* Make all grid columns stretch fully */
-.g-col-12, 
-.g-col-md-7, 
-.g-col-lg-6, 
-.g-col-lg-5, 
-.g-col-lg-offset-1 {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-.compact {
-    list-style: none;
-    margin-left: 0;
-}
-
-.compact li {
-    margin-bottom: 1rem;
-    padding-left: 0;
-}
-
-.fa-ul {
-    margin-left: 2em;
-}
-
-.fa-li {
-    left: -2em;
-}
-
-footer {
-    margin-top: 2rem;
+/* Portrait image alignment (optional backup to inline style) */
+img[style*="float: left"] {
+  margin-bottom: 1rem;
 }
