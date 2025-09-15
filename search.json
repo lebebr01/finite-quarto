@@ -14,25 +14,11 @@
     "text": "Linking with the Bayesian Item Response Theory Model\n\n\n\n\n\n\n\n\nMar 30, 2023\n\n\nBrandon LeBeau & Xiaoting Zhong\n\n\n\n\n\n\n\n\n\n\n\n\nUsing IDAS in an Intro Stats Course\n\n\n\n\n\n\n\n\nDec 15, 2022\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nTidy Meta-Analytic Data\n\n\n\n\n\n\n\n\nOct 29, 2021\n\n\nBrandon LeBeau & Ariel M. Aloe\n\n\n\n\n\n\n\n\n\n\n\n\nEvolution of Statistical Software and Quantitative Methods\n\n\n\n\n\n\n\n\nApr 24, 2020\n\n\nBrandon LeBeau & Ariel M. Aloe\n\n\n\n\n\n\n\n\n\n\n\n\nMeasuring Psychological Constructs over a Developmental Span: Methodological Approaches\n\n\n\n\n\n\n\n\nFeb 14, 2020\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nDifferentiating Among Gifted Learners: A Comparison of Classical Test Theory and Item Response Theory on Above-Level Testing\n\n\n\n\n\n\n\n\nNov 8, 2019\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nEvolution of Statistical Software and Quantitative Methods\n\n\n\n\n\n\n\n\nJul 31, 2018\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nSimulation and Power Analysis of Generalized Linear Mixed Models\n\n\n\n\n\n\n\n\nAug 2, 2017\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nMake Power Fun (Again?)\n\n\n\n\n\n\n\n\nFeb 24, 2017\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nExtending accessibility of open-source statistical software to the masses A shiny case study\n\n\n\n\n\n\n\n\nOct 7, 2016\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nEstimating NCAA Football Coaches’ Abilities An Application of Item Response Theory\n\n\n\n\n\n\n\n\nJul 31, 2016\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nSimulation and power analysis of generalized linear mixed models\n\n\n\n\n\n\n\n\nJun 29, 2016\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nAssessing the validity of item response theory models when calibrating field test items\n\n\n\n\n\n\n\n\nApr 9, 2016\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nInformative vs uninformative prior distributions with characteristic curve linking methods\n\n\n\n\n\n\n\n\nApr 8, 2016\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nInteractively building test forms from an IRT perspective An application of R and Shiny\n\n\n\n\n\n\n\n\nFeb 18, 2016\n\n\nBrandon LeBeau\n\n\n\n\n\n\n\n\n\n\n\n\nWeb Scraping to Item Response Theory - A College Football Adventure\n\n\n\n\n\n\n\n\nDec 4, 2015\n\n\nBrandon LeBeau\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Recent Educate-R Posts",
     "section": "",
-    "text": "Ph.D. Quantitative Methods in Education\nUniversity of Minnesota, 2013"
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "About",
-    "section": "",
-    "text": "Ph.D. Quantitative Methods in Education\nUniversity of Minnesota, 2013"
-  },
-  {
-    "objectID": "about.html#contact-information",
-    "href": "about.html#contact-information",
-    "title": "About",
-    "section": "Contact Information",
-    "text": "Contact Information\nEducational Measurement and Statistics\nUniversity of Iowa\nIowa City, IA 52242\nEmail: brandon-lebeau@uiowa.edu\nTwitter: @blebeau11\nGitHub: lebebr01"
+    "text": "Recent Educate-R Posts\n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\n\n\n\n\n\nJun 11, 2019\n\n\nsimglm v0.7.4: Tidy Simulation\n\n\n\n\n\n\nAug 22, 2018\n\n\npdfsearch v0.3.0\n\n\n\n\n\n\nDec 4, 2017\n\n\nHierarchical Cluster Analysis of Coach ELO Ratings\n\n\n\n\n\n\nNo matching items\n\nAll Educate-R Posts\n\n\n\nRecent Publications\n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\n\n\n\n\n\nOct 7, 2021\n\n\nStatistical Reasoning through Computation and R\n\n\n\n\n\n\nApr 25, 2021\n\n\nReproducible Analyses in Educational Research\n\n\n\n\n\n\nJun 1, 2020\n\n\nThe Advanced Placement Program in Rural Schools: Equalizing Opportunity\n\n\n\n\n\n\nNo matching items\n\nAll Publications\n\n\n\nAbout Me\n\nEducation:\nPh.D. Quantitative Methods in Education, 2013 (University of Minnesota)\nContact:\n   brandon dot c dot lebeau@gmail.com\n   LinkedIn\n   GitHub\n   Publications"
   },
   {
     "objectID": "publications/ses.html",
@@ -1204,11 +1190,25 @@
     "text": "Links\nLink to Journal\n\nPublication: Review of Reseach in Education Authors: Brandon LeBeau, Scott Ellison, Ariel M. Aloe Date: April 25, 2021"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Recent Educate-R Posts",
+    "objectID": "about/index.html",
+    "href": "about/index.html",
+    "title": "About",
     "section": "",
-    "text": "Recent Educate-R Posts\n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\n\n\n\n\n\nJun 11, 2019\n\n\nsimglm v0.7.4: Tidy Simulation\n\n\n\n\n\n\nAug 22, 2018\n\n\npdfsearch v0.3.0\n\n\n\n\n\n\nDec 4, 2017\n\n\nHierarchical Cluster Analysis of Coach ELO Ratings\n\n\n\n\n\n\nNo matching items\n\nAll Educate-R Posts\n\n\n\nRecent Publications\n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\n\n\n\n\n\nOct 7, 2021\n\n\nStatistical Reasoning through Computation and R\n\n\n\n\n\n\nApr 25, 2021\n\n\nReproducible Analyses in Educational Research\n\n\n\n\n\n\nJun 1, 2020\n\n\nThe Advanced Placement Program in Rural Schools: Equalizing Opportunity\n\n\n\n\n\n\nNo matching items\n\nAll Publications\n\n\n\nAbout Me\n\nEducation:\nPh.D. Quantitative Methods in Education, 2013 (University of Minnesota)\nContact:\n   brandon dot c dot lebeau@gmail.com\n   LinkedIn\n   GitHub\n   Publications"
+    "text": "Ph.D. Quantitative Methods in Education\nUniversity of Minnesota, 2013"
+  },
+  {
+    "objectID": "about/index.html#education",
+    "href": "about/index.html#education",
+    "title": "About",
+    "section": "",
+    "text": "Ph.D. Quantitative Methods in Education\nUniversity of Minnesota, 2013"
+  },
+  {
+    "objectID": "about/index.html#contact-information",
+    "href": "about/index.html#contact-information",
+    "title": "About",
+    "section": "Contact Information",
+    "text": "Contact Information\nEducational Measurement and Statistics\nUniversity of Iowa\nIowa City, IA 52242\nEmail: brandon-lebeau@uiowa.edu\nTwitter: @blebeau11\nGitHub: lebebr01"
   },
   {
     "objectID": "presentations/2023-03-30-ncme.html#adding-attributes",
