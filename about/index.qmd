@@ -4,6 +4,8 @@ title: "About"
 
 ## Education
 
+![](../images/LeBeauAnalytics_LeBeau.Brandon-4.jpg)
+
 **Ph.D. Quantitative Methods in Education**  
 University of Minnesota, 2013
 
