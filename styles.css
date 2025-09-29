@@ -1,7 +1,8 @@
-/* Hide the auto-generated title block on index page */
-#title-block-header {
+/* Only hide the title on the homepage */
+body.index #title-block-header {
   display: none;
 }
+
 
 /* General spacing for sections */
 section {
@@ -240,4 +241,9 @@ section::after {
 }
 section, .about-me {
   margin-bottom: 3rem;
+}
+/* Fix header alignment for listings */
+.quarto-listing h2.listing-title {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
