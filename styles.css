@@ -95,6 +95,7 @@ footer.footer {
   padding-bottom: 1rem;
   background-color: var(--bs-body-bg); /* Match theme */
 }
+
 /* Make iframe responsive */
 .iframe-container {
   position: relative;
@@ -111,14 +112,45 @@ footer.footer {
   height: 100%;
   border: 0;
 }
-/* Default two-column layout (desktop and larger tablets) */
+
+/* === Fix for Quarto grid layout === */
+/* Align grid items at the top */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+  align-items: start; /* This ensures items align to the top */
+}
+
+/* Make g-col-6 span 6 columns */
+.g-col-6 {
+  grid-column: span 6;
+}
+
+/* Ensure headings in grid columns align */
+.grid > div > h1,
+.grid > div > h2 {
+  margin-top: 0;
+}
+
+/* On smaller screens, force everything to stack in one column */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr; /* Single column */
+  }
+
+  .g-col-6 {
+    grid-column: span 1; /* Each takes full width */
+  }
+}
+
+/* Legacy responsive grid support (if still needed elsewhere) */
 .responsive-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 1rem;
 }
 
-/* Make left content span 4 columns, right content span 8 */
 .responsive-grid > .g-col-4 {
   grid-column: span 4;
 }
@@ -127,35 +159,44 @@ footer.footer {
   grid-column: span 8;
 }
 
-/* On smaller screens, force everything to stack in one column */
 @media (max-width: 768px) {
   .responsive-grid {
-    grid-template-columns: 1fr; /* Single column */
+    grid-template-columns: 1fr;
   }
 
   .responsive-grid > .g-col-4,
   .responsive-grid > .g-col-8 {
-    grid-column: span 1; /* Each takes full width */
+    grid-column: span 1;
   }
-}
-@media (max-width: 768px) {
+  
   .responsive-grid > .g-col-4 {
     text-align: center;
   }
 }
+
 /* Taller height for mobile */
 @media (max-width: 768px) {
   .iframe-container {
     padding-top: 300%; /* Increase this if form still feels cut off */
   }
 }
+
 .figure-left {
   float: left;
   margin: 10px 15px 10px 0;
   width: 500px;
 }
+
 .figure-right {
   float: right;
   margin: 10px 0 10px 15px;
   width: 500px;
+}
+
+/* Clear floats after About Me section */
+.grid::after,
+section::after {
+  content: "";
+  display: table;
+  clear: both;
 }
