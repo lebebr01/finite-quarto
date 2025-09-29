@@ -1,3 +1,8 @@
+/* Hide the auto-generated title block on index page */
+#title-block-header {
+  display: none;
+}
+
 /* General spacing for sections */
 section {
   margin-bottom: 2rem;
@@ -131,6 +136,23 @@ footer.footer {
 .grid > div > h1,
 .grid > div > h2 {
   margin-top: 0;
+  padding-top: 0;
+}
+
+/* Fix listing container margins */
+#latest-posts,
+#latest-pubs {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Ensure listing tables don't add extra top margin */
+.quarto-listing {
+  margin-top: 0 !important;
+}
+
+.quarto-listing table {
+  margin-top: 0 !important;
 }
 
 /* On smaller screens, force everything to stack in one column */
