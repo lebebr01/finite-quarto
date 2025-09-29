@@ -1,3 +1,9 @@
+/* Only hide the title on the homepage */
+body.index #title-block-header {
+  display: none;
+}
+
+
 /* General spacing for sections */
 section {
   margin-bottom: 2rem;
@@ -11,4 +17,233 @@ section {
 /* Portrait image alignment (optional backup to inline style) */
 img[style*="float: left"] {
   margin-bottom: 1rem;
+}
+
+
+/* === Force main content to stretch full width === */
+
+/* Main wrapper full width */
+#quarto-content.quarto-container {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Override Bootstrap container constraints globally */
+.container,
+.container-fluid,
+.quarto-container {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+}
+
+/* Main content area full width */
+main.content {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+/* Add back inner padding for readability */
+main.content > section,
+main.content > div {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* Ensure body stretches fully */
+html, body {
+  width: 100% !important;
+  min-width: 100% !important;
+  overflow-x: hidden;
+}
+
+/* === Layout fix: Sidebar next to main content === */
+#quarto-content.page-columns {
+  display: flex !important;
+  flex-direction: row;
+  align-items: stretch;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Sidebar column */
+#quarto-sidebar {
+  flex: 0 0 250px; /* Match sidebar-width in _quarto.yml */
+  max-width: 250px;
+  /* background-color: #edf2f1; Optional, make it visually distinct */
+  /* border-right: 1px solid #ddd; Optional separator */
+  z-index: 100; /* Ensure it sits on top if overlapping */
+}
+
+/* Main content column */
+main.content#quarto-document-content {
+  flex: 1 1 auto; /* Take remaining space */
+  min-width: 0; /* Prevent overflow issues */
+  padding: 0 2rem; /* Keep inner spacing readable */
+}
+
+/* Main content area */
+main.content#quarto-document-content {
+  padding-bottom: 3rem; /* Space between content and footer */
+}
+
+/* Footer stays at the very bottom */
+footer.footer {
+  flex-shrink: 0;
+  margin-top: 2rem; /* Extra space above footer */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: var(--bs-body-bg); /* Match theme */
+}
+
+/* Make iframe responsive */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  padding-top: 140%; /* Adjust this based on desired aspect ratio */
+  overflow: hidden;
+}
+
+.iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* === Fix for Quarto grid layout === */
+/* Align grid items at the top */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.g-col-6 {
+  grid-column: span 6;
+}
+.grid > div {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Ensure headings in grid columns align */
+.grid > div > h1,
+.grid > div > h2 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Fix listing container margins */
+#latest-posts,
+#latest-pubs {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Ensure listing tables don't add extra top margin */
+.quarto-listing {
+  margin-top: 0 !important;
+}
+
+.quarto-listing table {
+  margin-top: 0 !important;
+}
+
+/* On smaller screens, force everything to stack in one column */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr; /* Single column */
+  }
+
+  .g-col-6 {
+    grid-column: span 1; /* Each takes full width */
+  }
+}
+
+/* Legacy responsive grid support (if still needed elsewhere) */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+.responsive-grid > .g-col-4 {
+  grid-column: span 4;
+}
+
+.responsive-grid > .g-col-8 {
+  grid-column: span 8;
+}
+
+@media (max-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .responsive-grid > .g-col-4,
+  .responsive-grid > .g-col-8 {
+    grid-column: span 1;
+  }
+  
+  .responsive-grid > .g-col-4 {
+    text-align: center;
+  }
+}
+
+/* Taller height for mobile */
+@media (max-width: 768px) {
+  .iframe-container {
+    padding-top: 300%; /* Increase this if form still feels cut off */
+  }
+}
+
+.figure-left {
+  float: left;
+  margin: 10px 15px 10px 0;
+  width: 500px;
+}
+
+.figure-right {
+  float: right;
+  margin: 10px 0 10px 15px;
+  width: 500px;
+}
+
+/* Clear floats after About Me section */
+.grid::after,
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.about-me {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.about-me img {
+  width: 250px;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+section, .about-me {
+  margin-bottom: 3rem;
+}
+/* Fix header alignment for listings */
+.quarto-listing h2.listing-title {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }

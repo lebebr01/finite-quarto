@@ -2,6 +2,7 @@
 title: ""
 page-layout: full
 toc: false
+title-block-banner: false
 listing:
   - id: latest-posts
     contents: 
@@ -25,27 +26,41 @@ listing:
     max-items: 3
 ---
 
-# Recent Educate-R Posts
+<br> 
+<br>
+
+::: {.content}
+Welcome to my personal website. I'm a quantitative methodologist specializing in causal inference, data science and analytics, statistical computing with R or Python, and simulation methods. This site features my blog posts on R programming and statistics (Educate-R), peer-reviewed publications, and resources for researchers working with computational methods in education.
+:::
+
+::: {.grid}
+:::{.g-col-6}
+
+## Recent Educate-R Posts
 
 :::{#latest-posts}
 :::
 
 [All Educate-R Posts](/posts/){.btn .btn-outline-primary}
 
----
+:::
 
-# Recent Publications
+:::{.g-col-6}
+
+## Recent Publications
 
 :::{#latest-pubs}
 :::
 
 [All Publications](/publications/){.btn .btn-outline-primary}
 
+:::
+:::
+
 ---
 
-# About Me
-
-![](images/LeBeauAnalytics_LeBeau.Brandon-5.jpg){style="float: left; margin-right: 1rem; width: 300px;"}
+::: {.about-me}
+![](images/LeBeauAnalytics_LeBeau.Brandon-5.jpg)
 
 **Education:**  
 Ph.D. Quantitative Methods in Education, 2013 (University of Minnesota)
@@ -55,5 +70,6 @@ Ph.D. Quantitative Methods in Education, 2013 (University of Minnesota)
 {{< fa brands linkedin size=2x >}} &nbsp; **[LinkedIn](https://www.linkedin.com/in/blebeau11/)**  
 {{< fa brands github size=2x >}} &nbsp; **[GitHub](https://github.com/lebebr01)**  
 {{< ai google-scholar size=2x >}} &nbsp; **[Publications](https://scholar.google.com/citations?user=QT9Nun0AAAAJ&hl=en)**
+:::
 
 ---
