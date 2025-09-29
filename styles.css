@@ -123,14 +123,18 @@ footer.footer {
 .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 1.5rem;
-  align-items: start; /* This ensures items align to the top */
+  gap: 2rem;
+  align-items: start;
 }
 
-/* Make g-col-6 span 6 columns */
 .g-col-6 {
   grid-column: span 6;
 }
+.grid > div {
+  display: flex;
+  flex-direction: column;
+}
+
 
 /* Ensure headings in grid columns align */
 .grid > div > h1,
@@ -221,4 +225,19 @@ section::after {
   content: "";
   display: table;
   clear: both;
+}
+.about-me {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.about-me img {
+  width: 250px;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+section, .about-me {
+  margin-bottom: 3rem;
 }
