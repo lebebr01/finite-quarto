@@ -236,7 +236,7 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 
 <section id="section" class="level1">
 <h1></h1>
-<p>Building on last week’s post about <a href="../posts/2015-09-24-simglm-propensity.html">propensity score simulation</a>, the <code>simglm</code> package has been extended to now allow for the estimation of power in addition to the propensity score simulations. Recall, propensity scores can be helpful for causal inference with intact groups, when random assignment was either not possible or not done. This allows for the estimation of power under all three supported propensity score methods:</p>
+<p>Building on last week’s post about <a href="../posts/2025-09-24-simglm-propensity.html">propensity score simulation</a>, the <code>simglm</code> package has been extended to now allow for the estimation of power in addition to the propensity score simulations. Recall, propensity scores can be helpful for causal inference with intact groups, when random assignment was either not possible or not done. This allows for the estimation of power under all three supported propensity score methods:</p>
 <ul>
 <li>Covariate adjustment</li>
 <li>Inverse propensity score weighting</li>
@@ -249,8 +249,18 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 </div>
 <section id="fitting-a-covariate-adjusted-model." class="level2">
 <h2 class="anchored" data-anchor-id="fitting-a-covariate-adjusted-model.">Fitting a covariate adjusted model.</h2>
-<p>The below code does the following steps:<br>
-1. Simulates the data with the propensity model. That is, the treatment attribute is simulated as a function of age and SES so that those that are older and higher SES are more likely to be in the treatment group. 2. Simulates the full model to generate scores for student achievement. 3. Fit propensity score model to the simulated data. 4. Fit the final model, with the estimated propensity scores included as a covariate, and store model estimates. 5. Repeat steps 1–4 for 500 replications (illustrative only; use more in practice).</p>
+<p>The below code does the following steps:</p>
+<ol type="1">
+<li>Simulates the data with the propensity model. That is, the treatment attribute is simulated as a function of age and SES so that those that are older and higher SES are more likely to be in the treatment group.<br>
+</li>
+<li>Simulates the full model to generate scores for student achievement.<br>
+</li>
+<li>Fit propensity score model to the simulated data.<br>
+</li>
+<li>Fit the final model, with the estimated propensity scores included as a covariate, and store model estimates.<br>
+</li>
+<li>Repeat steps 1–4 for 500 replications (illustrative only; use more in practice).</li>
+</ol>
 <p>To fit the propensity score adjusted covariate model, <code>propensity_type = 'covariate'</code> is added to the propensity model simulation arguments.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(simglm)</span>
@@ -289,22 +299,32 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type_1_error =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
-  term   avg_estimate power param_estimate_sd avg_standard_error precision_ratio
-  &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;
-1 (Inte…      50.0    1               0.814              0.850             0.957
-2 age          0.101  0.6             0.0383             0.0401            0.954
-3 motiv…       0.400  1               0.00519            0.00500           1.04 
-4 prope…      -0.0192 0.028           1.19               1.25              0.955
-5 ses          0.249  0.984           0.0547             0.0572            0.956
-6 trt          1.18   0.986           0.264              0.262             1.01 
+  term  avg_estimate  power param_estimate_sd avg_standard_error precision_ratio
+  &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;
+1 (Int…      49.9    1                0.856              0.854             1.00 
+2 age         0.0964 0.574            0.0406             0.0401            1.01 
+3 moti…       0.400  1                0.00494            0.00502           0.985
+4 prop…       0.124  0.0320           1.28               1.25              1.02 
+5 ses         0.254  0.98             0.0595             0.0575            1.03 
+6 trt         1.18   0.998            0.256              0.262             0.975
 # ℹ 1 more variable: replications &lt;dbl&gt;</code></pre>
 </div>
 </div>
 </section>
 <section id="fitting-a-ipw-adjusted-model." class="level2">
 <h2 class="anchored" data-anchor-id="fitting-a-ipw-adjusted-model.">Fitting a IPW adjusted model.</h2>
-<p>The below code does the following steps:<br>
-1. Simulates the data with the propensity model. That is, the treatment attribute is simulated as a function of age and SES so that those that are older and higher SES are more likely to be in the treatment group. 2. Simulates the full model to generate scores for student achievement. 3. Fit the propensity score model to the simulated data 4. Fit the final model, using inverse propensity score weighting, and store model estimates. 5. Repeat steps 1–4 for 500 replications (illustrative only; use more in practice).</p>
+<p>The below code does the following steps:</p>
+<ol type="1">
+<li>Simulates the data with the propensity model. That is, the treatment attribute is simulated as a function of age and SES so that those that are older and higher SES are more likely to be in the treatment group.<br>
+</li>
+<li>Simulates the full model to generate scores for student achievement.<br>
+</li>
+<li>Fit the propensity score model to the simulated data.<br>
+</li>
+<li>Fit the final model, using inverse propensity score weighting, and store model estimates.<br>
+</li>
+<li>Repeat steps 1–4 for 500 replications (illustrative only; use more in practice).</li>
+</ol>
 <p>The only addition needed is to add, <code>propensity_type = 'ipw'</code> to the propensity model simulation arguments.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sim_arguments <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
@@ -343,11 +363,11 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 <pre><code># A tibble: 5 × 7
   term   avg_estimate power param_estimate_sd avg_standard_error precision_ratio
   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;
-1 (Inte…      50.0    1               0.312              0.216              1.44
-2 age          0.0978 0.856           0.0434             0.0252             1.72
-3 motiv…       0.400  1               0.00978            0.00501            1.95
-4 ses          0.254  1               0.0550             0.0204             2.70
-5 trt          1.23   0.958           0.377              0.263              1.43
+1 (Inte…      50.0    1                0.306             0.216              1.42
+2 age          0.0983 0.846            0.0432            0.0252             1.72
+3 motiv…       0.400  1                0.0103            0.00501            2.05
+4 ses          0.256  1                0.0534            0.0204             2.62
+5 trt          1.23   0.962            0.371             0.263              1.41
 # ℹ 1 more variable: replications &lt;dbl&gt;</code></pre>
 </div>
 </div>
@@ -400,11 +420,11 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 <pre><code># A tibble: 5 × 7
   term   avg_estimate power param_estimate_sd avg_standard_error precision_ratio
   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;
-1 (Inte…       50.0   1                0.337             0.217              1.55
-2 age           0.101 0.858            0.0433            0.0253             1.71
-3 motiv…        0.401 1                0.0103            0.00504            2.04
-4 ses           0.254 0.998            0.0579            0.0205             2.83
-5 trt           1.19  0.928            0.402             0.264              1.52
+1 (Inte…       50.0   1               0.309              0.216              1.43
+2 age           0.102 0.838           0.0443             0.0252             1.76
+3 motiv…        0.400 1               0.00905            0.00502            1.80
+4 ses           0.248 0.998           0.0540             0.0205             2.64
+5 trt           1.18  0.934           0.384              0.263              1.46
 # ℹ 1 more variable: replications &lt;dbl&gt;</code></pre>
 </div>
 </div>
