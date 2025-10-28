@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Brandon LeBeau">
+<meta name="dcterms.date" content="2025-10-21">
 
-<title>Brandon LeBeau</title>
+<title>Visualizing highest degree by degree field (TidyTuesday!) – Brandon LeBeau</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,33 +22,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-55373f81aad687d9e5c9f061504c548c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-95bd368a27abdcadd26b2436c52b31a5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/academicons-1.9.4/all.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/academicons-1.9.4/size.css" rel="stylesheet">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-55373f81aad687d9e5c9f061504c548c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-95bd368a27abdcadd26b2436c52b31a5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,63 +105,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-latest-posts .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-latest-posts'] = new List('listing-latest-posts', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-latest-pubs .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-latest-pubs'] = new List('listing-latest-pubs', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-14CK5K9RD6"></script>
 
 <script type="text/javascript">
@@ -141,41 +115,14 @@ gtag('js', new Date());
 gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="– Brandon LeBeau">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Visualizing highest degree by degree field (TidyTuesday!) – Brandon LeBeau">
 <meta property="og:description" content="Academic website and blog">
-<meta property="og:image" content="https://brandonlebeau.org/images/LeBeauAnalytics_LeBeau.Brandon-5.jpg">
+<meta property="og:image" content="https://brandonlebeau.org/posts/2025-10-28-prizes-tt_files/figure-html/cell-4-output-1.png">
 <meta property="og:site_name" content="Brandon LeBeau">
+<meta property="og:image:height" content="941">
+<meta property="og:image:width" content="1296">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -185,9 +132,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Brandon LeBeau</span>
     </a>
   </div>
@@ -198,27 +145,27 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./posts/"> 
+    <a class="nav-link" href="../posts/"> 
 <span class="menu-text">Educate-R</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./publications/"> 
+    <a class="nav-link" href="../publications/"> 
 <span class="menu-text">Publications</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./presentations/"> 
+    <a class="nav-link" href="../presentations/"> 
 <span class="menu-text">Presentations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./packages/"> 
+    <a class="nav-link" href="../packages/"> 
 <span class="menu-text">R Packages</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./workshops/"> 
+    <a class="nav-link" href="../workshops/"> 
 <span class="menu-text">Workshops</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about/"> 
+    <a class="nav-link" href="../about/"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -232,144 +179,137 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a>
+  <ul class="collapse">
+  <li><a href="#compute-crosstab-with-proportions" id="toc-compute-crosstab-with-proportions" class="nav-link" data-scroll-target="#compute-crosstab-with-proportions">Compute Crosstab with proportions</a></li>
+  <li><a href="#seaborn-bar-chart-of-proportions" id="toc-seaborn-bar-chart-of-proportions" class="nav-link" data-scroll-target="#seaborn-bar-chart-of-proportions">Seaborn Bar Chart of Proportions</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Visualizing highest degree by degree field (TidyTuesday!)</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">Tidy Tuesday</div>
+    <div class="quarto-category">Visualization</div>
+  </div>
+  </div>
 
 
 
+<div class="quarto-title-meta column-page-left">
 
-<p><br> <br></p>
-<div class="content">
-<p>Welcome to my personal website. I’m a quantitative methodologist specializing in causal inference, data science and analytics, statistical computing with R or Python, and simulation methods. This site features my blog posts on R programming and statistics (Educate-R), peer-reviewed publications, and resources for researchers working with computational methods in education.</p>
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Brandon LeBeau </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 21, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level1">
+<h1></h1>
+<p>This week <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-10-28/readme.md">Tidy Tuesday data</a> are about British Literary Prizes from 1990 to 2022. When looking at the data attributes, I was curious about the degrees that the award winners obtained and which field they were in. To keep things simple, I filter to only include Bachelor, Master, or Doctorate degrees and also remove those that have unknown degree fields. Let’s take a quick look at the data and visualize how educational background varies among fiction prize winners.</p>
+<div id="a12ad06b" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>prizes <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-10-28/prizes.csv'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>wanted <span class="op">=</span> [<span class="st">'Bachelors'</span>, <span class="st">'Masters'</span>, <span class="st">'Doctorate'</span>]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>prizes_degree <span class="op">=</span> prizes[prizes[<span class="st">'highest_degree'</span>].isin(wanted)]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>prizes_degree_fiction <span class="op">=</span> prizes_degree[</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    (prizes_degree[<span class="st">'prize_genre'</span>] <span class="op">==</span> <span class="st">'fiction'</span>) <span class="op">&amp;</span> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    (prizes_degree[<span class="st">'degree_field_category'</span>] <span class="op">!=</span> <span class="st">'unknown'</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
-<div class="grid">
-<section id="recent-educate-r-posts" class="level2 g-col-6">
-<h2 class="anchored" data-anchor-id="recent-educate-r-posts">Recent Educate-R Posts</h2>
-<div id="listing-latest-posts" class="quarto-listing quarto-listing-container-table">
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-
-<th>
-Date
-</th>
-
-<th>
-Title
-</th>
-
-</tr>
-</thead>
-<tbody class="list">
-
-<tr data-index="0" data-categories="UiUyQ1RpZHklMjBUdWVzZGF5JTJDVmlzdWFsaXphdGlvbg==" data-listing-date-sort="1761022800000" data-listing-file-modified-sort="1761173304243" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1097" data-listing-title-sort="Visualizing Air Frost Days in the UK (TidyTuesday!)" data-listing-filename-sort="2025-10-21-weather-tt.qmd">
-<td>
-<span class="listing-date">Oct 21, 2025</span>
-</td>
-<td>
-<a href="./posts/2025-10-21-weather-tt.html" class="title listing-title">Visualizing Air Frost Days in the UK (TidyTuesday!)</a>
-</td>
-
-</tr>
-
-<tr data-index="1" data-categories="UHl0aG9uJTJDVGlkeSUyMFR1ZXNkYXklMkNWaXN1YWxpemF0aW9u" data-listing-date-sort="1761022800000" data-listing-file-modified-sort="1761667891334" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="488" data-listing-title-sort="Visualizing highest degree by degree field (TidyTuesday!)" data-listing-filename-sort="2025-10-28-prizes-tt.qmd">
-<td>
-<span class="listing-date">Oct 21, 2025</span>
-</td>
-<td>
-<a href="./posts/2025-10-28-prizes-tt.html" class="title listing-title">Visualizing highest degree by degree field (TidyTuesday!)</a>
-</td>
-
-</tr>
-
-<tr data-index="2" data-categories="UiUyQ1RpZHklMjBUdWVzZGF5JTJDVmlzdWFsaXphdGlvbg==" data-listing-date-sort="1759813200000" data-listing-file-modified-sort="1759864509371" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2624" data-listing-title-sort="Visualizing EuroLeague Basketball Travel Distances with R (My First TidyTuesday!)" data-listing-filename-sort="2025-10-07-euroleague-tt.qmd">
-<td>
-<span class="listing-date">Oct 7, 2025</span>
-</td>
-<td>
-<a href="./posts/2025-10-07-euroleague-tt.html" class="title listing-title">Visualizing EuroLeague Basketball Travel Distances with R (My First TidyTuesday!)</a>
-</td>
-
-</tr>
-
-</tbody>
-</table>
-<div class="listing-no-matching d-none">No matching items</div>
+<section id="compute-crosstab-with-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="compute-crosstab-with-proportions">Compute Crosstab with proportions</h2>
+<p>Next, I calculated the proportion of each degree field within each highest degree category. For example, what proportion of fiction prize winners who obtained a Bachelors degree graduated with an arts degree or a law degree. I computed the proportion within each degree category as I was interested in making comparisons across the different levels of degree. This helps explore whether the distribution of degree fields differs across educational levels.</p>
+<div id="7f833e34" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    prizes_degree_fiction</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">'highest_degree'</span>,<span class="st">'degree_field_category'</span>])</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    .size()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    .reset_index(name<span class="op">=</span><span class="st">'n'</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>long_ct_fiction <span class="op">=</span> (</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    counts</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        prop <span class="op">=</span> counts[<span class="st">'n'</span>] <span class="op">/</span> counts.groupby(<span class="st">'highest_degree'</span>)[<span class="st">'n'</span>].transform(<span class="st">'sum'</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
-<p><a href="./posts/" class="btn btn-outline-primary">All Educate-R Posts</a></p>
 </section>
-<section id="recent-publications" class="level2 g-col-6">
-<h2 class="anchored" data-anchor-id="recent-publications">Recent Publications</h2>
-<div id="listing-latest-pubs" class="quarto-listing quarto-listing-container-table">
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-
-<th>
-Date
-</th>
-
-<th>
-Title
-</th>
-
-</tr>
-</thead>
-<tbody class="list">
-
-<tr data-index="0" data-categories="Ug==" data-listing-date-sort="1633582800000" data-listing-file-modified-sort="1757436400880" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="57" data-listing-title-sort="Statistical Reasoning through Computation and R" data-listing-filename-sort="stat-thinking-book.qmd">
-<td>
-<span class="listing-date">Oct 7, 2021</span>
-</td>
-<td>
-<a href="./publications/stat-thinking-book.html" class="title listing-title">Statistical Reasoning through Computation and R</a>
-</td>
-
-</tr>
-
-<tr data-index="1" data-categories="Sm91cm5hbCUyMEFydGljbGUlMkNFZHVjYXRpb24=" data-listing-date-sort="1619326800000" data-listing-file-modified-sort="1757436397840" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="202" data-listing-title-sort="Reproducible Analyses in Educational Research" data-listing-filename-sort="rre-reproducible-2021.qmd">
-<td>
-<span class="listing-date">Apr 25, 2021</span>
-</td>
-<td>
-<a href="./publications/rre-reproducible-2021.html" class="title listing-title">Reproducible Analyses in Educational Research</a>
-</td>
-
-</tr>
-
-<tr data-index="2" data-categories="Sm91cm5hbCUyMEFydGljbGU=" data-listing-date-sort="1590987600000" data-listing-file-modified-sort="1757436387631" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="162" data-listing-title-sort="The Advanced Placement Program in Rural Schools: Equalizing Opportunity" data-listing-filename-sort="belin-ioapa-19.qmd">
-<td>
-<span class="listing-date">Jun 1, 2020</span>
-</td>
-<td>
-<a href="./publications/belin-ioapa-19.html" class="title listing-title">The Advanced Placement Program in Rural Schools: Equalizing Opportunity</a>
-</td>
-
-</tr>
-
-</tbody>
-</table>
-<div class="listing-no-matching d-none">No matching items</div>
+<section id="seaborn-bar-chart-of-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="seaborn-bar-chart-of-proportions">Seaborn Bar Chart of Proportions</h2>
+<p>I have always enjoyed using Seaborn when working in Python, I took the same approach here. I’m going to use the barplot function to put the highest degree obtained on the y-axis and the proportions computed in the previous cell on the x-axis. I like to put categorical predictors on the y-axis as I find it easier to read the axis labels. Then, I use the hue argument to show the different degree fields for these British fiction prize winners. I also explicitly set the order of the y-axis categories so that they are displayed from a Bachelor degree up to the Doctorate degree.</p>
+<p>As you can see from the figure, there is much more diversity in the degree types for the prize winners who had a Bachelor degree as their highest degree. Language and Literature is the highest for Doctorate and Bachelor degree, but an explicit writing degree is very low for those with Bachelor degrees. This option is highest for those who obtained a Masters degree, suggesting that this was a choice to build off their Bachelor degree. This pattern could reflect how undergraduate study is often broader, while postgraduate study becomes more focused on literary analysis or creative writing.</p>
+<div id="f5e67ae2" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">5</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(y<span class="op">=</span><span class="st">'highest_degree'</span>, x<span class="op">=</span><span class="st">'prop'</span>, hue<span class="op">=</span><span class="st">'degree_field_category'</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    order<span class="op">=</span>[<span class="st">"Bachelors"</span>, <span class="st">"Masters"</span>, <span class="st">"Doctorate"</span>], </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>long_ct_fiction</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Proportions by Degree Field'</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove duplicate legends and move the remaining one to the side</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax.get_legend_handles_labels()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>by_label <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(labels, handles))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Highest Degree"</span>, size <span class="op">=</span> <span class="dv">12</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Proportion"</span>, size <span class="op">=</span> <span class="dv">12</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>ax.legend(by_label.values(), by_label.keys(), bbox_to_anchor<span class="op">=</span>(<span class="fl">1.05</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="st">'upper left'</span>, title<span class="op">=</span><span class="st">'Degree Field'</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>sns.despine()</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="2025-10-28-prizes-tt_files/figure-html/cell-4-output-1.png" width="648" height="471" class="figure-img"></p>
+</figure>
 </div>
-<p><a href="./publications/" class="btn btn-outline-primary">All Publications</a></p>
+</div>
+</div>
+
+
 </section>
-</div>
-<hr>
-<div class="about-me">
-<p><img src="images/LeBeauAnalytics_LeBeau.Brandon-5.jpg" class="img-fluid"></p>
-<p><strong>Education:</strong><br>
-Ph.D.&nbsp;Quantitative Methods in Education, 2013 (University of Minnesota)</p>
-<p><strong>Contact:</strong><br>
-<i class="fa-solid fa-envelope fa-2x" aria-label="envelope"></i> &nbsp; <strong><a href="mailto:brandon.c.lebeau@gmail.com">brandon dot c dot lebeau@gmail.com</a></strong><br>
-<i class="fa-brands fa-linkedin fa-2x" aria-label="linkedin"></i> &nbsp; <strong><a href="https://www.linkedin.com/in/blebeau11/">LinkedIn</a></strong><br>
-<i class="fa-brands fa-github fa-2x" aria-label="github"></i> &nbsp; <strong><a href="https://github.com/lebebr01">GitHub</a></strong><br>
-<i class="ai  ai-google-scholar ai-2x" aria-label="google-scholar"></i> &nbsp; <strong><a href="https://scholar.google.com/citations?user=QT9Nun0AAAAJ&amp;hl=en">Publications</a></strong></p>
-</div>
-<hr>
-
-
-
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

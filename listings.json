@@ -24,6 +24,7 @@
     "listing": "/index.html",
     "items": [
       "/posts/2025-10-21-weather-tt.html",
+      "/posts/2025-10-28-prizes-tt.html",
       "/posts/2025-10-07-euroleague-tt.html",
       "/posts/2025-10-06-simglm-propensity-modeling.html",
       "/posts/2025-09-24-simglm-propensity.html",
@@ -83,17 +84,10 @@
     ]
   },
   {
-    "listing": "/workshops/index.html",
-    "items": [
-      "/workshops/2019-06-12-graphics.html",
-      "/workshops/2018-07-19-tidyverse_short.html",
-      "/workshops/2018-01-10-tidyverse.html"
-    ]
-  },
-  {
     "listing": "/posts/index.html",
     "items": [
       "/posts/2025-10-21-weather-tt.html",
+      "/posts/2025-10-28-prizes-tt.html",
       "/posts/2025-10-07-euroleague-tt.html",
       "/posts/2025-10-06-simglm-propensity-modeling.html",
       "/posts/2025-09-24-simglm-propensity.html",
@@ -120,6 +114,14 @@
       "/posts/2013-11-18-formatting-markdown-table-with-r.html",
       "/posts/2013-11-01-formatting-markdown-table-with-r.html",
       "/posts/2013-05-03-blog-logo.html"
+    ]
+  },
+  {
+    "listing": "/workshops/index.html",
+    "items": [
+      "/workshops/2019-06-12-graphics.html",
+      "/workshops/2018-07-19-tidyverse_short.html",
+      "/workshops/2018-01-10-tidyverse.html"
     ]
   },
   {
