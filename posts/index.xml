@@ -10,7 +10,239 @@
 <atom:link href="https://brandonlebeau.org/posts/index.xml" rel="self" type="application/rss+xml"/>
 <description>Academic website and blog</description>
 <generator>quarto-1.8.24</generator>
-<lastBuildDate>Tue, 21 Oct 2025 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 28 Oct 2025 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Visualizing highest degree by degree field (TidyTuesday!)</title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/posts/2025-10-28-prizes-tt.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="section" class="level1">
+<h1></h1>
+<p>This week <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-10-28/readme.md">Tidy Tuesday data</a> are about British Literary Prizes from 1990 to 2022. When looking at the data attributes, I was curious about the degrees that the award winners obtained and which field they were in. To keep things simple, I filter to only include Bachelor, Master, or Doctorate degrees and also remove those that have unknown degree fields. Let’s take a quick look at the data and visualize how educational background varies among fiction prize winners.</p>
+<div id="80273834" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> pd</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> seaborn <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> sns</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> plt</span>
+<span id="cb1-4"></span>
+<span id="cb1-5">prizes <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.read_csv(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-10-28/prizes.csv'</span>)</span>
+<span id="cb1-6"></span>
+<span id="cb1-7">wanted <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Bachelors'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Masters'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Doctorate'</span>]</span>
+<span id="cb1-8">prizes_degree <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> prizes[prizes[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'highest_degree'</span>].isin(wanted)]</span>
+<span id="cb1-9"></span>
+<span id="cb1-10">prizes_degree_fiction <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> prizes_degree[</span>
+<span id="cb1-11">    (prizes_degree[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'prize_genre'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'fiction'</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> </span>
+<span id="cb1-12">    (prizes_degree[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'degree_field_category'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'unknown'</span>)</span>
+<span id="cb1-13">    ]</span></code></pre></div></div>
+</details>
+</div>
+<section id="compute-crosstab-with-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="compute-crosstab-with-proportions">Compute Crosstab with proportions</h2>
+<p>Next, I calculated the proportion of each degree field within each highest degree category. For example, what proportion of fiction prize winners who obtained a Bachelors degree graduated with an arts degree or a law degree. I computed the proportion within each degree category as I was interested in making comparisons across the different levels of degree. This helps explore whether the distribution of degree fields differs across educational levels.</p>
+<div id="0f10e175" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">counts <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (</span>
+<span id="cb2-2">    prizes_degree_fiction</span>
+<span id="cb2-3">    .groupby([<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'highest_degree'</span>,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'degree_field_category'</span>])</span>
+<span id="cb2-4">    .size()</span>
+<span id="cb2-5">    .reset_index(name<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'n'</span>)</span>
+<span id="cb2-6">)</span>
+<span id="cb2-7"></span>
+<span id="cb2-8">long_ct_fiction <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (</span>
+<span id="cb2-9">    counts</span>
+<span id="cb2-10">    .assign(</span>
+<span id="cb2-11">        prop <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> counts[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'n'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> counts.groupby(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'highest_degree'</span>)[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'n'</span>].transform(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'sum'</span>)</span>
+<span id="cb2-12">    )</span>
+<span id="cb2-13">)</span></code></pre></div></div>
+</details>
+</div>
+</section>
+<section id="seaborn-bar-chart-of-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="seaborn-bar-chart-of-proportions">Seaborn Bar Chart of Proportions</h2>
+<p>I have always enjoyed using Seaborn when working in Python, I took the same approach here. I’m going to use the barplot function to put the highest degree obtained on the y-axis and the proportions computed in the previous cell on the x-axis. I like to put categorical predictors on the y-axis as I find it easier to read the axis labels. Then, I use the hue argument to show the different degree fields for these British fiction prize winners. I also explicitly set the order of the y-axis categories so that they are displayed from a Bachelor degree up to the Doctorate degree.</p>
+<p>As you can see from the figure, there is much more diversity in the degree types for the prize winners who had a Bachelor degree as their highest degree. Language and Literature is the highest for Doctorate and Bachelor degree, but an explicit writing degree is very low for those with Bachelor degrees. This option is highest for those who obtained a Masters degree, suggesting that this was a choice to build off their Bachelor degree. This pattern could reflect how undergraduate study is often broader, while postgraduate study becomes more focused on literary analysis or creative writing.</p>
+<div id="4691d8e8" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">plt.figure(figsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>))</span>
+<span id="cb3-2">ax <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> sns.barplot(y<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'highest_degree'</span>, x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'prop'</span>, hue<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'degree_field_category'</span>, </span>
+<span id="cb3-3">    order<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Bachelors"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Masters"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Doctorate"</span>], </span>
+<span id="cb3-4">    data<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>long_ct_fiction</span>
+<span id="cb3-5">    )</span>
+<span id="cb3-6">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Proportions by Degree Field'</span>)</span>
+<span id="cb3-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Remove duplicate legends and move the remaining one to the side</span></span>
+<span id="cb3-8">handles, labels <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ax.get_legend_handles_labels()</span>
+<span id="cb3-9">by_label <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">dict</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">zip</span>(labels, handles))</span>
+<span id="cb3-10">ax.set_ylabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Highest Degree"</span>, size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>)</span>
+<span id="cb3-11">ax.set_xlabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Proportion"</span>, size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>)</span>
+<span id="cb3-12">ax.legend(by_label.values(), by_label.keys(), bbox_to_anchor<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.05</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>), loc<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'upper left'</span>, title<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Degree Field'</span>)</span>
+<span id="cb3-13"></span>
+<span id="cb3-14">sns.despine()</span>
+<span id="cb3-15">plt.tight_layout()</span>
+<span id="cb3-16">plt.show()</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://brandonlebeau.org/posts/2025-10-28-prizes-tt_files/figure-html/cell-4-output-1.png" width="648" height="471" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>Python</category>
+  <category>Tidy Tuesday</category>
+  <category>Visualization</category>
+  <guid>https://brandonlebeau.org/posts/2025-10-28-prizes-tt.html</guid>
+  <pubDate>Tue, 28 Oct 2025 05:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Visualizing Air Frost Days in the UK (TidyTuesday!)</title>
   <dc:creator>Brandon LeBeau</dc:creator>
@@ -718,238 +950,6 @@ font-style: inherit;">enter_grow</span>()</span></code></pre></div></div>
   <category>Tidy Tuesday</category>
   <category>Visualization</category>
   <guid>https://brandonlebeau.org/posts/2025-10-21-weather-tt.html</guid>
-  <pubDate>Tue, 21 Oct 2025 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Visualizing highest degree by degree field (TidyTuesday!)</title>
-  <dc:creator>Brandon LeBeau</dc:creator>
-  <link>https://brandonlebeau.org/posts/2025-10-28-prizes-tt.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<section id="section" class="level1">
-<h1></h1>
-<p>This week <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-10-28/readme.md">Tidy Tuesday data</a> are about British Literary Prizes from 1990 to 2022. When looking at the data attributes, I was curious about the degrees that the award winners obtained and which field they were in. To keep things simple, I filter to only include Bachelor, Master, or Doctorate degrees and also remove those that have unknown degree fields. Let’s take a quick look at the data and visualize how educational background varies among fiction prize winners.</p>
-<div id="a12ad06b" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">as</span> pd</span>
-<span id="cb1-2"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> seaborn <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">as</span> sns</span>
-<span id="cb1-3"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">as</span> plt</span>
-<span id="cb1-4"></span>
-<span id="cb1-5">prizes <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> pd.read_csv(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-10-28/prizes.csv'</span>)</span>
-<span id="cb1-6"></span>
-<span id="cb1-7">wanted <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> [<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Bachelors'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Masters'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Doctorate'</span>]</span>
-<span id="cb1-8">prizes_degree <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> prizes[prizes[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'highest_degree'</span>].isin(wanted)]</span>
-<span id="cb1-9"></span>
-<span id="cb1-10">prizes_degree_fiction <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> prizes_degree[</span>
-<span id="cb1-11">    (prizes_degree[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'prize_genre'</span>] <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'fiction'</span>) <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&amp;</span> </span>
-<span id="cb1-12">    (prizes_degree[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'degree_field_category'</span>] <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">!=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'unknown'</span>)</span>
-<span id="cb1-13">    ]</span></code></pre></div></div>
-</details>
-</div>
-<section id="compute-crosstab-with-proportions" class="level2">
-<h2 class="anchored" data-anchor-id="compute-crosstab-with-proportions">Compute Crosstab with proportions</h2>
-<p>Next, I calculated the proportion of each degree field within each highest degree category. For example, what proportion of fiction prize winners who obtained a Bachelors degree graduated with an arts degree or a law degree. I computed the proportion within each degree category as I was interested in making comparisons across the different levels of degree. This helps explore whether the distribution of degree fields differs across educational levels.</p>
-<div id="7f833e34" class="cell" data-execution_count="2">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">counts <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> (</span>
-<span id="cb2-2">    prizes_degree_fiction</span>
-<span id="cb2-3">    .groupby([<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'highest_degree'</span>,<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'degree_field_category'</span>])</span>
-<span id="cb2-4">    .size()</span>
-<span id="cb2-5">    .reset_index(name<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'n'</span>)</span>
-<span id="cb2-6">)</span>
-<span id="cb2-7"></span>
-<span id="cb2-8">long_ct_fiction <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> (</span>
-<span id="cb2-9">    counts</span>
-<span id="cb2-10">    .assign(</span>
-<span id="cb2-11">        prop <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> counts[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'n'</span>] <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span> counts.groupby(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'highest_degree'</span>)[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'n'</span>].transform(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'sum'</span>)</span>
-<span id="cb2-12">    )</span>
-<span id="cb2-13">)</span></code></pre></div></div>
-</details>
-</div>
-</section>
-<section id="seaborn-bar-chart-of-proportions" class="level2">
-<h2 class="anchored" data-anchor-id="seaborn-bar-chart-of-proportions">Seaborn Bar Chart of Proportions</h2>
-<p>I have always enjoyed using Seaborn when working in Python, I took the same approach here. I’m going to use the barplot function to put the highest degree obtained on the y-axis and the proportions computed in the previous cell on the x-axis. I like to put categorical predictors on the y-axis as I find it easier to read the axis labels. Then, I use the hue argument to show the different degree fields for these British fiction prize winners. I also explicitly set the order of the y-axis categories so that they are displayed from a Bachelor degree up to the Doctorate degree.</p>
-<p>As you can see from the figure, there is much more diversity in the degree types for the prize winners who had a Bachelor degree as their highest degree. Language and Literature is the highest for Doctorate and Bachelor degree, but an explicit writing degree is very low for those with Bachelor degrees. This option is highest for those who obtained a Masters degree, suggesting that this was a choice to build off their Bachelor degree. This pattern could reflect how undergraduate study is often broader, while postgraduate study becomes more focused on literary analysis or creative writing.</p>
-<div id="f5e67ae2" class="cell" data-execution_count="3">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">plt.figure(figsize<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">7</span>,<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">5</span>))</span>
-<span id="cb3-2">ax <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> sns.barplot(y<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'highest_degree'</span>, x<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'prop'</span>, hue<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'degree_field_category'</span>, </span>
-<span id="cb3-3">    order<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Bachelors"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Masters"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Doctorate"</span>], </span>
-<span id="cb3-4">    data<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>long_ct_fiction</span>
-<span id="cb3-5">    )</span>
-<span id="cb3-6">plt.title(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Proportions by Degree Field'</span>)</span>
-<span id="cb3-7"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Remove duplicate legends and move the remaining one to the side</span></span>
-<span id="cb3-8">handles, labels <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> ax.get_legend_handles_labels()</span>
-<span id="cb3-9">by_label <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">dict</span>(<span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">zip</span>(labels, handles))</span>
-<span id="cb3-10">ax.set_ylabel(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Highest Degree"</span>, size <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">12</span>)</span>
-<span id="cb3-11">ax.set_xlabel(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Proportion"</span>, size <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">12</span>)</span>
-<span id="cb3-12">ax.legend(by_label.values(), by_label.keys(), bbox_to_anchor<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>(<span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1.05</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>), loc<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'upper left'</span>, title<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Degree Field'</span>)</span>
-<span id="cb3-13"></span>
-<span id="cb3-14">sns.despine()</span>
-<span id="cb3-15">plt.tight_layout()</span>
-<span id="cb3-16">plt.show()</span></code></pre></div></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="https://brandonlebeau.org/posts/2025-10-28-prizes-tt_files/figure-html/cell-4-output-1.png" width="648" height="471" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-
-
-</section>
-</section>
-
- ]]></description>
-  <category>Python</category>
-  <category>Tidy Tuesday</category>
-  <category>Visualization</category>
-  <guid>https://brandonlebeau.org/posts/2025-10-28-prizes-tt.html</guid>
   <pubDate>Tue, 21 Oct 2025 05:00:00 GMT</pubDate>
 </item>
 <item>
