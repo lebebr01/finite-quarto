@@ -8,6 +8,7 @@ website:
   site-url: https://brandonlebeau.org
   open-graph: true
   google-analytics: "G-14CK5K9RD6"
+  favicon: /images/bl_favicon.png
   
   navbar:
     background: "#101730"
