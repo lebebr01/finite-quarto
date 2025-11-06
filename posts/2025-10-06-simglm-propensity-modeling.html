@@ -290,24 +290,28 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">model_function =</span> <span class="st">'lm'</span>),</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">propensity_model =</span> <span class="fu">list</span>(</span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">formula =</span> trt <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> age <span class="sc">+</span> ses,</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_type =</span> <span class="st">'covariate'</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">replications =</span> <span class="dv">500</span>,</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">extract_coefficients =</span> <span class="cn">TRUE</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate_simulation</span>(sim_arguments) <span class="sc">|&gt;</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compute_statistics</span>(sim_arguments, <span class="at">alternative_power =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type_1_error =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_type =</span> <span class="st">'covariate'</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">model_function =</span> stats<span class="sc">::</span>glm,</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_model_args =</span> <span class="fu">list</span>(</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>           <span class="at">family =</span> <span class="fu">binomial</span>()</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">replications =</span> <span class="dv">500</span>,</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">extract_coefficients =</span> <span class="cn">TRUE</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate_simulation</span>(sim_arguments) <span class="sc">|&gt;</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compute_statistics</span>(sim_arguments, <span class="at">alternative_power =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type_1_error =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
   term  avg_estimate  power param_estimate_sd avg_standard_error precision_ratio
   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;
-1 (Int…      49.9    1                0.856              0.854             1.00 
-2 age         0.0964 0.574            0.0406             0.0401            1.01 
-3 moti…       0.400  1                0.00494            0.00502           0.985
-4 prop…       0.124  0.0320           1.28               1.25              1.02 
-5 ses         0.254  0.98             0.0595             0.0575            1.03 
-6 trt         1.18   0.998            0.256              0.262             0.975
+1 (Int…      50.0    1                0.831              0.848             0.980
+2 age         0.0997 0.61             0.0382             0.0402            0.952
+3 moti…       0.400  1                0.00534            0.00501           1.06 
+4 prop…       0.0571 0.0160           1.18               1.24              0.951
+5 ses         0.251  0.982            0.0568             0.0570            0.997
+6 trt         1.19   0.99             0.254              0.263             0.969
 # ℹ 1 more variable: replications &lt;dbl&gt;</code></pre>
 </div>
 </div>
@@ -352,23 +356,27 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                   <span class="at">model_function =</span> <span class="st">'lm'</span>),</span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">propensity_model =</span> <span class="fu">list</span>(</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">formula =</span> trt <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> age <span class="sc">+</span> ses,</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_type =</span> <span class="st">'ipw'</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">replications =</span> <span class="dv">500</span>,</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">extract_coefficients =</span> <span class="cn">TRUE</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate_simulation</span>(sim_arguments) <span class="sc">|&gt;</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compute_statistics</span>(sim_arguments, <span class="at">alternative_power =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type_1_error =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_type =</span> <span class="st">'ipw'</span>,</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">model_function =</span> stats<span class="sc">::</span>glm,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_model_args =</span> <span class="fu">list</span>(</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">family =</span> <span class="fu">binomial</span>()</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">replications =</span> <span class="dv">500</span>,</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">extract_coefficients =</span> <span class="cn">TRUE</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate_simulation</span>(sim_arguments) <span class="sc">|&gt;</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compute_statistics</span>(sim_arguments, <span class="at">alternative_power =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type_1_error =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 7
   term   avg_estimate power param_estimate_sd avg_standard_error precision_ratio
   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;
-1 (Inte…      50.0    1                0.306             0.216              1.42
-2 age          0.0983 0.846            0.0432            0.0252             1.72
-3 motiv…       0.400  1                0.0103            0.00501            2.05
-4 ses          0.256  1                0.0534            0.0204             2.62
-5 trt          1.23   0.962            0.371             0.263              1.41
+1 (Inte…       50.0   1                0.314             0.217              1.44
+2 age           0.101 0.85             0.0441            0.0253             1.74
+3 motiv…        0.400 1                0.0104            0.00503            2.08
+4 ses           0.250 1                0.0539            0.0205             2.62
+5 trt           1.18  0.942            0.379             0.265              1.43
 # ℹ 1 more variable: replications &lt;dbl&gt;</code></pre>
 </div>
 </div>
@@ -409,23 +417,27 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>                   <span class="at">model_function =</span> <span class="st">'lm'</span>),</span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">propensity_model =</span> <span class="fu">list</span>(</span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">formula =</span> trt <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> age <span class="sc">+</span> ses,</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_type =</span> <span class="st">'sbw'</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">replications =</span> <span class="dv">500</span>,</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">extract_coefficients =</span> <span class="cn">TRUE</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate_simulation</span>(sim_arguments) <span class="sc">|&gt;</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compute_statistics</span>(sim_arguments, <span class="at">alternative_power =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type_1_error =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_type =</span> <span class="st">'sbw'</span>,</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">model_function =</span> stats<span class="sc">::</span>glm,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_model_args =</span> <span class="fu">list</span>(</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">family =</span> <span class="fu">binomial</span>()</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">replications =</span> <span class="dv">500</span>,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">extract_coefficients =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate_simulation</span>(sim_arguments) <span class="sc">|&gt;</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compute_statistics</span>(sim_arguments, <span class="at">alternative_power =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type_1_error =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 7
   term   avg_estimate power param_estimate_sd avg_standard_error precision_ratio
   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;
-1 (Inte…       50.0   1               0.309              0.216              1.43
-2 age           0.102 0.838           0.0443             0.0252             1.76
-3 motiv…        0.400 1               0.00905            0.00502            1.80
-4 ses           0.248 0.998           0.0540             0.0205             2.64
-5 trt           1.18  0.934           0.384              0.263              1.46
+1 (Inte…       50.0   1                0.338             0.217              1.56
+2 age           0.101 0.846            0.0429            0.0253             1.69
+3 motiv…        0.400 1                0.0111            0.00504            2.20
+4 ses           0.248 0.996            0.0593            0.0205             2.90
+5 trt           1.18  0.942            0.402             0.264              1.52
 # ℹ 1 more variable: replications &lt;dbl&gt;</code></pre>
 </div>
 </div>
@@ -524,14 +536,18 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 <span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>                   <span class="at">model_function =</span> <span class="st">'lm'</span>),</span>
 <span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>    <span class="at">propensity_model =</span> <span class="fu">list</span>(</span>
 <span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>        <span class="at">formula =</span> trt <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> age <span class="sc">+</span> ses,</span>
-<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_type =</span> <span class="st">'sbw'</span></span>
-<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>    <span class="at">replications =</span> <span class="dv">500</span>,</span>
-<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>    <span class="at">extract_coefficients =</span> <span class="cn">TRUE</span></span>
-<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>sbw_propensity <span class="ot">&lt;-</span> <span class="fu">replicate_simulation</span>(sim_arguments) <span class="sc">|&gt;</span></span>
-<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">bind_rows</span>() <span class="sc">|&gt;</span></span>
-<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">group =</span> <span class="st">'sbw'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_type =</span> <span class="st">'sbw'</span>,</span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>        <span class="at">model_function =</span> stats<span class="sc">::</span>glm,</span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>        <span class="at">propensity_model_args =</span> <span class="fu">list</span>(</span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>           <span class="at">family =</span> <span class="fu">binomial</span>()</span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">replications =</span> <span class="dv">500</span>,</span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">extract_coefficients =</span> <span class="cn">TRUE</span></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>sbw_propensity <span class="ot">&lt;-</span> <span class="fu">replicate_simulation</span>(sim_arguments) <span class="sc">|&gt;</span></span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">bind_rows</span>() <span class="sc">|&gt;</span></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">group =</span> <span class="st">'sbw'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>Let’s visualize the differences across the three methods, with a vertical line at the specified population treatment effect. You can see that when nothing is done with the misspecified model, the estimated treatment effect is biased severely. The simple covariate adjusted effect without fitting the propensity score model produces an estimated effect similar to the specified population treatment effect, but may slightly underestimate variance. Finally, the propensity score model with the stabilized propensity score weighting produces an unbiased treatment effect and may produce a more accurate picture of variability in this treatment effect.</p>
@@ -575,28 +591,32 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] future_1.58.0 simglm_0.9.23 ggplot2_4.0.0
+[1] future_1.58.0 simglm_0.9.26 ggplot2_4.0.0
 
 loaded via a namespace (and not attached):
- [1] utf8_1.2.6          generics_0.1.4      tidyr_1.3.1        
- [4] gtools_3.9.5        stringi_1.8.7       listenv_0.9.1      
- [7] hms_1.1.3           digest_0.6.37       magrittr_2.0.3     
-[10] evaluate_1.0.5      grid_4.5.0          RColorBrewer_1.1-3 
-[13] fastmap_1.2.0       ggformula_0.12.0    jsonlite_2.0.0     
-[16] backports_1.5.0     purrr_1.1.0         scales_1.4.0       
-[19] codetools_0.2-20    cli_3.6.5           labelled_2.14.1    
-[22] rlang_1.1.6         parallelly_1.45.0   future.apply_1.20.0
-[25] withr_3.0.2         yaml_2.3.10         tools_4.5.0        
-[28] parallel_4.5.0      dplyr_1.1.4         mosaicCore_0.9.4.0 
-[31] forcats_1.0.0       globals_0.18.0      broom_1.0.8        
-[34] vctrs_0.6.5         R6_2.6.1            ggridges_0.5.6     
-[37] lifecycle_1.0.4     stringr_1.5.2       htmlwidgets_1.6.4  
-[40] MASS_7.3-65         pkgconfig_2.0.3     pillar_1.11.0      
-[43] gtable_0.3.6        glue_1.8.0          haven_2.5.4        
-[46] xfun_0.53           tibble_3.3.0        tidyselect_1.2.1   
-[49] knitr_1.50          farver_2.1.2        htmltools_0.5.8.1  
-[52] labeling_0.4.3      rmarkdown_2.29      compiler_4.5.0     
-[55] S7_0.2.0           </code></pre>
+ [1] utf8_1.2.6          tidyr_1.3.1         generics_0.1.4     
+ [4] gtools_3.9.5        stringi_1.8.7       lattice_0.22-6     
+ [7] hms_1.1.3           listenv_0.9.1       lme4_1.1-37        
+[10] digest_0.6.37       magrittr_2.0.3      evaluate_1.0.5     
+[13] grid_4.5.0          RColorBrewer_1.1-3  fastmap_1.2.0      
+[16] ggformula_0.12.0    jsonlite_2.0.0      Matrix_1.7-3       
+[19] backports_1.5.0     purrr_1.1.0         scales_1.4.0       
+[22] codetools_0.2-20    labelled_2.14.1     reformulas_0.4.1   
+[25] Rdpack_2.6.4        cli_3.6.5           rlang_1.1.6        
+[28] rbibutils_2.3       parallelly_1.45.0   future.apply_1.20.0
+[31] splines_4.5.0       withr_3.0.2         yaml_2.3.10        
+[34] tools_4.5.0         parallel_4.5.0      nloptr_2.2.1       
+[37] minqa_1.2.8         dplyr_1.1.4         mosaicCore_0.9.4.0 
+[40] forcats_1.0.0       boot_1.3-31         globals_0.18.0     
+[43] broom_1.0.8         vctrs_0.6.5         R6_2.6.1           
+[46] ggridges_0.5.6      lifecycle_1.0.4     stringr_1.5.2      
+[49] htmlwidgets_1.6.4   MASS_7.3-65         pkgconfig_2.0.3    
+[52] pillar_1.11.0       gtable_0.3.6        glue_1.8.0         
+[55] Rcpp_1.1.0          haven_2.5.4         xfun_0.53          
+[58] tibble_3.3.0        tidyselect_1.2.1    knitr_1.50         
+[61] farver_2.1.2        htmltools_0.5.8.1   nlme_3.1-168       
+[64] labeling_0.4.3      rmarkdown_2.29      compiler_4.5.0     
+[67] S7_0.2.0           </code></pre>
 </div>
 </div>
 
