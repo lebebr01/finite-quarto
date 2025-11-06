@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Brandon LeBeau">
-<meta name="dcterms.date" content="2025-10-06">
+<meta name="dcterms.date" content="2025-11-06">
 
 <title>simglm v0.9.26: Multi-level Propensity Score Modeling – Brandon LeBeau</title>
 <style>
@@ -231,7 +231,7 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 6, 2025</p>
+      <p class="date">November 6, 2025</p>
     </div>
   </div>
   
@@ -307,20 +307,20 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>  X.Intercept. motivation trt age       ses level1_id classroom      error
-1            1  10.755621   1  -6 -4.013889         1         1 -6.4384289
-2            1   9.272166   1   7 -4.013889         2         1  1.4029965
-3            1  30.096897   1  -4 -4.013889         3         1 -3.0511254
-4            1 -19.185835   1   4 -4.013889         4         1 -3.8703413
-5            1 -22.619984   1   6 -4.013889         5         1 -0.6368481
-6            1   6.166299   1  -5 -4.013889         6         1 -7.6097725
+<pre><code>  X.Intercept. motivation trt age      ses level1_id classroom      error
+1            1   6.502731   1  -4 1.026945         1         1 -0.9554712
+2            1   4.548620   1   2 1.026945         2         1 -5.7521228
+3            1  11.132905   0  -2 1.026945         3         1  3.8836490
+4            1  -3.523738   0   2 1.026945         4         1  1.6403897
+5            1  41.977955   0  -3 1.026945         5         1 -2.5984848
+6            1  -8.826909   0  -6 1.026945         6         1 -0.0853880
   int_classroom fixed_outcome random_effects achievement
-1      2.267244      53.89878       2.267244    49.72759
-2      2.267244      54.60539       2.267244    58.27563
-3      2.267244      61.83529       2.267244    61.05140
-4      2.267244      42.92219       2.267244    41.31910
-5      2.267244      41.74853       2.267244    43.37893
-6      2.267244      52.16305       2.267244    46.82052</code></pre>
+1     -1.405126      53.65783      -1.405126    51.29723
+2     -1.405126      53.47618      -1.405126    46.31894
+3     -1.405126      54.50990      -1.405126    56.98842
+4     -1.405126      49.04724      -1.405126    49.28251
+5     -1.405126      66.74792      -1.405126    62.74431
+6     -1.405126      46.12597      -1.405126    44.63546</code></pre>
 </div>
 </div>
 <section id="specifying-treatment-at-different-levels" class="level3">
@@ -364,19 +364,19 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  X.Intercept. motivation trt age       ses level1_id classroom      error
-1            1  -5.152028   0  -3 0.3323679         1         1  2.1280378
-2            1   7.010690   0   6 0.3323679         2         1  3.5415565
-3            1  23.252412   0  -1 0.3323679         3         1  1.4199601
-4            1  -1.079637   0  -4 0.3323679         4         1 -0.5277134
-5            1  15.385708   0  -6 0.3323679         5         1  1.4018359
-6            1  18.737210   0  -1 0.3323679         6         1  0.4509080
+1            1  23.948833   1   2 -1.499993         1         1 -3.4630538
+2            1   3.517415   1   5 -1.499993         2         1  1.0019384
+3            1 -12.423001   1   4 -1.499993         3         1  0.4293656
+4            1 -23.844401   1  -6 -1.499993         4         1 -0.9232922
+5            1 -44.794205   1   3 -1.499993         5         1  1.9578812
+6            1  14.122256   1  -5 -1.499993         6         1 -2.1116858
   int_classroom fixed_outcome random_effects achievement
-1      2.292052      47.72228       2.292052    52.14237
-2      2.292052      53.48737       2.292052    59.32098
-3      2.292052      59.28406       2.292052    62.99607
-4      2.292052      49.25124       2.292052    51.01558
-5      2.292052      55.63738       2.292052    59.33126
-6      2.292052      57.47798       2.292052    60.22094</code></pre>
+1      5.951099      60.60453       5.951099    63.09258
+2      5.951099      52.73197       5.951099    59.68500
+3      5.951099      46.25580       5.951099    52.63627
+4      5.951099      40.68724       5.951099    45.71505
+5      5.951099      33.20732       5.951099    41.11630
+6      5.951099      55.97390       5.951099    59.81332</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
@@ -459,26 +459,19 @@ New names:
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  X.Intercept. motivation trt age       ses level1_id classroom district
-1            1 -14.861359   1   3 -8.284426         1         1        1
-2            1   8.795583   1   4 -8.284426         2         1        1
-3            1   1.821082   1   2 -8.284426         3         1        1
-4            1  -8.575474   1   6 -8.284426         4         1        1
-5            1   6.267919   1   6 -8.284426         5         1        1
-6            1  37.040723   1   4 -8.284426         6         1        1
-       error int_classroom int_district fixed_outcome random_effects
-1  2.3281056      2.105982     1.013331      43.48435       3.119313
-2 -2.3870716      2.105982     1.013331      53.04713       3.119313
-3 -1.0665606      2.105982     1.013331      50.05733       3.119313
-4  0.1317332      2.105982     1.013331      46.29870       3.119313
-5  1.9731636      2.105982     1.013331      52.23606       3.119313
-6  0.7116851      2.105982     1.013331      64.34518       3.119313
-  achievement
-1    48.93177
-2    53.77937
-3    52.11008
-4    49.54975
-5    57.32854
-6    68.17618</code></pre>
+1            1 -54.488721   1  -1 -5.700812         1         1        1
+2            1  -5.005362   1  -1 -5.700812         2         1        1
+3            1  37.278043   1  -2 -5.700812         3         1        1
+4            1 -20.904998   1   5 -5.700812         4         1        1
+5            1  12.779405   1  -7 -5.700812         5         1        1
+6            1   4.861477   1  -7 -5.700812         6         1        1
+      error int_classroom int_district fixed_outcome random_effects achievement
+1 -7.056390      1.836647    0.2612293      27.87931       2.097876    22.92079
+2 -4.276418      1.836647    0.2612293      47.67265       2.097876    45.49411
+3  4.207792      1.836647    0.2612293      64.48601       2.097876    70.79168
+4  3.465661      1.836647    0.2612293      41.91280       2.097876    47.47634
+5  2.112933      1.836647    0.2612293      54.18656       2.097876    58.39737
+6 -1.283107      1.836647    0.2612293      51.01939       2.097876    51.83416</code></pre>
 </div>
 </div>
 </section>
@@ -532,19 +525,26 @@ New names:
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  X.Intercept. motivation trt age      ses level1_id classroom district
-1            1   7.006472   1   1 4.753056         1         1        1
-2            1 -18.620847   1  -7 4.753056         2         1        1
-3            1   2.396296   1   6 4.753056         3         1        1
-4            1 -20.731810   1  -2 4.753056         4         1        1
-5            1  10.734772   1   6 4.753056         5         1        1
-6            1  -1.936835   1   4 4.753056         6         1        1
-      error int_classroom int_district fixed_outcome random_effects achievement
-1  2.180368      4.950872   -0.4126222      55.29085       4.538249    62.00947
-2  2.301053      4.950872   -0.4126222      44.23993       4.538249    51.07923
-3  1.655638      4.950872   -0.4126222      53.94678       4.538249    60.14067
-4 -1.413907      4.950872   -0.4126222      43.89554       4.538249    47.01988
-5  4.350767      4.950872   -0.4126222      57.28217       4.538249    66.17119
-6  5.715440      4.950872   -0.4126222      52.01353       4.538249    62.26722</code></pre>
+1            1  -4.538476   1   7 1.670979         1         1        1
+2            1  -9.869254   1   3 1.670979         2         1        1
+3            1  -6.006584   1   3 1.670979         3         1        1
+4            1  16.765529   1   2 1.670979         4         1        1
+5            1  -9.933779   1  -3 1.670979         5         1        1
+6            1  34.817235   1   5 1.670979         6         1        1
+       error int_classroom int_district fixed_outcome random_effects
+1  1.7127887      4.874151     -0.98758      50.50235       3.886571
+2 -2.5383693      4.874151     -0.98758      47.97004       3.886571
+3  0.3557401      4.874151     -0.98758      49.51511       3.886571
+4 -3.2642383      4.874151     -0.98758      58.52396       3.886571
+5  1.2402380      4.874151     -0.98758      47.34423       3.886571
+6 -5.6804034      4.874151     -0.98758      66.04464       3.886571
+  achievement
+1    56.10171
+2    49.31824
+3    53.75742
+4    59.14629
+5    52.47104
+6    64.25081</code></pre>
 </div>
 </div>
 </section>
@@ -599,87 +599,87 @@ New names:
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
-unable to evaluate scaled gradient</code></pre>
+Model failed to converge with max|grad| = 0.0556873 (tol = 0.002, component 1)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
-Model failed to converge: degenerate Hessian with 1 negative eigenvalues</code></pre>
+<pre><code>Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model is nearly unidentifiable: very large eigenvalue
+ - Rescale variables?</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-         term      estimate    std.error  statistic
-1 (Intercept)     1.4324956 4.987666e-01  2.8720760
-2  motivation     0.3892837 4.539301e-03 85.7585009
-3         trt  2498.4084358 6.976617e+03  0.3581118
-4  propensity -2498.9404320 6.976847e+03 -0.3581762
+         term      estimate    std.error statistic
+1 (Intercept)  2.908904e+00 7.138991e-01  4.074670
+2  motivation  4.056633e-01 4.302511e-03 94.285228
+3         trt  2.369709e+04 6.787640e+03  3.491212
+4  propensity -2.369950e+04 6.788101e+03 -3.491329
 
 [[2]]
-         term      estimate    std.error  statistic
-1 (Intercept)     1.8819529 5.272166e-01  3.5696014
-2  motivation     0.3990937 4.413403e-03 90.4276437
-3         trt  7971.9023237 8.955360e+03  0.8901822
-4  propensity -7973.1915418 8.955643e+03 -0.8902981
+         term      estimate    std.error statistic
+1 (Intercept)  1.256255e+00 4.501801e-01  2.790561
+2  motivation  3.988186e-01 4.456008e-03 89.501326
+3         trt  1.035445e+04 6.851057e+03  1.511366
+4  propensity -1.035536e+04 6.851238e+03 -1.511458
 
 [[3]]
          term      estimate    std.error statistic
-1 (Intercept)  1.708528e+00 5.263826e-01  3.245792
-2  motivation  4.035702e-01 4.097055e-03 98.502521
-3         trt  1.602052e+04 7.039144e+03  2.275919
-4  propensity -1.602155e+04 7.039457e+03 -2.275964
+1 (Intercept)  9.734051e-01 5.325444e-01  1.827838
+2  motivation  4.034641e-01 4.247209e-03 94.995117
+3         trt  1.522479e+04 9.038478e+03  1.684441
+4  propensity -1.522510e+04 9.038724e+03 -1.684430
 
 [[4]]
-         term      estimate    std.error  statistic
-1 (Intercept)     2.1207054 5.301728e-01  4.0000266
-2  motivation     0.4060886 4.259541e-03 95.3362255
-3         trt  1374.0279377 4.332115e+03  0.3171725
-4  propensity -1375.4308238 4.332323e+03 -0.3174811
+         term      estimate    std.error statistic
+1 (Intercept)     1.2694900 4.291298e-01  2.958289
+2  motivation     0.3971322 4.178960e-03 95.031348
+3         trt  5118.1511922 3.557972e+03  1.438502
+4  propensity -5118.8380437 3.558231e+03 -1.438591
 
 [[5]]
-         term      estimate    std.error statistic
-1 (Intercept)     1.0131333 4.776469e-01  2.121093
-2  motivation     0.4043882 4.573856e-03 88.412968
-3         trt  8008.5235836 3.014677e+03  2.656512
-4  propensity -8009.1389441 3.014946e+03 -2.656478
+         term      estimate    std.error  statistic
+1 (Intercept)     1.4644805 5.567131e-01  2.6305841
+2  motivation     0.3982062 4.077144e-03 97.6679352
+3         trt  2105.2649994 7.100847e+03  0.2964808
+4  propensity -2106.0079375 7.101062e+03 -0.2965765
 
 [[6]]
          term      estimate    std.error statistic
-1 (Intercept)  1.423504e+00 8.351794e-01  1.704429
-2  motivation  4.038783e-01 4.224521e-03 95.603336
-3         trt  1.685578e+04 6.608684e+03  2.550550
-4  propensity -1.685668e+04 6.609326e+03 -2.550438
+1 (Intercept)     0.8776863 5.054796e-01  1.736343
+2  motivation     0.3955913 4.261973e-03 92.818811
+3         trt  3796.5598590 2.271809e+03  1.671162
+4  propensity -3797.5932828 2.272149e+03 -1.671367
 
 [[7]]
          term      estimate    std.error statistic
-1 (Intercept)  2.640672e+00 4.974939e-01  5.307948
-2  motivation  4.021774e-01 4.335935e-03 92.754474
-3         trt  1.577715e+04 6.131480e+03  2.573139
-4  propensity -1.577922e+04 6.131747e+03 -2.573364
+1 (Intercept)     1.1598000 4.936926e-01  2.349235
+2  motivation     0.4055483 4.287862e-03 94.580542
+3         trt  6389.5839804 2.894362e+03  2.207597
+4  propensity -6390.3572335 2.894661e+03 -2.207636
 
 [[8]]
-         term      estimate    std.error  statistic
-1 (Intercept)     0.7376964 5.611832e-01  1.3145375
-2  motivation     0.3968841 4.247459e-03 93.4403569
-3         trt -2506.6470623 3.875987e+03 -0.6467119
-4  propensity  2506.5656913 3.876244e+03  0.6466481
+         term      estimate    std.error statistic
+1 (Intercept)  2.024031e+00 4.310026e-01  4.696100
+2  motivation  4.006582e-01 4.150963e-03 96.521753
+3         trt  1.704448e+04 6.978264e+03  2.442510
+4  propensity -1.704617e+04 6.978520e+03 -2.442663
 
 [[9]]
          term      estimate    std.error statistic
-1 (Intercept)  1.053207e+00 3.732255e-01  2.821905
-2  motivation  4.004148e-01 4.104803e-03 97.547884
-3         trt  1.522499e+04 7.057796e+03  2.157188
-4  propensity -1.522579e+04 7.057984e+03 -2.157244
+1 (Intercept)  1.001839e+00 5.212012e-01  1.922172
+2  motivation  4.024457e-01 4.201464e-03 95.786999
+3         trt  1.776691e+04 8.062954e+03  2.203524
+4  propensity -1.776733e+04 8.063197e+03 -2.203509
 
 [[10]]
-         term      estimate    std.error  statistic
-1 (Intercept)     0.1039814 6.663711e-01  0.1560413
-2  motivation     0.4040750 4.410657e-03 91.6133213
-3         trt -2291.7524000 4.053498e+03 -0.5653765
-4  propensity  2292.2040442 4.053872e+03  0.5654358</code></pre>
+         term      estimate    std.error statistic
+1 (Intercept)  2.475772e+00 6.106023e-01  4.054639
+2  motivation  4.004046e-01 4.167494e-03 96.078010
+3         trt  1.989337e+04 7.453907e+03  2.668851
+4  propensity -1.989594e+04 7.454200e+03 -2.669091</code></pre>
 </div>
 </div>
 <section id="bayesian-model-fitting-with-brms" class="level3">
 <h3 class="anchored" data-anchor-id="bayesian-model-fitting-with-brms">Bayesian Model Fitting with <code>brms</code></h3>
-<p>It is also possible to use different model fitting functions. For example, if you wanted to use a Bayesian logistic regression function, this is now possible with the new model fitting functionality. I’m going to use the example from the last post with <a href="posts/2025-10-06-simglm-propensity-modeling.qmd">single level propensity score models</a> to demonstrate this feature. Here, I will use the <code>brms::brm()</code> function to fit a Bayesian logistic regression model for the propensity score model.</p>
+<p>It is also possible to use different model fitting functions. For example, if you wanted to use a Bayesian logistic regression function, this is now possible with the new model fitting functionality. I’m going to use the example from the last post with <a href="../posts/2025-10-06-simglm-propensity-modeling.html">single level propensity score models</a> to demonstrate this feature. Here, I will use the <code>brms::brm()</code> function to fit a Bayesian logistic regression model for the propensity score model.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -720,8 +720,8 @@ Model failed to converge: degenerate Hessian with 1 negative eigenvalues</code><
 <pre><code>
 SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
 Chain 1: 
-Chain 1: Gradient evaluation took 1.8e-05 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.18 seconds.
+Chain 1: Gradient evaluation took 2.2e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.22 seconds.
 Chain 1: Adjust your expectations accordingly!
 Chain 1: 
 Chain 1: 
@@ -779,15 +779,15 @@ Chain 2: Iteration: 200 / 250 [ 80%]  (Sampling)
 Chain 2: Iteration: 225 / 250 [ 90%]  (Sampling)
 Chain 2: Iteration: 250 / 250 [100%]  (Sampling)
 Chain 2: 
-Chain 2:  Elapsed Time: 0.005 seconds (Warm-up)
+Chain 2:  Elapsed Time: 0.004 seconds (Warm-up)
 Chain 2:                0.003 seconds (Sampling)
-Chain 2:                0.008 seconds (Total)
+Chain 2:                0.007 seconds (Total)
 Chain 2: 
 
 SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
 Chain 1: 
-Chain 1: Gradient evaluation took 1.6e-05 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.16 seconds.
+Chain 1: Gradient evaluation took 1.8e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.18 seconds.
 Chain 1: Adjust your expectations accordingly!
 Chain 1: 
 Chain 1: 
@@ -846,8 +846,8 @@ Chain 2: Iteration: 225 / 250 [ 90%]  (Sampling)
 Chain 2: Iteration: 250 / 250 [100%]  (Sampling)
 Chain 2: 
 Chain 2:  Elapsed Time: 0.004 seconds (Warm-up)
-Chain 2:                0.003 seconds (Sampling)
-Chain 2:                0.007 seconds (Total)
+Chain 2:                0.004 seconds (Sampling)
+Chain 2:                0.008 seconds (Total)
 Chain 2: </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -855,21 +855,21 @@ Chain 2: </code></pre>
 # A tibble: 5 × 5
   term        estimate std.error statistic   p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)   50.1     0.349      144.   0        
-2 motivation     0.415   0.00860     48.3  7.41e-168
-3 trt            1.51    0.434        3.49 5.44e-  4
-4 age            0.117   0.0409       2.86 4.47e-  3
-5 ses            0.224   0.0358       6.27 9.63e- 10
+1 (Intercept)   50.4     0.405      124.   5.47e-319
+2 motivation     0.410   0.00830     49.4  3.16e-171
+3 trt            0.542   0.514        1.05 2.92e-  1
+4 age            0.152   0.0456       3.33 9.58e-  4
+5 ses            0.194   0.0350       5.54 5.39e-  8
 
 [[2]]
 # A tibble: 5 × 5
   term        estimate std.error statistic   p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)   49.9     0.317      157.   0        
-2 motivation     0.420   0.00763     55.0  3.13e-187
-3 trt            1.13    0.385        2.95 3.38e-  3
-4 age            0.130   0.0397       3.28 1.11e-  3
-5 ses            0.266   0.0336       7.93 2.34e- 14</code></pre>
+1 (Intercept)   50.6     0.379     133.    0        
+2 motivation     0.405   0.00855    47.3   7.05e-165
+3 trt            0.288   0.474       0.606 5.45e-  1
+4 age            0.109   0.0435      2.52  1.23e-  2
+5 ses            0.159   0.0402      3.96  9.02e-  5</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
