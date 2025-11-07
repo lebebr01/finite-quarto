@@ -1,0 +1,316 @@
+---
+title: 'simglm v0.9.26: Multi-level Propensity Score Modeling'
+author: Brandon LeBeau
+date: '2025-11-06'
+code-fold: true
+categories:
+  - R
+  - simglm
+  - modeling
+  - propensity scores
+---
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+library(ggplot2)
+theme_set(theme_bw(base_size = 14))
+```
+
+#
+
+This update marks the final propensity score enhancement for the `simglm` package (v0.9.26). It introduces multi-level propensity score modeling, enabling users to simulate data with nested structures and treatment effects that vary across levels.  
+
+Propensity score methods often assume independence between units, but in real-world settings, data are hierarchical (e.g., students nested in classrooms, patients nested in hospitals). This release bridges that gap—allowing for *realistic multi-level causal inference simulation.*
+
+### 🆕 New Features at a Glance
+
+- **Hierarchical data simulation** — Generate nested structures (e.g., students within schools, hospitals within regions).  
+- **Multi-level propensity modeling** — The `propensity_model` argument now supports random effects and hierarchical assignment.  
+- **Cross-level treatment effects** — Specify treatments applied at any level (e.g., classrooms, schools, or districts).  
+- **Custom model fitting functions** — Pass your own model-fitting function (`glm`, `lme4::glmer`, or even `brms::brm`) with additional arguments.  
+
+If you haven't already, remember to first install the latest release of the `simglm` package from GitHub. 
+```{r}
+#| eval: false
+remotes::install_github('lebebr01/simglm')
+```
+
+## Multi-level Propensity Score Modeling Example
+First, let's show the new features that allow the user to specify a multi-level propensity score model. In this example, we will simulate data with students nested within classrooms, where the treatment assignment is still being specified at the student level. The model formula specified for both the full data generation and propensity model specification use `lme4` style syntax. Any data features generated during the propensity score model simulation carry over to the final data generation step.
+
+```{r}
+library(simglm)
+
+level1_samp <- sample(15:25, size = 50, replace = TRUE)
+
+sim_arguments <- list(
+    formula = achievement ~ 1 + motivation + trt + age + ses + (1 | classroom),
+    fixed = list(
+        motivation = list(var_type = 'continuous',
+                           mean = 0, sd = 20)
+    ),
+    sample_size = list(level1 = level1_samp, level2 = 50),
+    error = list(variance = 10),
+    reg_weights = c(50, 0.4, 1.2, 0.1, 0.25),
+    randomeffect = list(int_classroom = list(variance = 5, var_level = 2)),
+    propensity = list(
+        formula = trt ~ 1 + age + ses + (1 | classroom),
+        fixed = list(age = list(var_type = 'ordinal', 
+                         levels = -7:7),
+                     ses = list(var_type = 'continuous', 
+                         mean = 0, sd = 5, 
+                         var_level = 2)),
+        sample_size = list(level1 = level1_samp, level2 = 50),
+        error = list(variance = 5),
+        randomeffect = list(int_classroom = list(variance = 5, var_level = 2)),
+        reg_weights = c(2, 0.3, -0.5),
+        outcome_type = 'binary'
+    )
+)
+simulate_fixed(data = NULL, sim_args = sim_arguments) |>
+    simulate_error(sim_args = sim_arguments) |>
+    simulate_randomeffect(sim_args = sim_arguments) |>
+    generate_response(sim_arguments) |> 
+    head()
+```
+
+### Specifying treatment at different levels
+In addition to specifying treatment at level 1 (e.g., students), users can now specify treatment assignment at higher levels (e.g., classrooms). Below is an example where treatment is assigned at level 2 (classrooms). The `simglm` package does this by computing the average value for each cluster (classrooms here) and then uses that value to assign the treatment to that cluster. To specify this treatment assignment, the user simply needs to set the `outcome_level` argument within the `propensity` list to the desired level (2 in this case).
+
+```{r}
+level1_samp <- sample(15:25, size = 50, replace = TRUE)
+
+sim_arguments <- list(
+    formula = achievement ~ 1 + motivation + trt + age + ses + (1 | classroom),
+    fixed = list(
+        motivation = list(var_type = 'continuous',
+                           mean = 0, sd = 20)
+    ),
+    sample_size = list(level1 = level1_samp, level2 = 50),
+    error = list(variance = 10),
+    reg_weights = c(50, 0.4, 1.2, 0.1, 0.25),
+    randomeffect = list(int_classroom = list(variance = 5, var_level = 2)),
+    propensity = list(
+        formula = trt ~ 1 + age + ses + (1 | classroom),
+        fixed = list(age = list(var_type = 'ordinal', 
+                         levels = -7:7),
+                     ses = list(var_type = 'continuous', 
+                         mean = 0, sd = 5, 
+                         var_level = 2)),
+        sample_size = list(level1 = level1_samp, level2 = 50),
+        error = list(variance = 5),
+        randomeffect = list(int_classroom = list(variance = 5, var_level = 2)),
+        reg_weights = c(2, 0.3, -0.5),
+        outcome_type = 'binary',
+        outcome_level = 2
+    )
+)
+simulate_fixed(data = NULL, sim_args = sim_arguments) |>
+    simulate_error(sim_args = sim_arguments) |>
+    simulate_randomeffect(sim_args = sim_arguments) |>
+    generate_response(sim_arguments)|> 
+    head()
+```
+
+> 💡 *Tip:* When treatment is assigned at a higher level, all units within that cluster receive the same treatment indicator. This makes simulation results especially useful for cluster-randomized trial designs.
+
+### Visualization Example
+
+Here’s a quick example of how you might visualize simulated treatment variation across classrooms:
+
+```{r}
+sim_data <- simulate_fixed(data = NULL, sim_args = sim_arguments) |>
+  simulate_error(sim_args = sim_arguments) |>
+  simulate_randomeffect(sim_args = sim_arguments) |>
+  generate_response(sim_arguments)
+
+ggplot(sim_data, aes(x = factor(classroom), y = trt)) +
+  geom_boxplot() +
+  labs(
+    x = "Classroom ID",
+    y = "Treatment Assignment (0 = Control, 1 = Treatment)",
+    title = "Cluster-Level Treatment Variation"
+  )
+```
+
+#### Three-level Example
+
+Here is an example where there are now classrooms and districts being specified. The treatment assignment is still being specified at the classroom level with `outcome_level = 2`, but there is now another level to be considered. 
+
+```{r}
+level1_samp <- sample(15:25, size = 150, replace = TRUE)
+
+sim_arguments <- list(
+    formula = achievement ~ 1 + motivation + trt + age + ses + (1 | classroom) + (1 | district),
+    fixed = list(
+        motivation = list(var_type = 'continuous',
+                           mean = 0, sd = 20)
+    ),
+    sample_size = list(level1 = level1_samp, level2 = 10, level3 = 15),
+    error = list(variance = 10),
+    reg_weights = c(50, 0.4, 1.2, 0.1, 0.25),
+    randomeffect = list(int_classroom = list(variance = 5, var_level = 2),
+    int_district = list(variance = 2, var_level = 3)),
+    propensity = list(
+        formula = trt ~ 1 + age + ses + (1 | classroom) + (1 | district),
+        fixed = list(age = list(var_type = 'ordinal', 
+                         levels = -7:7),
+                     ses = list(var_type = 'continuous', 
+                         mean = 0, sd = 5, 
+                         var_level = 2)),
+        sample_size =  list(level1 = level1_samp, level2 = 10, level3 = 15),
+        error = list(variance = 5),
+        randomeffect = list(int_classroom = list(variance = 5, var_level = 2),
+        int_district = list(variance = 2, var_level = 3)),
+        reg_weights = c(2, 0.3, -0.5),
+        outcome_type = 'binary',
+        outcome_level = 2
+    )
+)
+simulate_fixed(data = NULL, sim_args = sim_arguments) |>
+    simulate_error(sim_args = sim_arguments) |>
+    simulate_randomeffect(sim_args = sim_arguments) |>
+    generate_response(sim_arguments) |> 
+    head()
+```
+
+
+### Treatment assignment at level 3
+
+The treatment assignment can alternatively be specified at the district level, by setting `outcome_level = 3` within the `propensity` list. 
+
+```{r}
+level1_samp <- sample(15:25, size = 150, replace = TRUE)
+
+sim_arguments <- list(
+    formula = achievement ~ 1 + motivation + trt + age + ses + (1 | classroom) + (1 | district),
+    fixed = list(
+        motivation = list(var_type = 'continuous',
+                           mean = 0, sd = 20)
+    ),
+    sample_size = list(level1 = level1_samp, level2 = 10, level3 = 15),
+    error = list(variance = 10),
+    reg_weights = c(50, 0.4, 1.2, 0.1, 0.25),
+    randomeffect = list(int_classroom = list(variance = 5, var_level = 2),
+    int_district = list(variance = 2, var_level = 3)),
+    propensity = list(
+        formula = trt ~ 1 + age + ses + (1 | classroom) + (1 | district),
+        fixed = list(age = list(var_type = 'ordinal', 
+                         levels = -7:7),
+                     ses = list(var_type = 'continuous', 
+                         mean = 0, sd = 5, 
+                         var_level = 2)),
+        sample_size =  list(level1 = level1_samp, level2 = 10, level3 = 15),
+        error = list(variance = 5),
+        randomeffect = list(int_classroom = list(variance = 5, var_level = 2),
+        int_district = list(variance = 2, var_level = 3)),
+        reg_weights = c(2, 0.3, -0.5),
+        outcome_type = 'binary',
+        outcome_level = 3
+    )
+)
+simulate_fixed(data = NULL, sim_args = sim_arguments) |>
+    simulate_error(sim_args = sim_arguments) |>
+    simulate_randomeffect(sim_args = sim_arguments) |>
+    generate_response(sim_arguments)|> 
+    head()
+```
+
+## Flexible Model Specification
+
+The other enhancement is to how the propensity model is fitted and extracted. The internal function for this process has been generalized to allow users to specify whichever model fitting procedure they want. If no model fitting is specified, `stats::glm()` function is used. If there is a multi-level structure, `lme4::glmer()` or some alternative, would be more appropriate and would need to be specified within the propensity_model simulation arguments.
+
+
+```{r}
+level1_samp <- sample(15:25, size = 75, replace = TRUE)
+
+sim_arguments <- list(
+    formula = achievement ~ 1 + motivation + trt + age + ses + (1 | classroom),
+    fixed = list(
+        motivation = list(var_type = 'continuous',
+                           mean = 0, sd = 20)
+    ),
+    sample_size = list(level1 = level1_samp, level2 = 75),
+    error = list(variance = 10),
+    reg_weights = c(0, 0.4, 1.2, 0.1, 0.25),
+    randomeffect = list(int_classroom = list(variance = 5, var_level = 2)),
+    propensity = list(
+        formula = trt ~ 1 + age + ses + (1 | classroom),
+        fixed = list(age = list(var_type = 'ordinal', 
+                         levels = -7:7),
+                     ses = list(var_type = 'continuous', 
+                         mean = 0, sd = 5, 
+                         var_level = 2)),
+        sample_size = list(level1 = level1_samp, level2 = 75),
+        error = list(variance = 10),
+        randomeffect = list(int_classroom = list(variance = 5, var_level = 2)),
+        reg_weights = c(2, 0.5, -0.8),
+        outcome_type = 'binary',
+        outcome_level = 2
+    ),
+    model_fit = list(formula = achievement ~ 1 + motivation + trt + (1 | classroom),
+                   model_function = lme4::lmer),
+    propensity_model = list(
+        formula = trt ~ 1 + age + ses + (1 | classroom),
+        propensity_type = 'covariate',
+        model_function = lme4::glmer,
+        propensity_model_args = list(
+           family = binomial()
+        )
+    ),
+    replications = 10,
+    extract_coefficients = TRUE
+)
+
+replicate_simulation(sim_arguments)
+```
+
+### Bayesian Model Fitting with `brms`
+
+It is also possible to use different model fitting functions. For example, if you wanted to use a Bayesian logistic regression function, this is now possible with the new model fitting functionality. I'm going to use the example from the last post with [single level propensity score models](2025-10-06-simglm-propensity-modeling.qmd) to demonstrate this feature. Here, I will use the `brms::brm()` function to fit a Bayesian logistic regression model for the propensity score model. 
+
+
+```{r}
+#| warning: false
+#| message: false
+sim_arguments <- list(
+    formula = achievement ~ 1 + motivation + trt + age + ses,
+    fixed = list(
+        motivation = list(var_type = 'continuous',
+                           mean = 0, sd = 20)
+    ),
+    sample_size = 400,
+    error = list(variance = 10),
+    reg_weights = c(50, 0.4, 1.2, 0.1, 0.25),
+    propensity = list(
+        formula = trt ~ 1 + age + ses,
+        fixed = list(age = list(var_type = 'ordinal', 
+                         levels = -7:7),
+                     ses = list(var_type = 'continuous', 
+                         mean = 0, sd = 5)),
+        sample_size = 400,
+        error = list(variance = 5),
+        reg_weights = c(2, 0.3, -0.5),
+        outcome_type = 'binary'
+    ),
+    model_fit = list(formula = achievement ~ 1 + motivation + trt + age + ses,
+                   model_function = 'lm'),
+    propensity_model = list(
+        formula = trt ~ 1 + age + ses,
+        propensity_type = 'sbw',
+        model_function = brms::brm,
+    propensity_model_args = list(iter = 250, chains = 2, family = brms::bernoulli())
+    ),
+    replications = 2,
+    extract_coefficients = TRUE
+)
+replicate_simulation(sim_arguments) 
+```
+
+> ⚙️ *Note:* For demonstration purposes, this example uses only 2 replications and 250 iterations across 2 chains. For accurate estimation, these should be increased substantially.
+
+## Conclusion
+
+These enhancements make `simglm` a more powerful framework for propensity score simulation, causal inference, and power analysis in multi-level contexts. You can now simulate, estimate, and evaluate designs involving cluster-level assignment, cross-level effects, and complex hierarchical data structures—all within a single pipeline!

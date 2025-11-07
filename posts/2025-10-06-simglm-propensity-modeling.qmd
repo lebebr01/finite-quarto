@@ -72,7 +72,11 @@ sim_arguments <- list(
                    model_function = 'lm'),
     propensity_model = list(
         formula = trt ~ 1 + age + ses,
-        propensity_type = 'covariate'
+        propensity_type = 'covariate',
+        model_function = stats::glm,
+        propensity_model_args = list(
+           family = binomial()
+        )
     ),
     replications = 500,
     extract_coefficients = TRUE
@@ -120,7 +124,11 @@ sim_arguments <- list(
                    model_function = 'lm'),
     propensity_model = list(
         formula = trt ~ 1 + age + ses,
-        propensity_type = 'ipw'
+        propensity_type = 'ipw',
+        model_function = stats::glm,
+        propensity_model_args = list(
+           family = binomial()
+        )
     ),
     replications = 500,
     extract_coefficients = TRUE
@@ -167,7 +175,11 @@ sim_arguments <- list(
                    model_function = 'lm'),
     propensity_model = list(
         formula = trt ~ 1 + age + ses,
-        propensity_type = 'sbw'
+        propensity_type = 'sbw',
+        model_function = stats::glm,
+        propensity_model_args = list(
+           family = binomial()
+        )
     ),
     replications = 500,
     extract_coefficients = TRUE
@@ -272,7 +284,11 @@ sim_arguments <- list(
                    model_function = 'lm'),
     propensity_model = list(
         formula = trt ~ 1 + age + ses,
-        propensity_type = 'sbw'
+        propensity_type = 'sbw',
+        model_function = stats::glm,
+        propensity_model_args = list(
+           family = binomial()
+        )
     ),
     replications = 500,
     extract_coefficients = TRUE
