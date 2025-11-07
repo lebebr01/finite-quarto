@@ -82,7 +82,6 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 
 <link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="R Packages – Brandon LeBeau">
-<meta property="og:description" content="Academic website and blog">
 <meta property="og:image" content="https://brandonlebeau.org/images/simglm-logo.png">
 <meta property="og:site_name" content="Brandon LeBeau">
 <meta property="og:image:alt" content="simglm logo">
@@ -144,17 +143,11 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#r-packages" id="toc-r-packages" class="nav-link active" data-scroll-target="#r-packages">R Packages</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -163,7 +156,7 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-page">
 
     
   
@@ -176,12 +169,34 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
 
 
 <style>
-/* Card grid layout */
+/* Content container */
+.page-content {
+  padding: 3.5rem 4vw 4rem; /* space below navbar + bottom margin */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Title styling */
+h1.title {
+  color: #003340;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Subtitle paragraph */
+.page-content p.intro {
+  font-size: 1.05rem;
+  color: #374151;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Grid layout */
 .packages-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.75rem;
 }
 
 /* Card styling */
@@ -189,7 +204,7 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
   background-color: #f9fafb;
   border: 1px solid #dbe3e8;
   border-radius: 12px;
-  padding: 1.2rem;
+  padding: 1.4rem 1.3rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -198,7 +213,7 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
   box-shadow: 0 6px 10px rgba(0,0,0,0.12);
 }
 
-/* Package header layout */
+/* Header layout inside each card */
 .package-header {
   display: flex;
   align-items: center;
@@ -206,14 +221,14 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
   margin-bottom: 0.5rem;
 }
 
-/* Logo image styling */
+/* Logo image */
 .package-logo {
   width: 48px;
   height: 48px;
   border-radius: 8px;
 }
 
-/* Title link */
+/* Package title link */
 .package-header a {
   font-weight: 700;
   font-size: 1.1rem;
@@ -221,27 +236,20 @@ gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
   text-decoration: none;
 }
 .package-header a:hover {
+  color: #0077b6; /* light blue accent */
   text-decoration: underline;
 }
 
 /* Description text */
 .package-desc {
-  font-size: 0.95rem;
-  color: #222;
-  line-height: 1.4;
+  font-size: 1rem;
+  color: #1f2937;
+  line-height: 1.55;
 }
-/* Page content wrapper */
-.page-content {
-  padding: 2rem 4vw;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
 </style>
-<section id="r-packages" class="level1 page-content">
-<h1>R Packages</h1>
-<p>
-Explore open-source packages developed and maintained by Brandon LeBeau.
+<div class="page-content">
+<p class="intro">
+Explore open-source R packages developed and maintained by Brandon LeBeau.
 </p>
 <div class="packages-grid">
 
@@ -323,7 +331,7 @@ Explore open-source packages developed and maintained by Brandon LeBeau.
 </div>
 
 </div>
-</section>
+</div>
 
 
 
