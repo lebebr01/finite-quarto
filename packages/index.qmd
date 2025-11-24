@@ -6,12 +6,34 @@ format:
 ---
 
 <style>
-/* Card grid layout */
+/* Content container */
+.page-content {
+  padding: 3.5rem 4vw 4rem; /* space below navbar + bottom margin */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Title styling */
+h1.title {
+  color: #003340;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Subtitle paragraph */
+.page-content p.intro {
+  font-size: 1.05rem;
+  color: #374151;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Grid layout */
 .packages-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.75rem;
 }
 
 /* Card styling */
@@ -19,7 +41,7 @@ format:
   background-color: #f9fafb;
   border: 1px solid #dbe3e8;
   border-radius: 12px;
-  padding: 1.2rem;
+  padding: 1.4rem 1.3rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -28,7 +50,7 @@ format:
   box-shadow: 0 6px 10px rgba(0,0,0,0.12);
 }
 
-/* Package header layout */
+/* Header layout inside each card */
 .package-header {
   display: flex;
   align-items: center;
@@ -36,14 +58,14 @@ format:
   margin-bottom: 0.5rem;
 }
 
-/* Logo image styling */
+/* Logo image */
 .package-logo {
   width: 48px;
   height: 48px;
   border-radius: 8px;
 }
 
-/* Title link */
+/* Package title link */
 .package-header a {
   font-weight: 700;
   font-size: 1.1rem;
@@ -51,16 +73,23 @@ format:
   text-decoration: none;
 }
 .package-header a:hover {
+  color: #0077b6; /* light blue accent */
   text-decoration: underline;
 }
 
 /* Description text */
 .package-desc {
-  font-size: 0.95rem;
-  color: #222;
-  line-height: 1.4;
+  font-size: 1rem;
+  color: #1f2937;
+  line-height: 1.55;
 }
 </style>
+
+<div class="page-content">
+
+<p class="intro">
+Explore open-source R packages developed and maintained by Brandon LeBeau.
+</p>
 
 ```{=html}
 <div class="packages-grid">
@@ -144,3 +173,4 @@ format:
 
 </div>
 ```
+</div>
