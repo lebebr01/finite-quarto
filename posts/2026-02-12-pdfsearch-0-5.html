@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Brandon LeBeau">
+<meta name="dcterms.date" content="2026-02-12">
+
+<title>pdfsearch: Updated to v0.5.0 – Brandon LeBeau</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="..//images/bl_favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2a86cdf7b963df7a91010258fba251a3.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-95bd368a27abdcadd26b2436c52b31a5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-14CK5K9RD6"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-14CK5K9RD6', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="pdfsearch: Updated to v0.5.0 – Brandon LeBeau">
+<meta property="og:description" content="Academic website and blog">
+<meta property="og:site_name" content="Brandon LeBeau">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Brandon LeBeau</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../posts/"> 
+<span class="menu-text">Educate-R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../publications/"> 
+<span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../presentations/"> 
+<span class="menu-text">Presentations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../packages/"> 
+<span class="menu-text">R Packages</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../workshops/"> 
+<span class="menu-text">Workshops</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about/"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a>
+  <ul class="collapse">
+  <li><a href="#splitting-multi-column-pdfs" id="toc-splitting-multi-column-pdfs" class="nav-link" data-scroll-target="#splitting-multi-column-pdfs">Splitting multi-column PDFs</a></li>
+  </ul></li>
+  <li><a href="#cleaning-page-artifacts-and-section-headings" id="toc-cleaning-page-artifacts-and-section-headings" class="nav-link" data-scroll-target="#cleaning-page-artifacts-and-section-headings">Cleaning Page Artifacts and Section Headings</a></li>
+  <li><a href="#table-control-in-keyword_search" id="toc-table-control-in-keyword_search" class="nav-link" data-scroll-target="#table-control-in-keyword_search">Table Control in <code>keyword_search()</code></a></li>
+  <li><a href="#enhanced-extract_tables" id="toc-enhanced-extract_tables" class="nav-link" data-scroll-target="#enhanced-extract_tables">Enhanced <code>extract_tables()</code></a>
+  <ul class="collapse">
+  <li><a href="#table-block-tuning-reference" id="toc-table-block-tuning-reference" class="nav-link" data-scroll-target="#table-block-tuning-reference">Table-Block Tuning Reference</a></li>
+  </ul></li>
+  <li><a href="#cross-page-sentence-conversion-optional" id="toc-cross-page-sentence-conversion-optional" class="nav-link" data-scroll-target="#cross-page-sentence-conversion-optional">Cross-Page Sentence Conversion (Optional)</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">pdfsearch: Updated to v0.5.0</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">pdfsearch</div>
+    <div class="quarto-category">package</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta column-page-left">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Brandon LeBeau </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 12, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="section" class="level1">
+<h1></h1>
+<p>For the past few years, I’ve had on my list to work on improving my <strong>pdfsearch</strong> package to make splitting of multi-column PDF documents more robust. I’ve accomplished some preliminary benefits for multi-column PDFs that in my testing have improved the functionality and accuracy of the splitting. There have been some additional enhancements that have also improved the scrubbing of features that are often not of interest when searching PDF documents, such as page numbers, headers, and footers. The package is now at version 0.5.0 and available on GitHub. I plan to do a bit more testing and push to CRAN at some point soon.</p>
+<section id="splitting-multi-column-pdfs" class="level2">
+<h2 class="anchored" data-anchor-id="splitting-multi-column-pdfs">Splitting multi-column PDFs</h2>
+<p>There is a new functionality within the package that is experimental and not the default. The new <code>split_method = "coordinates"</code> option uses token coordinates from <code>pdftools::pdf_data()</code> and can be more robust than whitespace-only splitting in my initial testing. A new argument, <code>column_count</code> is a way for users to specify the number of columns in the PDF document, which can be used to control how the splitting is handled. The default is <code>"auto"</code> and will attempt to infer the number of columns, but users can also specify <code>"1"</code> for single-column reading order or <code>"2"</code> for left-column then right-column order.</p>
+<p>Use <code>column_count</code> to control how column order is handled:</p>
+<ul>
+<li><code>"auto"</code>: infer number of columns.</li>
+<li><code>"1"</code>: force single-column reading order.</li>
+<li><code>"2"</code>: force left-column then right-column order.</li>
+</ul>
+<p>This is an example of this working on a PDF that comes within the package. The file is a published research report that is multi-column, but has tables that are single column or span both columns of text. The following code chunk set this file and then shows an example of performing keyword search within this document.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pdfsearch)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"pdf"</span>, <span class="st">"LeBeauetal2020-gcq.pdf"</span>, <span class="at">package =</span> <span class="st">"pdfsearch"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>res_coord <span class="ot">&lt;-</span> <span class="fu">keyword_search</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  file,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="fu">c</span>(<span class="st">"test theory"</span>, <span class="st">"above-level"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_pdf =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_method =</span> <span class="st">"coordinates"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">column_count =</span> <span class="st">"2"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_hyphen =</span> <span class="cn">TRUE</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_coord)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  keyword     page_num line_num line_text token_text
+  &lt;chr&gt;          &lt;int&gt;    &lt;int&gt; &lt;list&gt;    &lt;list&gt;    
+1 test theory        1        2 &lt;chr [1]&gt; &lt;list [1]&gt;
+2 test theory        3       53 &lt;chr [1]&gt; &lt;list [1]&gt;
+3 test theory        9      247 &lt;chr [1]&gt; &lt;list [1]&gt;
+4 test theory       14      353 &lt;chr [1]&gt; &lt;list [1]&gt;
+5 test theory       17      502 &lt;chr [1]&gt; &lt;list [1]&gt;
+6 above-level        1       12 &lt;chr [1]&gt; &lt;list [1]&gt;</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="cleaning-page-artifacts-and-section-headings" class="level1">
+<h1>Cleaning Page Artifacts and Section Headings</h1>
+<p>Several options are available to reduce non-body text before keyword searching. This includes page headers, footers, section headings, and captions. These can be particularly helpful for multi-column documents where such elements may be more prevalent and can impact how well the multi-column PDF is recreated into a single document. The goal of removing these is to better align column text and keep the sentence structure and keyword proximity intact.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>res_clean <span class="ot">&lt;-</span> <span class="fu">keyword_search</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  file,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">"variance"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_pdf =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_method =</span> <span class="st">"coordinates"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">column_count =</span> <span class="st">"2"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_section_headers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_page_headers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_page_footers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_repeated_furniture =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">repeated_edge_n =</span> <span class="dv">2</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">repeated_edge_min_pages =</span> <span class="dv">4</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_captions =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption_continuation_max =</span> <span class="dv">2</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  keyword  page_num line_num line_text token_text
+  &lt;chr&gt;       &lt;int&gt;    &lt;int&gt; &lt;list&gt;    &lt;list&gt;    
+1 variance        4       85 &lt;chr [1]&gt; &lt;list [1]&gt;
+2 variance        4       87 &lt;chr [1]&gt; &lt;list [1]&gt;
+3 variance        4       89 &lt;chr [1]&gt; &lt;list [1]&gt;
+4 variance        7      185 &lt;chr [1]&gt; &lt;list [1]&gt;
+5 variance       17      467 &lt;chr [1]&gt; &lt;list [1]&gt;
+6 variance       18      618 &lt;chr [1]&gt; &lt;list [1]&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="table-control-in-keyword_search" class="level1">
+<h1>Table Control in <code>keyword_search()</code></h1>
+<p>Use <code>table_mode</code> to choose whether table-like blocks are searched:</p>
+<ul>
+<li><code>"keep"</code>: include all text (default).</li>
+<li><code>"remove"</code>: exclude table-like blocks from search.</li>
+<li><code>"only"</code>: search only table-like blocks.</li>
+</ul>
+<p>Additional options can improve table-only extraction:</p>
+<ul>
+<li><code>table_include_headers</code>: include nearby table header rows (default <code>TRUE</code>).</li>
+<li><code>table_header_lookback</code>: number of lines above detected table blocks to inspect for header rows (default <code>3</code>).</li>
+<li><code>table_include_notes</code>: include trailing note/source rows.</li>
+<li><code>table_note_lookahead</code>: number of lines after detected blocks to inspect for notes.</li>
+<li><code>table_block_max_gap</code>: maximum number of non-table lines allowed before a block is split. Increase this when tables are fragmented.</li>
+</ul>
+<p>When specifying <code>table_mode = 'remove'</code>, the same cleaning options above are applied to table blocks as well, which can help ensure that only body text is retained for keyword searching. When using <code>table_mode = 'only'</code>, the cleaning options are not applied since the focus is on analyzing tables specifically.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>res_keep <span class="ot">&lt;-</span> <span class="fu">keyword_search</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  file,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">"0.83"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_pdf =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_method =</span> <span class="st">"coordinates"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_mode =</span> <span class="st">"keep"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">convert_sentence =</span> <span class="cn">FALSE</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>res_remove <span class="ot">&lt;-</span> <span class="fu">keyword_search</span>(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  file,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">"0.83"</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_pdf =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_method =</span> <span class="st">"coordinates"</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_mode =</span> <span class="st">"remove"</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">convert_sentence =</span> <span class="cn">FALSE</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>res_only <span class="ot">&lt;-</span> <span class="fu">keyword_search</span>(</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  file,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">"0.83"</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_pdf =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_method =</span> <span class="st">"coordinates"</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_mode =</span> <span class="st">"only"</span>,</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_include_headers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_header_lookback =</span> <span class="dv">3</span>,</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_block_max_gap =</span> <span class="dv">3</span>,</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_include_notes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_note_lookahead =</span> <span class="dv">2</span>,</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">convert_sentence =</span> <span class="cn">FALSE</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">keep =</span> <span class="fu">nrow</span>(res_keep),</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove =</span> <span class="fu">nrow</span>(res_remove),</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">only =</span> <span class="fu">nrow</span>(res_only)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  keep remove   only 
+     4      2      2 </code></pre>
+</div>
+</div>
+</section>
+<section id="enhanced-extract_tables" class="level1">
+<h1>Enhanced <code>extract_tables()</code></h1>
+<p>Tables can now be removed entirely or can be extracted directly. The <code>extract_tables()</code> now supports coordinate splitting and output modes:</p>
+<ul>
+<li><code>"parsed"</code>: list of parsed table data frames.</li>
+<li><code>"blocks"</code>: metadata plus raw block lines.</li>
+<li><code>"both"</code>: both parsed tables and block metadata.</li>
+</ul>
+<p>It also supports table-block tuning options, these are discussed in more detail in the next section, but include:</p>
+<ul>
+<li><code>table_include_headers</code>, <code>table_header_lookback</code></li>
+<li><code>table_include_notes</code>, <code>table_note_lookahead</code></li>
+<li><code>table_min_numeric_tokens</code>, <code>table_min_digit_ratio</code>, <code>table_min_block_lines</code>, and <code>table_block_max_gap</code></li>
+<li><code>merge_across_pages</code> for continuation tables that span adjacent pages</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tab_blocks <span class="ot">&lt;-</span> <span class="fu">extract_tables</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  file,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_pdf =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_method =</span> <span class="st">"coordinates"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">column_count =</span> <span class="st">"1"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_section_headers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_page_headers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_page_footers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_repeated_furniture =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_captions =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_include_headers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_header_lookback =</span> <span class="dv">3</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_block_max_gap =</span> <span class="dv">3</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_include_notes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_note_lookahead =</span> <span class="dv">2</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">merge_across_pages =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"blocks"</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tab_blocks)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 6
+  page_num block_id line_start line_end line_text  page_end
+     &lt;int&gt;    &lt;int&gt;      &lt;dbl&gt;    &lt;int&gt; &lt;list&gt;        &lt;int&gt;
+1        8        1          1        6 &lt;chr [6]&gt;         8
+2        9        1          1       12 &lt;chr [12]&gt;        9
+3       14        1          1       19 &lt;chr [19]&gt;       14</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tab_parsed <span class="ot">&lt;-</span> <span class="fu">extract_tables</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  file,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_pdf =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_method =</span> <span class="st">"coordinates"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">column_count =</span> <span class="st">"1"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_section_headers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_page_headers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_page_footers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_repeated_furniture =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_captions =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_include_headers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_header_lookback =</span> <span class="dv">3</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_block_max_gap =</span> <span class="dv">3</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_include_notes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">table_note_lookahead =</span> <span class="dv">3</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">merge_across_pages =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"parsed"</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(tab_parsed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(tab_parsed) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(tab_parsed[[<span class="dv">1</span>]])</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 1
+  X1                                                                            
+  &lt;chr&gt;                                                                         
+1 Table 1. Fit Statistics for Two-Parameter IRT Multigroup Models by Subject.   
+2 Subject M 2 RMSEA [CI] CFI M 2 RMSEA [CI] CFI                                 
+3 English 3930 (2340), p &lt; .01 0.019 [0.018, 0.020] 0.893 2320 (740), p &lt; .01 0…
+4 Math 1630 (1283), p &lt; .01 0.012 [0.010, 0.014] 0.949 805 (405), p &lt; .01 0.023…
+5 Reading 1895 (1307), p &lt; .01 0.015 [0.014, 0.017] 0.965 902 (405), p &lt; .01 0.…
+6 Science 1818 (1146), p &lt; .01 0.018 [0.016, 0.019] 0.936 948 (350), p &lt; .01 0.…</code></pre>
+</div>
+</div>
+<section id="table-block-tuning-reference" class="level2">
+<h2 class="anchored" data-anchor-id="table-block-tuning-reference">Table-Block Tuning Reference</h2>
+<p>One primary element to test is the number of columns from the PDF. If the tables span multiple columns, but the text is in multiple columns you would want to ensure <code>column_count = 1</code> is specified when extracting the tables. This will ensure the table is not truncated to only include half of the table.</p>
+<p>The table detector is controlled by several additional options that can be tuned for better performance on specific documents. The key parameters are:</p>
+<ul>
+<li><code>table_min_numeric_tokens</code>: minimum number of numeric-looking tokens required for a line to be considered table-like. Larger values are stricter.</li>
+<li><code>table_min_digit_ratio</code>: minimum proportion of digit characters in a line for table-like classification. Larger values reduce prose false positives.</li>
+<li><code>table_min_block_lines</code>: minimum number of adjacent table-like lines needed to keep a block.</li>
+<li><code>table_block_max_gap</code>: maximum number of non-table lines allowed between table-like lines when merging a block. Increase this when tables are split.</li>
+<li><code>table_include_headers</code>: include nearby table headers and column-label rows.</li>
+<li><code>table_header_lookback</code>: number of lines above a detected block to inspect for headers.</li>
+<li><code>table_include_notes</code>: include trailing <code>Note.</code> or <code>Source.</code> rows.</li>
+<li><code>table_note_lookahead</code>: number of lines after a block to inspect for note lines.</li>
+<li><code>merge_across_pages</code>: if <code>TRUE</code>, continuation blocks across adjacent pages are merged when they appear to be one table.</li>
+</ul>
+<p>A practical tuning workflow:</p>
+<ol type="1">
+<li>If table blocks are fragmented, increase <code>table_block_max_gap</code>.</li>
+<li>If prose is incorrectly classified as table text, increase <code>table_min_numeric_tokens</code> and/or <code>table_min_digit_ratio</code>.</li>
+<li>If table headers are missing, keep <code>table_include_headers = TRUE</code> and increase <code>table_header_lookback</code>.</li>
+<li>If the same table is split across pages, set <code>merge_across_pages = TRUE</code>.</li>
+</ol>
+</section>
+</section>
+<section id="cross-page-sentence-conversion-optional" class="level1">
+<h1>Cross-Page Sentence Conversion (Optional)</h1>
+<p>If desired, sentence conversion can be done after pages are concatenated. This has the benefit of allowing the sentence conversion to work across pages and ensuring proper context and allowing for better keyword proximity when sentences are split across page breaks.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>res_cross_page <span class="ot">&lt;-</span> <span class="fu">keyword_search</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  file,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">keyword =</span> <span class="st">"fixed effects"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_pdf =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">split_method =</span> <span class="st">"coordinates"</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">column_count =</span> <span class="st">"2"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_section_headers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_page_headers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_page_footers =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">convert_sentence =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">concatenate_pages =</span> <span class="cn">TRUE</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_cross_page)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 5
+# ℹ 5 variables: keyword &lt;chr&gt;, page_num &lt;int&gt;, line_num &lt;int&gt;,
+#   line_text &lt;list&gt;, token_text &lt;list&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p>The new functionality will undergo further testing and will not be the default behavior within pdfsearch. The goal is that it adds some additional flexibility for users to more accurately perform keyword searching within the multi-column PDF documents that are common in academic publishing. The new table-block tuning options should also help users better control how tables are handled within the keyword search and table extraction functions.</p>
+<p>For dense multi-column journal articles, a practical default is:</p>
+<ol type="1">
+<li><code>split_method = "coordinates"</code></li>
+<li><code>column_count = "2"</code></li>
+<li><code>remove_section_headers = TRUE</code></li>
+<li><code>remove_page_headers = TRUE</code></li>
+<li><code>remove_page_footers = TRUE</code></li>
+<li><code>remove_repeated_furniture = TRUE</code></li>
+<li><code>remove_captions = TRUE</code></li>
+<li><code>table_mode = "remove"</code> for prose-focused keyword search</li>
+</ol>
+<p>Use <code>table_mode = "only"</code> or <code>extract_tables(..., output = "blocks")</code> when the goal is specifically to analyze tables. If table headers are being missed, set <code>table_include_headers = TRUE</code> and increase <code>table_header_lookback</code>. If the table continues across pages, use <code>merge_across_pages = TRUE</code>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/brandonlebeau\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<div class="social-links">
+<p><a href="mailto:brandon-lebeau@uiowa.edu" title="Email"> <i class="fa fa-envelope fa-lg"></i> </a> <a href="https://twitter.com/blebeau11" title="Twitter"> <i class="fa-brands fa-linkedin fa-lg"></i> </a> <a href="https://github.com/lebebr01" title="GitHub"> <i class="fa-brands fa-github fa-lg"></i> </a></p>
+</div>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Brandon LeBeau</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -9,8 +9,769 @@
 <link>https://brandonlebeau.org/posts/</link>
 <atom:link href="https://brandonlebeau.org/posts/index.xml" rel="self" type="application/rss+xml"/>
 <description>Academic website and blog</description>
-<generator>quarto-1.8.24</generator>
-<lastBuildDate>Mon, 24 Nov 2025 06:00:00 GMT</lastBuildDate>
+<generator>quarto-1.8.26</generator>
+<lastBuildDate>Thu, 12 Feb 2026 06:00:00 GMT</lastBuildDate>
+<item>
+  <title>pdfsearch: Updated to v0.5.0</title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/posts/2026-02-12-pdfsearch-0-5.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="section" class="level1">
+<h1></h1>
+<p>For the past few years, I’ve had on my list to work on improving my <strong>pdfsearch</strong> package to make splitting of multi-column PDF documents more robust. I’ve accomplished some preliminary benefits for multi-column PDFs that in my testing have improved the functionality and accuracy of the splitting. There have been some additional enhancements that have also improved the scrubbing of features that are often not of interest when searching PDF documents, such as page numbers, headers, and footers. The package is now at version 0.5.0 and available on GitHub. I plan to do a bit more testing and push to CRAN at some point soon.</p>
+<section id="splitting-multi-column-pdfs" class="level2">
+<h2 class="anchored" data-anchor-id="splitting-multi-column-pdfs">Splitting multi-column PDFs</h2>
+<p>There is a new functionality within the package that is experimental and not the default. The new <code>split_method = "coordinates"</code> option uses token coordinates from <code>pdftools::pdf_data()</code> and can be more robust than whitespace-only splitting in my initial testing. A new argument, <code>column_count</code> is a way for users to specify the number of columns in the PDF document, which can be used to control how the splitting is handled. The default is <code>"auto"</code> and will attempt to infer the number of columns, but users can also specify <code>"1"</code> for single-column reading order or <code>"2"</code> for left-column then right-column order.</p>
+<p>Use <code>column_count</code> to control how column order is handled:</p>
+<ul>
+<li><code>"auto"</code>: infer number of columns.</li>
+<li><code>"1"</code>: force single-column reading order.</li>
+<li><code>"2"</code>: force left-column then right-column order.</li>
+</ul>
+<p>This is an example of this working on a PDF that comes within the package. The file is a published research report that is multi-column, but has tables that are single column or span both columns of text. The following code chunk set this file and then shows an example of performing keyword search within this document.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(pdfsearch)</span>
+<span id="cb1-2"></span>
+<span id="cb1-3">file <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">system.file</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"pdf"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"LeBeauetal2020-gcq.pdf"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">package =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"pdfsearch"</span>)</span></code></pre></div></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">res_coord <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">keyword_search</span>(</span>
+<span id="cb2-2">  file,</span>
+<span id="cb2-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">keyword =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"test theory"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"above-level"</span>),</span>
+<span id="cb2-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">path =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb2-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_pdf =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb2-6">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_method =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"coordinates"</span>,</span>
+<span id="cb2-7">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">column_count =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"2"</span>,</span>
+<span id="cb2-8">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_hyphen =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span></span>
+<span id="cb2-9">)</span>
+<span id="cb2-10"></span>
+<span id="cb2-11"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">head</span>(res_coord)</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  keyword     page_num line_num line_text token_text
+  &lt;chr&gt;          &lt;int&gt;    &lt;int&gt; &lt;list&gt;    &lt;list&gt;    
+1 test theory        1        2 &lt;chr [1]&gt; &lt;list [1]&gt;
+2 test theory        3       53 &lt;chr [1]&gt; &lt;list [1]&gt;
+3 test theory        9      247 &lt;chr [1]&gt; &lt;list [1]&gt;
+4 test theory       14      353 &lt;chr [1]&gt; &lt;list [1]&gt;
+5 test theory       17      502 &lt;chr [1]&gt; &lt;list [1]&gt;
+6 above-level        1       12 &lt;chr [1]&gt; &lt;list [1]&gt;</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="cleaning-page-artifacts-and-section-headings" class="level1">
+<h1>Cleaning Page Artifacts and Section Headings</h1>
+<p>Several options are available to reduce non-body text before keyword searching. This includes page headers, footers, section headings, and captions. These can be particularly helpful for multi-column documents where such elements may be more prevalent and can impact how well the multi-column PDF is recreated into a single document. The goal of removing these is to better align column text and keep the sentence structure and keyword proximity intact.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">res_clean <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">keyword_search</span>(</span>
+<span id="cb4-2">  file,</span>
+<span id="cb4-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">keyword =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"variance"</span>,</span>
+<span id="cb4-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">path =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb4-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_pdf =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb4-6">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_method =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"coordinates"</span>,</span>
+<span id="cb4-7">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">column_count =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"2"</span>,</span>
+<span id="cb4-8">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_section_headers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb4-9">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_page_headers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb4-10">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_page_footers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb4-11">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_repeated_furniture =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb4-12">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">repeated_edge_n =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>,</span>
+<span id="cb4-13">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">repeated_edge_min_pages =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>,</span>
+<span id="cb4-14">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_captions =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb4-15">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">caption_continuation_max =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span></span>
+<span id="cb4-16">)</span>
+<span id="cb4-17"></span>
+<span id="cb4-18"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">head</span>(res_clean)</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  keyword  page_num line_num line_text token_text
+  &lt;chr&gt;       &lt;int&gt;    &lt;int&gt; &lt;list&gt;    &lt;list&gt;    
+1 variance        4       85 &lt;chr [1]&gt; &lt;list [1]&gt;
+2 variance        4       87 &lt;chr [1]&gt; &lt;list [1]&gt;
+3 variance        4       89 &lt;chr [1]&gt; &lt;list [1]&gt;
+4 variance        7      185 &lt;chr [1]&gt; &lt;list [1]&gt;
+5 variance       17      467 &lt;chr [1]&gt; &lt;list [1]&gt;
+6 variance       18      618 &lt;chr [1]&gt; &lt;list [1]&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="table-control-in-keyword_search" class="level1">
+<h1>Table Control in <code>keyword_search()</code></h1>
+<p>Use <code>table_mode</code> to choose whether table-like blocks are searched:</p>
+<ul>
+<li><code>"keep"</code>: include all text (default).</li>
+<li><code>"remove"</code>: exclude table-like blocks from search.</li>
+<li><code>"only"</code>: search only table-like blocks.</li>
+</ul>
+<p>Additional options can improve table-only extraction:</p>
+<ul>
+<li><code>table_include_headers</code>: include nearby table header rows (default <code>TRUE</code>).</li>
+<li><code>table_header_lookback</code>: number of lines above detected table blocks to inspect for header rows (default <code>3</code>).</li>
+<li><code>table_include_notes</code>: include trailing note/source rows.</li>
+<li><code>table_note_lookahead</code>: number of lines after detected blocks to inspect for notes.</li>
+<li><code>table_block_max_gap</code>: maximum number of non-table lines allowed before a block is split. Increase this when tables are fragmented.</li>
+</ul>
+<p>When specifying <code>table_mode = 'remove'</code>, the same cleaning options above are applied to table blocks as well, which can help ensure that only body text is retained for keyword searching. When using <code>table_mode = 'only'</code>, the cleaning options are not applied since the focus is on analyzing tables specifically.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1">res_keep <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">keyword_search</span>(</span>
+<span id="cb6-2">  file,</span>
+<span id="cb6-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">keyword =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.83"</span>,</span>
+<span id="cb6-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">path =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb6-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_pdf =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb6-6">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_method =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"coordinates"</span>,</span>
+<span id="cb6-7">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_mode =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"keep"</span>,</span>
+<span id="cb6-8">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">convert_sentence =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span></span>
+<span id="cb6-9">)</span>
+<span id="cb6-10"></span>
+<span id="cb6-11">res_remove <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">keyword_search</span>(</span>
+<span id="cb6-12">  file,</span>
+<span id="cb6-13">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">keyword =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.83"</span>,</span>
+<span id="cb6-14">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">path =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb6-15">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_pdf =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb6-16">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_method =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"coordinates"</span>,</span>
+<span id="cb6-17">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_mode =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"remove"</span>,</span>
+<span id="cb6-18">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">convert_sentence =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span></span>
+<span id="cb6-19">)</span>
+<span id="cb6-20"></span>
+<span id="cb6-21">res_only <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">keyword_search</span>(</span>
+<span id="cb6-22">  file,</span>
+<span id="cb6-23">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">keyword =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.83"</span>,</span>
+<span id="cb6-24">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">path =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb6-25">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_pdf =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb6-26">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_method =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"coordinates"</span>,</span>
+<span id="cb6-27">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_mode =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"only"</span>,</span>
+<span id="cb6-28">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_include_headers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb6-29">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_header_lookback =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>,</span>
+<span id="cb6-30">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_block_max_gap =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>,</span>
+<span id="cb6-31">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_include_notes =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>,</span>
+<span id="cb6-32">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_note_lookahead =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>,</span>
+<span id="cb6-33">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">convert_sentence =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span></span>
+<span id="cb6-34">)</span>
+<span id="cb6-35"></span>
+<span id="cb6-36"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(</span>
+<span id="cb6-37">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">keep =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nrow</span>(res_keep),</span>
+<span id="cb6-38">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nrow</span>(res_remove),</span>
+<span id="cb6-39">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">only =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nrow</span>(res_only)</span>
+<span id="cb6-40">)</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  keep remove   only 
+     4      2      2 </code></pre>
+</div>
+</div>
+</section>
+<section id="enhanced-extract_tables" class="level1">
+<h1>Enhanced <code>extract_tables()</code></h1>
+<p>Tables can now be removed entirely or can be extracted directly. The <code>extract_tables()</code> now supports coordinate splitting and output modes:</p>
+<ul>
+<li><code>"parsed"</code>: list of parsed table data frames.</li>
+<li><code>"blocks"</code>: metadata plus raw block lines.</li>
+<li><code>"both"</code>: both parsed tables and block metadata.</li>
+</ul>
+<p>It also supports table-block tuning options, these are discussed in more detail in the next section, but include:</p>
+<ul>
+<li><code>table_include_headers</code>, <code>table_header_lookback</code></li>
+<li><code>table_include_notes</code>, <code>table_note_lookahead</code></li>
+<li><code>table_min_numeric_tokens</code>, <code>table_min_digit_ratio</code>, <code>table_min_block_lines</code>, and <code>table_block_max_gap</code></li>
+<li><code>merge_across_pages</code> for continuation tables that span adjacent pages</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1">tab_blocks <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">extract_tables</span>(</span>
+<span id="cb8-2">  file,</span>
+<span id="cb8-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">path =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb8-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_pdf =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb8-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_method =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"coordinates"</span>,</span>
+<span id="cb8-6">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">column_count =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"1"</span>,</span>
+<span id="cb8-7">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_section_headers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb8-8">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_page_headers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb8-9">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_page_footers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb8-10">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_repeated_furniture =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb8-11">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_captions =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb8-12">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_include_headers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb8-13">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_header_lookback =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>,</span>
+<span id="cb8-14">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_block_max_gap =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>,</span>
+<span id="cb8-15">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_include_notes =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>,</span>
+<span id="cb8-16">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_note_lookahead =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>,</span>
+<span id="cb8-17">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">merge_across_pages =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb8-18">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">output =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"blocks"</span></span>
+<span id="cb8-19">)</span>
+<span id="cb8-20"></span>
+<span id="cb8-21"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">head</span>(tab_blocks)</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 6
+  page_num block_id line_start line_end line_text  page_end
+     &lt;int&gt;    &lt;int&gt;      &lt;dbl&gt;    &lt;int&gt; &lt;list&gt;        &lt;int&gt;
+1        8        1          1        6 &lt;chr [6]&gt;         8
+2        9        1          1       12 &lt;chr [12]&gt;        9
+3       14        1          1       19 &lt;chr [19]&gt;       14</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1">tab_parsed <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">extract_tables</span>(</span>
+<span id="cb10-2">  file,</span>
+<span id="cb10-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">path =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb10-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_pdf =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb10-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_method =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"coordinates"</span>,</span>
+<span id="cb10-6">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">column_count =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"1"</span>,</span>
+<span id="cb10-7">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_section_headers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb10-8">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_page_headers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb10-9">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_page_footers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb10-10">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_repeated_furniture =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb10-11">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_captions =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb10-12">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_include_headers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb10-13">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_header_lookback =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>,</span>
+<span id="cb10-14">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_block_max_gap =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>,</span>
+<span id="cb10-15">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_include_notes =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>,</span>
+<span id="cb10-16">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">table_note_lookahead =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>,</span>
+<span id="cb10-17">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">merge_across_pages =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb10-18">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">output =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"parsed"</span></span>
+<span id="cb10-19">)</span>
+<span id="cb10-20"></span>
+<span id="cb10-21"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">length</span>(tab_parsed)</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> (<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">length</span>(tab_parsed) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>) {</span>
+<span id="cb12-2">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">head</span>(tab_parsed[[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]])</span>
+<span id="cb12-3">}</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 1
+  X1                                                                            
+  &lt;chr&gt;                                                                         
+1 Table 1. Fit Statistics for Two-Parameter IRT Multigroup Models by Subject.   
+2 Subject M 2 RMSEA [CI] CFI M 2 RMSEA [CI] CFI                                 
+3 English 3930 (2340), p &lt; .01 0.019 [0.018, 0.020] 0.893 2320 (740), p &lt; .01 0…
+4 Math 1630 (1283), p &lt; .01 0.012 [0.010, 0.014] 0.949 805 (405), p &lt; .01 0.023…
+5 Reading 1895 (1307), p &lt; .01 0.015 [0.014, 0.017] 0.965 902 (405), p &lt; .01 0.…
+6 Science 1818 (1146), p &lt; .01 0.018 [0.016, 0.019] 0.936 948 (350), p &lt; .01 0.…</code></pre>
+</div>
+</div>
+<section id="table-block-tuning-reference" class="level2">
+<h2 class="anchored" data-anchor-id="table-block-tuning-reference">Table-Block Tuning Reference</h2>
+<p>One primary element to test is the number of columns from the PDF. If the tables span multiple columns, but the text is in multiple columns you would want to ensure <code>column_count = 1</code> is specified when extracting the tables. This will ensure the table is not truncated to only include half of the table.</p>
+<p>The table detector is controlled by several additional options that can be tuned for better performance on specific documents. The key parameters are:</p>
+<ul>
+<li><code>table_min_numeric_tokens</code>: minimum number of numeric-looking tokens required for a line to be considered table-like. Larger values are stricter.</li>
+<li><code>table_min_digit_ratio</code>: minimum proportion of digit characters in a line for table-like classification. Larger values reduce prose false positives.</li>
+<li><code>table_min_block_lines</code>: minimum number of adjacent table-like lines needed to keep a block.</li>
+<li><code>table_block_max_gap</code>: maximum number of non-table lines allowed between table-like lines when merging a block. Increase this when tables are split.</li>
+<li><code>table_include_headers</code>: include nearby table headers and column-label rows.</li>
+<li><code>table_header_lookback</code>: number of lines above a detected block to inspect for headers.</li>
+<li><code>table_include_notes</code>: include trailing <code>Note.</code> or <code>Source.</code> rows.</li>
+<li><code>table_note_lookahead</code>: number of lines after a block to inspect for note lines.</li>
+<li><code>merge_across_pages</code>: if <code>TRUE</code>, continuation blocks across adjacent pages are merged when they appear to be one table.</li>
+</ul>
+<p>A practical tuning workflow:</p>
+<ol type="1">
+<li>If table blocks are fragmented, increase <code>table_block_max_gap</code>.</li>
+<li>If prose is incorrectly classified as table text, increase <code>table_min_numeric_tokens</code> and/or <code>table_min_digit_ratio</code>.</li>
+<li>If table headers are missing, keep <code>table_include_headers = TRUE</code> and increase <code>table_header_lookback</code>.</li>
+<li>If the same table is split across pages, set <code>merge_across_pages = TRUE</code>.</li>
+</ol>
+</section>
+</section>
+<section id="cross-page-sentence-conversion-optional" class="level1">
+<h1>Cross-Page Sentence Conversion (Optional)</h1>
+<p>If desired, sentence conversion can be done after pages are concatenated. This has the benefit of allowing the sentence conversion to work across pages and ensuring proper context and allowing for better keyword proximity when sentences are split across page breaks.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1">res_cross_page <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">keyword_search</span>(</span>
+<span id="cb14-2">  file,</span>
+<span id="cb14-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">keyword =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fixed effects"</span>,</span>
+<span id="cb14-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">path =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb14-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_pdf =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb14-6">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">split_method =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"coordinates"</span>,</span>
+<span id="cb14-7">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">column_count =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"2"</span>,</span>
+<span id="cb14-8">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_section_headers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb14-9">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_page_headers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb14-10">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">remove_page_footers =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb14-11">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">convert_sentence =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb14-12">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">concatenate_pages =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span></span>
+<span id="cb14-13">)</span>
+<span id="cb14-14"></span>
+<span id="cb14-15"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">head</span>(res_cross_page)</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 5
+# ℹ 5 variables: keyword &lt;chr&gt;, page_num &lt;int&gt;, line_num &lt;int&gt;,
+#   line_text &lt;list&gt;, token_text &lt;list&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p>The new functionality will undergo further testing and will not be the default behavior within pdfsearch. The goal is that it adds some additional flexibility for users to more accurately perform keyword searching within the multi-column PDF documents that are common in academic publishing. The new table-block tuning options should also help users better control how tables are handled within the keyword search and table extraction functions.</p>
+<p>For dense multi-column journal articles, a practical default is:</p>
+<ol type="1">
+<li><code>split_method = "coordinates"</code></li>
+<li><code>column_count = "2"</code></li>
+<li><code>remove_section_headers = TRUE</code></li>
+<li><code>remove_page_headers = TRUE</code></li>
+<li><code>remove_page_footers = TRUE</code></li>
+<li><code>remove_repeated_furniture = TRUE</code></li>
+<li><code>remove_captions = TRUE</code></li>
+<li><code>table_mode = "remove"</code> for prose-focused keyword search</li>
+</ol>
+<p>Use <code>table_mode = "only"</code> or <code>extract_tables(..., output = "blocks")</code> when the goal is specifically to analyze tables. If table headers are being missed, set <code>table_include_headers = TRUE</code> and increase <code>table_header_lookback</code>. If the table continues across pages, use <code>merge_across_pages = TRUE</code>.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>R</category>
+  <category>pdfsearch</category>
+  <category>package</category>
+  <guid>https://brandonlebeau.org/posts/2026-02-12-pdfsearch-0-5.html</guid>
+  <pubDate>Thu, 12 Feb 2026 06:00:00 GMT</pubDate>
+</item>
 <item>
   <title>World Bank Statistical Performance Indicators (TidyTuesday!)</title>
   <dc:creator>Brandon LeBeau</dc:creator>
@@ -14389,243 +15150,6 @@ symbolWidth: 40,
   <category>Aera</category>
   <guid>https://brandonlebeau.org/posts/2014-04-02-aera-preview.html</guid>
   <pubDate>Wed, 02 Apr 2014 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Evolution of Code</title>
-  <dc:creator>Brandon LeBeau</dc:creator>
-  <link>https://brandonlebeau.org/posts/2014-03-27-evolution-of-code.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<p>Recently while scraping some data from the college football data warehouse site, I started to realize the evolution of my code. To preface this, I am definitely not a trained programmer, just a self taught junky who enjoys doing it when I have time. I’ve slowly evolved my programming skills from simply statistics languages like r or SPSS, to some other languages like LaTeX, HTML, CSS, Javascript, and I’ve started to work through some python.</p>
-<p>Now back to my realization. As I mentioned, I was scraping some data from <a href="http://www.cfbdatawarehouse.com/">CFB Data Warehouse</a> for a project that I’m working on with a colleague and was adapting some code that was written about 3 years ago. The problem was that my old code was broken. The original code was about 100 lines of code just to select the correct table and format it. Here is a chunk of the original code to select the correct table.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">  <span class="do" style="color: #5E5E5E;
-background-color: null;
-font-style: italic;">##Identifying correct tables</span></span>
-<span id="cb1-2">    tb <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">vector</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"list"</span>, <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">length</span>(tableNodes))</span>
-<span id="cb1-3">      <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">for</span>(i <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">in</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">length</span>(tableNodes)){</span>
-<span id="cb1-4">        tb[[i]] <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">readHTMLTable</span>(tableNodes[[i]])</span>
-<span id="cb1-5">      }</span>
-<span id="cb1-6"></span>
-<span id="cb1-7">  <span class="do" style="color: #5E5E5E;
-background-color: null;
-font-style: italic;">##Tables that are the correct length</span></span>
-<span id="cb1-8">    tabNum <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">matrix</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">nrow=</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">length</span>(tableNodes), <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">ncol=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>)</span>
-<span id="cb1-9">    tabNum[,<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>] <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">sapply</span>(tb, length)</span>
-<span id="cb1-10">    tabNum[,<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>] <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">length</span>(tableNodes)</span>
-<span id="cb1-11"></span>
-<span id="cb1-12">   Num <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">subset</span>(tabNum, tabNum[,<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>] <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">7</span>)[,<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>]</span>
-<span id="cb1-13"></span>
-<span id="cb1-14">  <span class="do" style="color: #5E5E5E;
-background-color: null;
-font-style: italic;">##Selecting and combining tables</span></span>
-<span id="cb1-15"><span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">if</span>(<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">length</span>(Num) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">5</span>){</span>
-<span id="cb1-16">   tb1 <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> tb[[Num[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span>]]]</span>
-<span id="cb1-17">   tb1<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">$</span>Other <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span></span>
-<span id="cb1-18">   tb2 <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> tb[[Num[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">5</span>]]]</span>
-<span id="cb1-19">   tb2<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">$</span>Other <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span></span>
-<span id="cb1-20">   tab <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">rbind</span>(tb1, tb2)</span>
-<span id="cb1-21"> } <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">else</span> { </span>
-<span id="cb1-22">  <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">if</span>(<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">length</span>(Num) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span>){</span>
-<span id="cb1-23">   tab <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> tb[[Num[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span>]]]</span>
-<span id="cb1-24">   tab<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">$</span>Other <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span></span>
-<span id="cb1-25"> } <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">else</span> {</span>
-<span id="cb1-26">  tab <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">matrix</span>(<span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">NA</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">ncol=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">8</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">nrow=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>)  </span>
-<span id="cb1-27"> }</span>
-<span id="cb1-28"> }</span></code></pre></div></div>
-</div>
-<p>This code was looped over many different pages and was run once for every page. Essentially the code is complicated and inconsistent, but at the time 3 years ago the code ran and that was enough for me. Extract the data from the website no matter how much code was needed to do the work. This was back in an era when I was just becoming familiar with much or <em>R</em>, the <em>XML</em> package, and attempting to scrape data from a messy/complicated site.</p>
-<p>My new code to extract the tables looks like this:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># extracting tables</span></span>
-<span id="cb2-2">  tabs <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">lapply</span>(<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">seq</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span>, <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">length</span>(Nodes), <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>), <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">function</span>(x) </span>
-<span id="cb2-3">    <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">readHTMLTable</span>(Nodes[[x]], <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">stringsAsFactors =</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">FALSE</span>))</span>
-<span id="cb2-4">  </span>
-<span id="cb2-5">  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Combine tables</span></span>
-<span id="cb2-6">  bowl <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">do.call</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"rbind"</span>, tabs)</span></code></pre></div></div>
-</div>
-<p>Much cleaner, simpler, more consistent, and quite possibly quicker. The ability to focus on speed, readability, and consistency is something that comes later after one becomes more comfortable with the language. I have been focusing on this for awhile, but these stark differences and ease I was able to adapt my old code especially struck me this time. I haven’t decided if this evolution for me is <em>mastery</em> or <em>expert</em> status of the r language, but I now feel I have progressed to a point where I feel confident and am able to shift my focus from having code that works, to code that is now clean, consistent, and readable.</p>
-<p>Has anyone else had similar epiphanies with their code?</p>
-<p>Lastly, if you want to see the raw code, go to the github page: <a href="https://github.com/lebebr01/cfbFootball">https://github.com/lebebr01/cfbFootball</a>.</p>
-
-
-
- ]]></description>
-  <category>R</category>
-  <category>Code</category>
-  <category>Xml</category>
-  <guid>https://brandonlebeau.org/posts/2014-03-27-evolution-of-code.html</guid>
-  <pubDate>Thu, 27 Mar 2014 05:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
