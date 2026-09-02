@@ -1,0 +1,39 @@
+---
+title: "Announcing simglm 1.0.0"
+description: "A major simglm release accompanying the simglm book, with expanded simulation, power-analysis, and propensity-score workflows."
+author: Brandon LeBeau
+date: '2026-09-01'
+categories:
+  - R
+  - simglm
+  - package
+  - power analysis
+---
+
+I am excited to announce the release of `simglm` 1.0.0. This major release accompanies the publication of the *simglm* book and brings the package API into closer alignment with the workflows and examples presented there. The book is available through [CRC Press](http://www.routledge.com/9781032012506)
+
+At its core, `simglm` helps users generate realistic simulated data and use it for power analysis. Version 1.0.0 expands what researchers can simulate, fit, and evaluate when planning studies or teaching statistical modeling.
+
+## More flexible data generation
+
+The release adds support for ordinal and multinomial outcomes, as well as floor and ceiling controls for continuous outcomes. Factor simulation now preserves the declared order of levels rather than sorting them alphabetically, and `force_equal = TRUE` can be used to generate equally represented factor levels.
+
+Simulation designs are also more flexible. `simglm` now provides expanded support for unbalanced designs and flexible sample-size specifications, generalized cross-classified data generation through multiple-membership simulation, and tools for post-processing and aggregating outcomes. Formula parsing and simulation have also been extended to support list-based specifications and multi-equation workflows.
+
+## Updated power analysis and model fitting
+
+The power-simulation framework has been reworked, with improved support for between- and within-subject designs. A new simulation workflow utilizes the Minimum Simulated Effect Sizes (MSES) and Unconditional sign errors (USE) statistics. More on these statistics in a future post.
+
+Version 1.0.0 also introduces `robust_model()` for fitting models with robust standard errors.
+
+## Propensity-score workflows
+
+Another major addition is support for propensity-score workflows. `simulate_propensity()` can generate data with non-random treatment assignment, while `fit_propensity()` supports covariate adjustment, inverse probability weighting (`ipw`), and stabilized balancing weights (`sbw`). The release includes examples and tests for multilevel propensity-score designs.
+
+## Documentation and maintenance
+
+The documentation has received a substantial refresh, with expanded vignettes covering missing data, factors, ordinal and multinomial outcomes, post-processing, power analysis, and propensity-score workflows. The package now also includes lightweight compatibility tests based on code published in the book, helping readers move between the text and software with confidence.
+
+`simglm` 1.0.0 requires R 4.1.0 or later because the examples and simulation workflows use the native R pipe (`|>`). Package dependencies have also been updated: Matrix has been removed from imports, while `gtools`, `sandwich`, and `lmtest` have been added.
+
+This is an important milestone for `simglm`. Together, the book and package make simulation-based study planning more approachable, transparent, and useful for researchers, students, and instructors.

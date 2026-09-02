@@ -1,0 +1,284 @@
+---
+title: "Simulating Nonlinear Relationships with Splines in simglm"
+description: "A walkthrough of how to simulate, model, and evaluate nonlinear effects using natural cubic splines and B-splines in simglm."
+author: Brandon LeBeau
+date: '2026-04-30'
+code-fold: true
+categories:
+  - R
+  - simglm
+  - package
+---
+
+# 
+
+
+```{r setup}
+#| warning: false
+#| message: false
+library(dplyr)
+library(ggplot2)
+library(simglm)
+library(splines)
+```
+
+## Why simulate nonlinear relationships?
+
+One of the more common mismatches between how we simulate data and how real data behave is nonlinearity. It is easy, and often convenient, to assume linear effects. But many applied problems, including growth curves, dose-response relationships, learning trajectories, and time trends, do not follow straight lines.
+
+This is where spline-based simulation becomes especially useful, especially as an alternative to polynomial based models.
+
+Instead of discovering nonlinear structure after the fact, we can impose it deliberately in the data-generating process. That allows us to ask questions such as:
+
+- How well does a planned model recover a nonlinear effect?
+- How sensitive are results to functional form assumptions?
+- How much sample size is needed to detect or estimate a curved relationship?
+- What happens if the fitted model is simpler than the true data-generating process?
+
+In this post, I walk through how to simulate nonlinear effects using spline terms in `simglm`, then fit spline models and use them inside a power simulation workflow. The `simglm` package already supported polynomial based non-linear trends, using the `poly()` function, these new capabilities extend the flexibility of the types of situations that can be simulated.
+
+## How `simglm` handles spline terms
+
+Spline terms can be specified directly in the `formula` argument for fixed-effect simulation. The currently supported spline basis functions are `ns()` and `bs()` from the `splines` package.
+
+The basic idea is:
+
+1. You write the model formula using regular R formula syntax.
+2. `simglm` expands the spline term into basis columns during simulation.
+3. The original variable is retained in the simulated data.
+4. The same formula can be reused when fitting the model.
+
+This is useful because it avoids manually creating and tracking transformed variables across the simulation and modeling steps.
+
+## Natural cubic spline example
+
+The example below simulates two fixed variables, `x1` and `x2`. The predictor `x1` enters the model linearly, while `x2` enters through a natural cubic spline with four degrees of freedom.
+
+```{r ns-fixed}
+set.seed(321)
+
+sim_arguments <- list(
+  formula = y ~ 1 + x1 + ns(x2, df = 4),
+  fixed = list(
+    x1 = list(var_type = "continuous", mean = 0, sd = 1),
+    x2 = list(var_type = "continuous", mean = 0, sd = 1)
+  ),
+  sample_size = 10
+)
+
+simulate_fixed(data = NULL, sim_arguments)
+```
+
+The generated design matrix contains one column for the intercept, one column for `x1`, four spline basis columns for `x2`, and the original `x2` variable.
+
+The basis columns are named `x2_1`, `x2_2`, `x2_3`, and `x2_4`. Those columns are what carry the nonlinear structure into the simulated outcome.
+
+## Generating an outcome
+
+Regression weights can be specified with a named list. This is especially useful for spline terms because one formula term expands into multiple basis columns.
+
+The name used for the spline term should match the formula term.
+
+```{r ns-outcome}
+set.seed(321)
+
+sim_arguments <- list(
+  formula = y ~ 1 + x1 + ns(x2, df = 4),
+  fixed = list(
+    x1 = list(var_type = "continuous", mean = 0, sd = 1),
+    x2 = list(var_type = "continuous", mean = 0, sd = 1)
+  ),
+  error = list(variance = 1),
+  sample_size = 100,
+  reg_weights = list(
+    `(Intercept)` = 0,
+    x1 = 0.25,
+    `ns(x2, df = 4)` = c(0.75, 0.5, 0, 0)
+  )
+)
+
+sim_data <- simulate_fixed(data = NULL, sim_arguments) |>
+  simulate_error(sim_arguments) |>
+  generate_response(sim_arguments)
+
+head(sim_data)
+```
+
+A spline term with four degrees of freedom contributes four basis coefficients. The coefficient vector controls the shape of the nonlinear relationship. In this example, the first two basis functions receive nonzero weights, while the last two are set to zero.
+
+A useful way to think about this is that the spline coefficients are not usually the final inferential target by themselves. Instead, together they define the shape of the function relating `x2` to the outcome.
+
+## Visualizing the simulated relationship
+
+Because spline effects are easier to understand visually, it can be helpful to plot the simulated data and overlay a fitted smoother.
+
+```{r plot-simulated-relationship}
+#| fig-cap: "Simulated nonlinear relationship between x2 and y."
+
+ggplot(sim_data, aes(x = x2, y = y)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", formula = y ~ ns(x, df = 4), se = FALSE) +
+  labs(
+    x = "x2",
+    y = "Simulated outcome",
+    title = "A simulated nonlinear relationship using a natural cubic spline"
+  ) +
+  theme_minimal()
+```
+
+This kind of figure is often useful when building simulation studies. Before moving into model fitting or power analysis, it is worth confirming that the simulated data-generating process produces the kind of pattern you intended.
+
+## B-spline basis
+
+The same pattern can be used for a B-spline basis with `bs()`.
+
+```{r bs-outcome}
+set.seed(321)
+
+sim_arguments_bs <- list(
+  formula = y ~ 1 + x1 + bs(x2, df = 4),
+  fixed = list(
+    x1 = list(var_type = "continuous", mean = 0, sd = 1),
+    x2 = list(var_type = "continuous", mean = 0, sd = 1)
+  ),
+  error = list(variance = 1),
+  sample_size = 100,
+  reg_weights = list(
+    `(Intercept)` = 0,
+    x1 = 0.25,
+    `bs(x2, df = 4)` = c(0.75, 0.5, 0, 0)
+  )
+)
+
+bs_data <- simulate_fixed(data = NULL, sim_arguments_bs) |>
+  simulate_error(sim_arguments_bs) |>
+  generate_response(sim_arguments_bs)
+
+head(bs_data)
+```
+
+From a simulation workflow perspective, the change from `ns()` to `bs()` is small. From a modeling perspective, the two bases can behave differently, especially near the boundaries of the observed predictor range.
+
+That makes this a useful sensitivity check. If substantive conclusions depend strongly on the spline basis, that may suggest the need to examine the assumed functional form more carefully.
+
+## Model fitting
+
+Spline models can be fit with the existing `model_fit` argument. The original variable is retained in the simulated data, so the fitted model can use the same formula syntax with `ns()` or `bs()`.
+
+```{r ns-model-fit}
+set.seed(321)
+
+sim_arguments_fit <- list(
+  formula = y ~ 1 + x1 + ns(x2, df = 4),
+  fixed = list(
+    x1 = list(var_type = "continuous", mean = 0, sd = 1),
+    x2 = list(var_type = "continuous", mean = 0, sd = 1)
+  ),
+  error = list(variance = 1),
+  sample_size = 100,
+  reg_weights = list(
+    `(Intercept)` = 0,
+    x1 = 0.25,
+    `ns(x2, df = 4)` = c(0.75, 0.5, 0, 0)
+  ),
+  model_fit = list(model_function = "lm")
+)
+
+fit <- simulate_fixed(data = NULL, sim_arguments_fit) |>
+  simulate_error(sim_arguments_fit) |>
+  generate_response(sim_arguments_fit) |>
+  model_fit(sim_arguments_fit)
+
+broom::tidy(fit)
+```
+
+This symmetry between simulation and estimation is important. The model formula used to generate the data is also available for model fitting, which reduces the amount of custom code needed in simulation studies.
+
+## Power simulation
+
+Spline models can also be used with the existing power simulation workflow.
+
+Each spline basis coefficient is returned as its own model term in the fitted model. For example, a model using `ns(x2, df = 4)` returns terms such as:
+
+- `ns(x2, df = 4)1`
+- `ns(x2, df = 4)2`
+- `ns(x2, df = 4)3`
+- `ns(x2, df = 4)4`
+
+Alternative power thresholds should therefore be named by the fitted model terms returned by `broom::tidy()`.
+
+```{r ns-power}
+set.seed(321)
+
+sim_arguments_power <- list(
+  formula = y ~ 1 + x1 + ns(x2, df = 4),
+  fixed = list(
+    x1 = list(var_type = "continuous", mean = 0, sd = 1),
+    x2 = list(var_type = "continuous", mean = 0, sd = 1)
+  ),
+  error = list(variance = 1),
+  sample_size = 80,
+  reg_weights = list(
+    `(Intercept)` = 0,
+    x1 = 0.25,
+    `ns(x2, df = 4)` = c(0.75, 0.5, 0, 0)
+  ),
+  model_fit = list(model_function = "lm"),
+  power = list(
+    thresholds = list(
+      x1 = 0.25,
+      `ns(x2, df = 4)1` = c(0.5, 0.75),
+      `ns(x2, df = 4)2` = 0.5
+    )
+  ),
+  replications = 10,
+  extract_coefficients = TRUE
+)
+
+power_out <- replicate_simulation(sim_arguments_power)
+
+compute_statistics(
+  power_out,
+  sim_arguments_power,
+  type_1_error = FALSE,
+  alternative_power = TRUE
+)
+```
+
+For this post, I used only 10 replications so the example runs quickly. In an actual simulation study, this number should be much larger.
+
+## What does power mean for a spline effect?
+
+Spline-based power analysis raises an important conceptual question: what does it mean to have power for a nonlinear effect?
+
+There are several possible answers:
+
+- Power for one or more basis coefficients
+- Power for a joint test of the spline term
+- Power for detecting departure from linearity
+- Power for estimating the curve with adequate precision
+- Power for detecting a practically meaningful difference between two regions of the curve
+
+The example above uses coefficient-level thresholds because that integrates directly with the current `simglm` power workflow. However, coefficient-level summaries may not always be the most interpretable target.
+
+For applied simulation studies, it may be helpful to supplement coefficient-based summaries with function-level summaries. For example, you could compute the predicted outcome over a grid of `x2` values and summarize the maximum difference, average difference, or difference between meaningful predictor values.
+
+## Adding random effects
+
+Random effects can be included with spline fixed effects using the existing random-effect syntax.
+
+For example:
+
+```r
+y ~ 1 + ns(time, df = 4) + (1 | id)
+```
+
+This adds a random intercept while keeping the spline as a fixed-effect term. This type of specification is useful for longitudinal data, growth curves, repeated measures, and clustered data structures where the average trajectory may be nonlinear.
+
+## Final thoughts
+
+Spline-based simulation is a small feature that opens up a larger set of possibilities.
+
+It allows simulation studies to represent more realistic data-generating processes, especially when theory or prior evidence suggests that the relationship between a predictor and outcome is unlikely to be linear.
+
+The key shift is conceptual: instead of simulating a single slope, you are simulating a function. That shift can make simulation more useful for study planning, model checking, and sensitivity analysis. It also helps align the simulated data more closely with the kinds of relationships researchers often expect to see in real-world data.
