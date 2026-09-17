@@ -1,0 +1,147 @@
+---
+title: "Introduction to simglm 1.0.0"
+description: "A short description of simulation based tasks using the new simglm v1.0.0 API."
+author: Brandon LeBeau
+date: '2026-09-16'
+categories:
+  - R
+  - simglm
+  - package
+  - simulation
+freeze: auto
+---
+
+Following the release of `simglm` 1.0.0, this post walks through an example of simulating data from a linear regression model. Future posts will introduce other model types and additional features of the new API. The source code can be viewed on [GitHub](https://github.com/lebebr01/simglm) and additional details are available in the [package documentation](https://simglm.brandonlebeau.org/).
+
+## Simulation model
+
+Before simulating data, we need to define the population model: which quantities are fixed, which are random, and how the random quantities are distributed. `simglm` requires these choices to be made explicitly before data can be generated.
+
+Let’s use the following linear regression model to identify the elements that must be specified when simulating data.
+
+$$
+Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \epsilon
+$$
+
+In this model, $Y$ is the outcome, or dependent variable. It is the quantity we want to explain or predict using the variables on the right-hand side of the equation.
+
+The variables $X_{1}$ and $X_{2}$ are the predictors, covariates, or independent variables. In `simglm`, they are specified as fixed components. Because these variables are expected to explain variation in $Y$, we must define how their values will be generated.
+
+The $\beta$ terms are the regression coefficients. When analyzing observed data, we estimate these coefficients; when simulating data, we specify their population values. The first coefficient, $\beta_{0}$, is the intercept. The remaining coefficients describe the relationship between each predictor and $Y$. For a continuous predictor, a positive coefficient indicates that $Y$ tends to increase as the predictor increases, whereas a negative coefficient indicates that $Y$ tends to decrease.
+
+Finally, $\epsilon$ represents random error. Under common modeling assumptions, the errors are normally distributed with a mean of zero and a specified variance. Although this variance is estimated when analyzing observed data, it must be chosen when simulating data.
+
+
+## Specifying with `simglm`
+
+When using `simglm` to simulate the model shown above, simulation arguments are written in advance to force users to define the model and structure they wish to simulate. Simulation arguments are structured by the area of the model that they belong to. For the model above these names would be as follows:
+
++ `fixed` = fixed effects or X terms
++ `error` = Random error or $\epsilon$
++ `formula` = the model formula in R syntax; this should match the population-model specification
++ `sample_size` = the number of observations to simulate, often denoted by $n$
++ `reg_weights` = the beta coefficients from the equation above
+
+This is what the model above would be structured as:
+
+```{r}
+#| eval: false
+simulation_arguments <- list(
+  formula = y ~ 1 + X1 + X2,
+  fixed = list(),
+  error = list(),
+  sample_size = 100,
+  reg_weights = c(5, 0.3, -1.5)
+)
+```
+
+### Fixed components
+
+The fixed argument is a named list in which each element corresponds to a predictor on the right-hand side of the model formula. In this example, the predictors are "X1" and "X2", so the names of the list elements should match those terms. Each predictor is assigned a `var_type`. The three most common types are:
+
++ `continuous`: reflecting continuous or interval style attributes
++ `factor`: reflecting categories or groups
++ `ordinal`: ordinal data that have rank ordering
+
+In this example, `X1` is continuous and `X2` is categorical. For `X1`, I chose a mean of 40 and a standard deviation of 5. These values should reflect the variable being simulated. If `X1` represented blood pressure, for example, its mean and standard deviation should be consistent with real-world measurements. By default, `simglm` generates continuous variables from a normal distribution, although other distributions can be specified. A future post will discuss how to select realistic parameter values.
+
+The second variable, `X2`, is categorical and has two arbitrarily named levels, `orange` and `green`. In practice, the labels should reflect the categories of the variable being simulated.
+
+
+```{r}
+#| eval: false
+
+fixed = list(
+  X1 = list(var_type = 'continuous', 
+            mean = 40, sd = 5),
+  X2 = list(var_type = 'factor',
+            levels = c('orange', 'green'))
+)
+```
+
+### Specifying error
+
+Random error is specified similarly to fixed continuous components, but the primary element that needs to be specified is the variance argument. The variance argument represents the amount of error variance to be included in the model. Below I specify the error variance to be 3. Similar to continuous fixed attributes, the distribution if not specified is assumed to be a normal distribution with a mean of 0. Further specifications will be explored in future posts, including how to change the distribution, specify heterogeneity, and also how to pick relevant values for realistic data conditions. 
+
+
+```{r}
+#| eval: false
+error = list(
+  variance = 3
+)
+```
+
+### Putting all the pieces together
+
+Combining these elements gives the complete simulation specification.
+
+
+```{r}
+library(simglm)
+
+simulation_arguments <- list(
+  formula = y ~ 1 + X1 + X2,
+  fixed = list(
+    X1 = list(var_type = 'continuous', 
+              mean = 40, sd = 5),
+    X2 = list(var_type = 'factor',
+              levels = c('orange', 'green'))
+  ),
+  error = list(variance = 3),
+  sample_size = 100,
+  reg_weights = c(5, 0.3, -1.5)
+)
+```
+
+## Using `simglm` functions to simulate data
+
+The `simglm` package then has a series of functions that simulate pieces of the process. 
+
++ `simulate_fixed()` simulates the fixed components
++ `simulate_error()` simulates the random error
++ `generate_response()` generates the outcome from the simulated fixed and error components.
+
+To simulate the fixed component, referred to as the design matrix:
+
+```{r}
+simulate_fixed(data = NULL, simulation_arguments) |> head()
+```
+
+Similarly, the error can be simulated:
+
+
+```{r}
+simulate_error(data = NULL, simulation_arguments) |> head()
+```
+
+To get the full picture, we combine all three functions together. The resulting data contain columns corresponding to each component of the model.
+
+
+```{r}
+simulate_fixed(data = NULL, simulation_arguments) |>
+  simulate_error(simulation_arguments) |>
+  generate_response(simulation_arguments) |> 
+  head()
+```
+
+Future posts will cover additional models, more information about simulating realistic data, and moving to power analyses. If you encounter any problems or bugs, please report them on [GitHub as an issue](https://github.com/lebebr01/simglm/issues).
