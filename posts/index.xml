@@ -10,7 +10,374 @@
 <atom:link href="https://brandonlebeau.org/posts/index.xml" rel="self" type="application/rss+xml"/>
 <description>Academic website and blog</description>
 <generator>quarto-1.9.36</generator>
-<lastBuildDate>Tue, 01 Sep 2026 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 16 Sep 2026 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>Introduction to simglm 1.0.0</title>
+  <dc:creator>Brandon LeBeau</dc:creator>
+  <link>https://brandonlebeau.org/posts/2026-09-16-intro-simglm.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>Following the release of <code>simglm</code> 1.0.0, this post walks through an example of simulating data from a linear regression model. Future posts will introduce other model types and additional features of the new API. The source code can be viewed on <a href="https://github.com/lebebr01/simglm">GitHub</a> and additional details are available in the <a href="https://simglm.brandonlebeau.org/">package documentation</a>.</p>
+<section id="simulation-model" class="level2">
+<h2 class="anchored" data-anchor-id="simulation-model">Simulation model</h2>
+<p>Before simulating data, we need to define the population model: which quantities are fixed, which are random, and how the random quantities are distributed. <code>simglm</code> requires these choices to be made explicitly before data can be generated.</p>
+<p>Let’s use the following linear regression model to identify the elements that must be specified when simulating data.</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AY%20=%20%5Cbeta_%7B0%7D%20+%20%5Cbeta_%7B1%7D%20X_%7B1%7D%20+%20%5Cbeta_%7B2%7D%20X_%7B2%7D%20+%20%5Cepsilon%0A"></p>
+<p>In this model, <img src="https://latex.codecogs.com/png.latex?Y"> is the outcome, or dependent variable. It is the quantity we want to explain or predict using the variables on the right-hand side of the equation.</p>
+<p>The variables <img src="https://latex.codecogs.com/png.latex?X_%7B1%7D"> and <img src="https://latex.codecogs.com/png.latex?X_%7B2%7D"> are the predictors, covariates, or independent variables. In <code>simglm</code>, they are specified as fixed components. Because these variables are expected to explain variation in <img src="https://latex.codecogs.com/png.latex?Y">, we must define how their values will be generated.</p>
+<p>The <img src="https://latex.codecogs.com/png.latex?%5Cbeta"> terms are the regression coefficients. When analyzing observed data, we estimate these coefficients; when simulating data, we specify their population values. The first coefficient, <img src="https://latex.codecogs.com/png.latex?%5Cbeta_%7B0%7D">, is the intercept. The remaining coefficients describe the relationship between each predictor and <img src="https://latex.codecogs.com/png.latex?Y">. For a continuous predictor, a positive coefficient indicates that <img src="https://latex.codecogs.com/png.latex?Y"> tends to increase as the predictor increases, whereas a negative coefficient indicates that <img src="https://latex.codecogs.com/png.latex?Y"> tends to decrease.</p>
+<p>Finally, <img src="https://latex.codecogs.com/png.latex?%5Cepsilon"> represents random error. Under common modeling assumptions, the errors are normally distributed with a mean of zero and a specified variance. Although this variance is estimated when analyzing observed data, it must be chosen when simulating data.</p>
+</section>
+<section id="specifying-with-simglm" class="level2">
+<h2 class="anchored" data-anchor-id="specifying-with-simglm">Specifying with <code>simglm</code></h2>
+<p>When using <code>simglm</code> to simulate the model shown above, simulation arguments are written in advance to force users to define the model and structure they wish to simulate. Simulation arguments are structured by the area of the model that they belong to. For the model above these names would be as follows:</p>
+<ul>
+<li><code>fixed</code> = fixed effects or X terms</li>
+<li><code>error</code> = Random error or <img src="https://latex.codecogs.com/png.latex?%5Cepsilon"></li>
+<li><code>formula</code> = the model formula in R syntax; this should match the population-model specification</li>
+<li><code>sample_size</code> = the number of observations to simulate, often denoted by <img src="https://latex.codecogs.com/png.latex?n"></li>
+<li><code>reg_weights</code> = the beta coefficients from the equation above</li>
+</ul>
+<p>This is what the model above would be structured as:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">simulation_arguments <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(</span>
+<span id="cb1-2">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">formula =</span> y <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">~</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> X1 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> X2,</span>
+<span id="cb1-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">fixed =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(),</span>
+<span id="cb1-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">error =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(),</span>
+<span id="cb1-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">sample_size =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>,</span>
+<span id="cb1-6">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">reg_weights =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>, <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.5</span>)</span>
+<span id="cb1-7">)</span></code></pre></div></div>
+</div>
+<section id="fixed-components" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-components">Fixed components</h3>
+<p>The fixed argument is a named list in which each element corresponds to a predictor on the right-hand side of the model formula. In this example, the predictors are “X1” and “X2”, so the names of the list elements should match those terms. Each predictor is assigned a <code>var_type</code>. The three most common types are:</p>
+<ul>
+<li><code>continuous</code>: reflecting continuous or interval style attributes</li>
+<li><code>factor</code>: reflecting categories or groups</li>
+<li><code>ordinal</code>: ordinal data that have rank ordering</li>
+</ul>
+<p>In this example, <code>X1</code> is continuous and <code>X2</code> is categorical. For <code>X1</code>, I chose a mean of 40 and a standard deviation of 5. These values should reflect the variable being simulated. If <code>X1</code> represented blood pressure, for example, its mean and standard deviation should be consistent with real-world measurements. By default, <code>simglm</code> generates continuous variables from a normal distribution, although other distributions can be specified. A future post will discuss how to select realistic parameter values.</p>
+<p>The second variable, <code>X2</code>, is categorical and has two arbitrarily named levels, <code>orange</code> and <code>green</code>. In practice, the labels should reflect the categories of the variable being simulated.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">fixed <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(</span>
+<span id="cb2-2">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">X1 =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">var_type =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'continuous'</span>, </span>
+<span id="cb2-3">            <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">mean =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">40</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">sd =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>),</span>
+<span id="cb2-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">X2 =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">var_type =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'factor'</span>,</span>
+<span id="cb2-5">            <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">levels =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'orange'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'green'</span>))</span>
+<span id="cb2-6">)</span></code></pre></div></div>
+</div>
+</section>
+<section id="specifying-error" class="level3">
+<h3 class="anchored" data-anchor-id="specifying-error">Specifying error</h3>
+<p>Random error is specified similarly to fixed continuous components, but the primary element that needs to be specified is the variance argument. The variance argument represents the amount of error variance to be included in the model. Below I specify the error variance to be 3. Similar to continuous fixed attributes, the distribution if not specified is assumed to be a normal distribution with a mean of 0. Further specifications will be explored in future posts, including how to change the distribution, specify heterogeneity, and also how to pick relevant values for realistic data conditions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">error <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(</span>
+<span id="cb3-2">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">variance =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span></span>
+<span id="cb3-3">)</span></code></pre></div></div>
+</div>
+</section>
+<section id="putting-all-the-pieces-together" class="level3">
+<h3 class="anchored" data-anchor-id="putting-all-the-pieces-together">Putting all the pieces together</h3>
+<p>Combining these elements gives the complete simulation specification.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(simglm)</span>
+<span id="cb4-2"></span>
+<span id="cb4-3">simulation_arguments <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(</span>
+<span id="cb4-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">formula =</span> y <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">~</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> X1 <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> X2,</span>
+<span id="cb4-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">fixed =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(</span>
+<span id="cb4-6">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">X1 =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">var_type =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'continuous'</span>, </span>
+<span id="cb4-7">              <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">mean =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">40</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">sd =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>),</span>
+<span id="cb4-8">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">X2 =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">var_type =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'factor'</span>,</span>
+<span id="cb4-9">              <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">levels =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'orange'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'green'</span>))</span>
+<span id="cb4-10">  ),</span>
+<span id="cb4-11">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">error =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">variance =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>),</span>
+<span id="cb4-12">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">sample_size =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>,</span>
+<span id="cb4-13">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">reg_weights =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>, <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.5</span>)</span>
+<span id="cb4-14">)</span></code></pre></div></div>
+</div>
+</section>
+</section>
+<section id="using-simglm-functions-to-simulate-data" class="level2">
+<h2 class="anchored" data-anchor-id="using-simglm-functions-to-simulate-data">Using <code>simglm</code> functions to simulate data</h2>
+<p>The <code>simglm</code> package then has a series of functions that simulate pieces of the process.</p>
+<ul>
+<li><code>simulate_fixed()</code> simulates the fixed components</li>
+<li><code>simulate_error()</code> simulates the random error</li>
+<li><code>generate_response()</code> generates the outcome from the simulated fixed and error components.</li>
+</ul>
+<p>To simulate the fixed component, referred to as the design matrix:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">simulate_fixed</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">data =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NULL</span>, simulation_arguments) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">head</span>()</span></code></pre></div></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `invoke_map()` was deprecated in purrr 1.0.0.
+ℹ Please use map() + exec() instead.
+ℹ The deprecated feature was likely used in the simglm package.
+  Please report the issue at &lt;https://github.com/lebebr01/simglm/issues&gt;.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `invoke()` was deprecated in purrr 1.0.0.
+ℹ Please use `exec()` instead.
+ℹ The deprecated feature was likely used in the purrr package.
+  Please report the issue at &lt;https://github.com/tidyverse/purrr/issues&gt;.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  X.Intercept.       X1 X2_1     X2 level1_id
+1            1 34.72820    1 orange         1
+2            1 40.12651    1 orange         2
+3            1 39.76391    1 orange         3
+4            1 36.15303    0  green         4
+5            1 35.54288    1 orange         5
+6            1 42.67630    0  green         6</code></pre>
+</div>
+</div>
+<p>Similarly, the error can be simulated:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">simulate_error</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">data =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NULL</span>, simulation_arguments) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">head</span>()</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        error level1_id
+1 -1.02615505         1
+2 -0.52050832         2
+3 -1.87781718         3
+4  1.65274332         4
+5  3.05903613         5
+6  0.03068707         6</code></pre>
+</div>
+</div>
+<p>To get the full picture, we combine all three functions together. The resulting data contain columns corresponding to each component of the model.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">simulate_fixed</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">data =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NULL</span>, simulation_arguments) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb11-2">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">simulate_error</span>(simulation_arguments) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb11-3">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">generate_response</span>(simulation_arguments) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span id="cb11-4">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">head</span>()</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  X.Intercept.       X1 X2_1     X2 level1_id      error fixed_outcome
+1            1 30.12992    0  green         1  1.4696743      14.03898
+2            1 44.40924    1 orange         2  1.2083940      16.82277
+3            1 38.39393    1 orange         3 -0.8432141      15.01818
+4            1 28.75835    0  green         4  2.1386173      13.62751
+5            1 46.18706    0  green         5 -0.7798309      18.85612
+6            1 40.63444    0  green         6 -0.8281954      17.19033
+  random_effects        y
+1              0 15.50865
+2              0 18.03116
+3              0 14.17497
+4              0 15.76612
+5              0 18.07629
+6              0 16.36214</code></pre>
+</div>
+</div>
+<p>Future posts will cover additional models, more information about simulating realistic data, and moving to power analyses. If you encounter any problems or bugs, please report them on <a href="https://github.com/lebebr01/simglm/issues">GitHub as an issue</a>.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>R</category>
+  <category>simglm</category>
+  <category>package</category>
+  <category>simulation</category>
+  <guid>https://brandonlebeau.org/posts/2026-09-16-intro-simglm.html</guid>
+  <pubDate>Wed, 16 Sep 2026 05:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Announcing simglm 1.0.0</title>
   <dc:creator>Brandon LeBeau</dc:creator>
@@ -15483,293 +15850,6 @@ font-style: inherit;">05</span>))</span></code></pre></div></div>
   <category>Ggplot2</category>
   <guid>https://brandonlebeau.org/posts/2015-03-23-remove-leading-0-with-ggplot2.html</guid>
   <pubDate>Mon, 23 Mar 2015 05:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Dodged bar charts, why not a line graph?</title>
-  <dc:creator>Brandon LeBeau</dc:creator>
-  <link>https://brandonlebeau.org/posts/2014-08-05-dodged-bar-charts-why-not-a-line-graph.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<p>I often see graphs that are poorly implemented in that they do not achieve their goal. One such type of graph that I see are dodged bar charts. Here is an example of a dodged bar chart summarizing the number of all star players by team (focusing specifically on the AL central division) and year from the <code>Lahman</code> r package:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">library</span>(Lahman)</span>
-<span id="cb1-2"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">library</span>(dplyr)</span>
-<span id="cb1-3"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">library</span>(ggplot2)</span>
-<span id="cb1-4"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">library</span>(RColorBrewer)</span>
-<span id="cb1-5"></span>
-<span id="cb1-6">AllstarFull<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">$</span>selected <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span></span>
-<span id="cb1-7"></span>
-<span id="cb1-8">numAS <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> AllstarFull  <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">%&gt;%</span> </span>
-<span id="cb1-9">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">filter</span>(yearID <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2006</span>, lgID <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'AL'</span>, teamID <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">%in%</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'MIN'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'CLE'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'DET'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'CHA'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'KCA'</span>)) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">%&gt;%</span></span>
-<span id="cb1-10">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">group_by</span>(teamID, yearID) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">%&gt;%</span></span>
-<span id="cb1-11">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">summarise</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">number =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">sum</span>(selected))</span>
-<span id="cb1-12"></span>
-<span id="cb1-13">b <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ggplot</span>(numAS, <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">x =</span> teamID, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">y =</span> number, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">fill =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">factor</span>(yearID))) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">theme_bw</span>()</span>
-<span id="cb1-14">b <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">geom_bar</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">stat =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"identity"</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">position =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"dodge"</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> </span>
-<span id="cb1-15">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">scale_fill_brewer</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Year"</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">palette =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Dark2"</span>) </span></code></pre></div></div>
-<p><img src="https://brandonlebeau.org/posts/2014-08-05-dodged-bar-charts-why-not-a-line-graph_files/figure-html/bar-1.png" class="img-fluid" width="672"></p>
-<p>Note: If you are curious from the above graph, there appears to be two typos in the teamIDs, where CHA should be CHW (Chicago White Sox) and KCA should be KCR (Kansas City Royals).</p>
-<p>The plot above can be good for a few things, predominantly for comparison within a team. It is more difficult to compare between teams (although not impossible). One way to possibly improve the plot would be to add the number either above each bar or inside of each bar. This can be done in <code>ggplot2</code> with the <code>geom_text</code> function. For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">b <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ggplot</span>(numAS, <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">x =</span> teamID, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">y =</span> number, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">fill =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">factor</span>(yearID))) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">theme_bw</span>()</span>
-<span id="cb2-2">b <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">geom_bar</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">stat =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"identity"</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">position =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"dodge"</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> </span>
-<span id="cb2-3">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">scale_fill_brewer</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Year"</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">palette =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Dark2"</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> </span>
-<span id="cb2-4">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">geom_text</span>(<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">label =</span> number), <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">position =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">position_dodge</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">width =</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.9</span>), </span>
-<span id="cb2-5">            <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">vjust =</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1.5</span>)</span></code></pre></div></div>
-<pre><code>Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette Dark2 is 8
-Returning the palette you asked for with that many colors</code></pre>
-<p><img src="https://brandonlebeau.org/posts/2014-08-05-dodged-bar-charts-why-not-a-line-graph_files/figure-html/bartext-1.png" class="img-fluid" width="672"></p>
-<p>A better alternative to a dodged bar chart in my opinion would be a simple line graph. The line graph simplifies the graph to only include one variable on the x-axis and uses colors or shapes to differentiate the teams. See below.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">l <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ggplot</span>(numAS, <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">x =</span> yearID, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">y =</span> number, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">color =</span> teamID, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">shape =</span> teamID))</span>
-<span id="cb4-2">l <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">geom_point</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">size =</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">4</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">geom_line</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">size =</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span id="cb4-3">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">scale_y_continuous</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">limits =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">7</span>), <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">expand =</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>,<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>)) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> </span>
-<span id="cb4-4">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">scale_color_brewer</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Team"</span>, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">palette =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Dark2"</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">scale_shape_discrete</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Team"</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> </span>
-<span id="cb4-5">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">xlab</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Year"</span>) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">theme_bw</span>()</span></code></pre></div></div>
-<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.</code></pre>
-<p><img src="https://brandonlebeau.org/posts/2014-08-05-dodged-bar-charts-why-not-a-line-graph_files/figure-html/line-1.png" class="img-fluid" width="672"></p>
-<p>This presentation makes it much easier to compare teams within a single year and also see how the teams have changed over time. In my opinion this is a much simpler graphic and usually is a better option to serve the purpose for the graphic. As always though, the best graphic is one that conveys the message in the simplest, easiest to understand form. As always, you could improve this by making it interactive with <code>rCharts</code>. You could see my post on <code>rCharts</code> <a href="educate-r.org/2014/02/15/rcharts/">here</a> and <a href="educate-r.org/2014/03/03/rChartsslidy/">here</a>.</p>
-
-
-
- ]]></description>
-  <category>R</category>
-  <category>Graphics</category>
-  <category>Ggplot2</category>
-  <category>Trend</category>
-  <guid>https://brandonlebeau.org/posts/2014-08-05-dodged-bar-charts-why-not-a-line-graph.html</guid>
-  <pubDate>Tue, 05 Aug 2014 05:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

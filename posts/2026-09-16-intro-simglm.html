@@ -212,9 +212,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a>
-  <ul class="collapse">
-  <li><a href="#simulation-model" id="toc-simulation-model" class="nav-link" data-scroll-target="#simulation-model">Simulation model</a></li>
+  <li><a href="#simulation-model" id="toc-simulation-model" class="nav-link active" data-scroll-target="#simulation-model">Simulation model</a></li>
   <li><a href="#specifying-with-simglm" id="toc-specifying-with-simglm" class="nav-link" data-scroll-target="#specifying-with-simglm">Specifying with <code>simglm</code></a>
   <ul class="collapse">
   <li><a href="#fixed-components" id="toc-fixed-components" class="nav-link" data-scroll-target="#fixed-components">Fixed components</a></li>
@@ -222,7 +220,6 @@ window.Quarto = {
   <li><a href="#putting-all-the-pieces-together" id="toc-putting-all-the-pieces-together" class="nav-link" data-scroll-target="#putting-all-the-pieces-together">Putting all the pieces together</a></li>
   </ul></li>
   <li><a href="#using-simglm-functions-to-simulate-data" id="toc-using-simglm-functions-to-simulate-data" class="nav-link" data-scroll-target="#using-simglm-functions-to-simulate-data">Using <code>simglm</code> functions to simulate data</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -271,8 +268,6 @@ window.Quarto = {
 </header>
 
 
-<section id="section" class="level1">
-<h1></h1>
 <p>Following the release of <code>simglm</code> 1.0.0, this post walks through an example of simulating data from a linear regression model. Future posts will introduce other model types and additional features of the new API. The source code can be viewed on <a href="https://github.com/lebebr01/simglm">GitHub</a> and additional details are available in the <a href="https://simglm.brandonlebeau.org/">package documentation</a>.</p>
 <section id="simulation-model" class="level2">
 <h2 class="anchored" data-anchor-id="simulation-model">Simulation model</h2>
@@ -380,25 +375,25 @@ Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \epsilon
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  X.Intercept.       X1 X2_1     X2 level1_id
-1            1 37.61295    1 orange         1
-2            1 45.54733    0  green         2
-3            1 45.01368    1 orange         3
-4            1 42.65058    1 orange         4
-5            1 29.04837    1 orange         5
-6            1 42.73833    1 orange         6</code></pre>
+1            1 34.72820    1 orange         1
+2            1 40.12651    1 orange         2
+3            1 39.76391    1 orange         3
+4            1 36.15303    0  green         4
+5            1 35.54288    1 orange         5
+6            1 42.67630    0  green         6</code></pre>
 </div>
 </div>
 <p>Similarly, the error can be simulated:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_error</span>(<span class="at">data =</span> <span class="cn">NULL</span>, simulation_arguments) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       error level1_id
-1 -0.6926239         1
-2 -0.4953057         2
-3  4.3496192         3
-4  0.7074120         4
-5 -3.4253320         5
-6 -1.4382310         6</code></pre>
+<pre><code>        error level1_id
+1 -1.02615505         1
+2 -0.52050832         2
+3 -1.87781718         3
+4  1.65274332         4
+5  3.05903613         5
+6  0.03068707         6</code></pre>
 </div>
 </div>
 <p>To get the full picture, we combine all three functions together. The resulting data contain columns corresponding to each component of the model.</p>
@@ -409,25 +404,24 @@ Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \epsilon
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  X.Intercept.       X1 X2_1     X2 level1_id      error fixed_outcome
-1            1 35.20370    0  green         1  1.3557494      15.56111
-2            1 44.16997    0  green         2 -0.2037760      18.25099
-3            1 44.48152    1 orange         3 -1.9491329      16.84446
-4            1 42.59202    1 orange         4 -1.4128177      16.27761
-5            1 33.30232    0  green         5 -0.4102631      14.99070
-6            1 42.27596    1 orange         6  0.2134625      16.18279
+1            1 30.12992    0  green         1  1.4696743      14.03898
+2            1 44.40924    1 orange         2  1.2083940      16.82277
+3            1 38.39393    1 orange         3 -0.8432141      15.01818
+4            1 28.75835    0  green         4  2.1386173      13.62751
+5            1 46.18706    0  green         5 -0.7798309      18.85612
+6            1 40.63444    0  green         6 -0.8281954      17.19033
   random_effects        y
-1              0 16.91686
-2              0 18.04722
-3              0 14.89532
-4              0 14.86479
-5              0 14.58043
-6              0 16.39625</code></pre>
+1              0 15.50865
+2              0 18.03116
+3              0 14.17497
+4              0 15.76612
+5              0 18.07629
+6              0 16.36214</code></pre>
 </div>
 </div>
 <p>Future posts will cover additional models, more information about simulating realistic data, and moving to power analyses. If you encounter any problems or bugs, please report them on <a href="https://github.com/lebebr01/simglm/issues">GitHub as an issue</a>.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

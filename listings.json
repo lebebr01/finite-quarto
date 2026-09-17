@@ -23,6 +23,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2026-09-16-intro-simglm.html",
       "/posts/2026-09-01-simglm-1-0-0.html",
       "/posts/2026-04-30-simglm-0-9-31.html",
       "/posts/2026-02-12-pdfsearch-0-5.html",
@@ -99,6 +100,7 @@
   {
     "listing": "/posts/index.html",
     "items": [
+      "/posts/2026-09-16-intro-simglm.html",
       "/posts/2026-09-01-simglm-1-0-0.html",
       "/posts/2026-04-30-simglm-0-9-31.html",
       "/posts/2026-02-12-pdfsearch-0-5.html",
