@@ -20,6 +20,8 @@
 
 
 
+<section id="section" class="level1">
+<h1></h1>
 <p>Following the release of <code>simglm</code> 1.0.0, this post walks through an example of simulating data from a linear regression model. Future posts will introduce other model types and additional features of the new API. The source code can be viewed on <a href="https://github.com/lebebr01/simglm">GitHub</a> and additional details are available in the <a href="https://simglm.brandonlebeau.org/">package documentation</a>.</p>
 <section id="simulation-model" class="level2">
 <h2 class="anchored" data-anchor-id="simulation-model">Simulation model</h2>
@@ -293,12 +295,12 @@ font-style: inherit;">head</span>()</span></code></pre></div></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  X.Intercept.       X1 X2_1     X2 level1_id
-1            1 34.72820    1 orange         1
-2            1 40.12651    1 orange         2
-3            1 39.76391    1 orange         3
-4            1 36.15303    0  green         4
-5            1 35.54288    1 orange         5
-6            1 42.67630    0  green         6</code></pre>
+1            1 32.05131    1 orange         1
+2            1 39.02937    1 orange         2
+3            1 34.91975    1 orange         3
+4            1 40.72557    0  green         4
+5            1 49.19570    0  green         5
+6            1 30.97059    0  green         6</code></pre>
 </div>
 </div>
 <p>Similarly, the error can be simulated:</p>
@@ -315,13 +317,13 @@ font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">head</span>()</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        error level1_id
-1 -1.02615505         1
-2 -0.52050832         2
-3 -1.87781718         3
-4  1.65274332         4
-5  3.05903613         5
-6  0.03068707         6</code></pre>
+<pre><code>       error level1_id
+1  2.1605867         1
+2 -0.1843452         2
+3  3.1774076         3
+4 -0.4063584         4
+5  2.0795466         5
+6  3.0839083         6</code></pre>
 </div>
 </div>
 <p>To get the full picture, we combine all three functions together. The resulting data contain columns corresponding to each component of the model.</p>
@@ -350,24 +352,25 @@ background-color: null;
 font-style: inherit;">head</span>()</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  X.Intercept.       X1 X2_1     X2 level1_id      error fixed_outcome
-1            1 30.12992    0  green         1  1.4696743      14.03898
-2            1 44.40924    1 orange         2  1.2083940      16.82277
-3            1 38.39393    1 orange         3 -0.8432141      15.01818
-4            1 28.75835    0  green         4  2.1386173      13.62751
-5            1 46.18706    0  green         5 -0.7798309      18.85612
-6            1 40.63444    0  green         6 -0.8281954      17.19033
+1            1 34.67811    0  green         1  0.2356593      15.40343
+2            1 33.77361    1 orange         2 -0.2047501      13.63208
+3            1 48.15483    0  green         3 -0.1142501      19.44645
+4            1 36.24501    0  green         4  1.8802033      15.87350
+5            1 47.92453    0  green         5  3.4849391      19.37736
+6            1 38.49497    1 orange         6  0.5299831      15.04849
   random_effects        y
-1              0 15.50865
-2              0 18.03116
-3              0 14.17497
-4              0 15.76612
-5              0 18.07629
-6              0 16.36214</code></pre>
+1              0 15.63909
+2              0 13.42733
+3              0 19.33220
+4              0 17.75371
+5              0 22.86230
+6              0 15.57847</code></pre>
 </div>
 </div>
 <p>Future posts will cover additional models, more information about simulating realistic data, and moving to power analyses. If you encounter any problems or bugs, please report them on <a href="https://github.com/lebebr01/simglm/issues">GitHub as an issue</a>.</p>
 
 
+</section>
 </section>
 
  ]]></description>
